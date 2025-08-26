@@ -1,5 +1,5 @@
+// ЦЕ ПОВНИЙ КОД, КОПІЮЙ ВСЕ ВІД ПОЧАТКУ ДО КІНЦЯ
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ВСЯ ПОПЕРЕДНЯ ЛОГІКА НАВІГАЦІЇ ЗАЛИШАЄТЬСЯ ТУТ ---
     const clickableElements = document.querySelectorAll('[data-target]');
     let navigationHistory = ['splash-screen'];
     
@@ -34,46 +34,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========== ОСЬ НАША НОВА ЛОГІКА ДЛЯ ФОНУ ==========
-
     const backgroundUrlInput = document.getElementById('background-url-input');
     const saveBackgroundBtn = document.getElementById('save-background-btn');
     const bodyElement = document.body;
 
-    // 1. Функція для застосування фону
     function applyBackground(url) {
-        if (url) {
-            bodyElement.style.backgroundImage = `url('${url}')`;
-        } else {
-            bodyElement.style.backgroundImage = 'none';
-        }
+        if (url) { bodyElement.style.backgroundImage = `url('${url}')`; } 
+        else { bodyElement.style.backgroundImage = 'none'; }
     }
 
-    // 2. Функція для завантаження збереженого фону при старті
     function loadBackground() {
         const savedUrl = localStorage.getItem('yaYiduAppBackground');
         if (savedUrl) {
             applyBackground(savedUrl);
-            backgroundUrlInput.value = savedUrl; // Показуємо збережений URL в полі
+            if (backgroundUrlInput) backgroundUrlInput.value = savedUrl;
         }
     }
 
-    // 3. Обробник кліку на кнопку "Зберегти"
-    saveBackgroundBtn.addEventListener('click', () => {
-        const newUrl = backgroundUrlInput.value.trim(); // Беремо URL з поля
-        if (newUrl) {
-            localStorage.setItem('yaYiduAppBackground', newUrl); // Зберігаємо в пам'ять браузера
-            applyBackground(newUrl); // Миттєво застосовуємо новий фон
-            alert('Фон оновлено!');
-        } else {
-            // Якщо поле пусте, видаляємо фон
-            localStorage.removeItem('yaYiduAppBackground');
-            applyBackground(null);
-            alert('Фон видалено.');
-        }
-    });
+    if (saveBackgroundBtn) {
+        saveBackgroundBtn.addEventListener('click', () => {
+            const newUrl = backgroundUrlInput.value.trim();
+            if (newUrl) {
+                localStorage.setItem('yaYiduAppBackground', newUrl);
+                applyBackground(newUrl);
+                alert('Фон оновлено!');
+            } else {
+                localStorage.removeItem('yaYiduAppBackground');
+                applyBackground(null);
+                alert('Фон видалено.');
+            }
+        });
+    }
 
-    // Завантажуємо фон, як тільки додаток відкрився
     loadBackground();
     showScreen('splash-screen');
 });
