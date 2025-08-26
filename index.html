@@ -1,64 +1,58 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>яЇду: Валки</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>яЇду</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Hero Section (відео/бекграунд) -->
+  <section id="home" class="screen active">
+    <div class="overlay"></div>
+    <div class="hero-content glass">
+      <h1 class="logo">яЇду</h1>
+      <p class="tagline">Твій швидкий спосіб дістатись куди треба</p>
+      <div class="button-group">
+        <button onclick="showScreen('passenger')">Я пасажир</button>
+        <button onclick="showScreen('driver')">Я водій</button>
+      </div>
+    </div>
+  </section>
 
-    <div class="screen active" id="splash-screen">
-        <div class="logo-animation"><h1>яЇду 🚕</h1></div>
-        <div class="actions">
-            <button class="glass-button" data-target="login-driver">
-                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v2h-2zm0 4h2v6h-2z"/></svg>
-                Я водій
-            </button>
-            <button class="glass-button" data-target="login-passenger">
-                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                Я пасажир
-            </button>
-        </div>
-        <footer><p>яЇду: Валки © 2025</p></footer>
+  <!-- Passenger Screen -->
+  <section id="passenger" class="screen">
+    <div class="glass card">
+      <h2>Замовити поїздку</h2>
+      <form id="rideForm">
+        <label>Звідки:</label>
+        <input type="text" id="from" placeholder="Наприклад, Валки">
+        
+        <label>Куди:</label>
+        <input type="text" id="to" placeholder="Наприклад, Харків">
+        
+        <label>Час виїзду:</label>
+        <input type="time" id="time">
+        
+        <button type="submit">Замовити</button>
+      </form>
+      <button class="secondary" onclick="showScreen('home')">← Назад</button>
     </div>
+  </section>
 
-    <div class="screen" id="login-driver">
-        <header class="app-header"><button class="back-btn" data-target="splash-screen"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button></header>
-        <div class="login-content">
-            <h2>Вхід для водія</h2>
-            <button class="glass-button full-width" data-target="driver-dashboard">Увійти</button>
-            <a href="#" class="register-link">Зареєструватись</a>
-        </div>
+  <!-- Driver Screen -->
+  <section id="driver" class="screen">
+    <div class="glass card">
+      <h2>Панель водія</h2>
+      <p>Тут з’являтимуться замовлення</p>
+      <div class="driver-buttons">
+        <button onclick="fakeAccept()">Прийняти замовлення</button>
+        <button onclick="fakeArrive()">Я прибув</button>
+      </div>
+      <button class="secondary" onclick="showScreen('home')">← Назад</button>
     </div>
-    
-    <div class="screen" id="login-passenger">
-         <header class="app-header"><button class="back-btn" data-target="splash-screen"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button></header>
-        <div class="login-content">
-            <h2>Вхід для пасажира</h2>
-            <button class="glass-button full-width" data-target="passenger-dashboard">Увійти</button>
-            <a href="#" class="register-link">Зареєструватись</a>
-        </div>
-    </div>
+  </section>
 
-    <div class="screen" id="driver-dashboard">
-        <header class="app-header">
-            <button class="back-btn" data-target="login-driver"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-            <div class="profile-avatar convex"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
-            <button class="notification-btn" data-target="notifications"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
-        </header>
-        <main class="dashboard"></main>
-    </div>
-    
-    <div class="screen" id="passenger-dashboard">
-        <header class="app-header">
-            <button class="back-btn" data-target="login-passenger"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-            <div class="profile-avatar convex"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 10c2.7 0 5.8 1.29 6 2H6c.23-.72 3.31-2 6-2m0-12C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-            <button class="notification-btn" data-target="notifications"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
-        </header>
-        <main class="dashboard"></main>
-    </div>
-    
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
