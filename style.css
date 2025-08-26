@@ -1,4 +1,4 @@
-/* ЦЕ ПОВНИЙ І ВИПРАВЛЕНИЙ КОД, ПРОСТО КОПІЮЙ І ЗАМІНИ ВСЕ */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&display=swap');
 
 :root {
@@ -46,7 +46,6 @@ body::before {
 }
 
 .material-symbols-outlined {
-    /* ОСЬ ТУТ ГОЛОВНИЙ ФІКС ДЛЯ ІКОНОК */
     font-family: 'Material Symbols Outlined';
     font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     vertical-align: middle;
