@@ -1,263 +1,271 @@
-:root{
-  --bg: #0b0d10;                /* темніше ~10% */
-  --bg-2: #0e1115;
-  --glass: rgba(255,255,255,0.06);
-  --glass-strong: rgba(255,255,255,0.10);
-  --stroke: rgba(255,255,255,0.12);
-  --text: #e9eef5;
-  --muted: #a9b2be;
-  --green: #34d399;
-  --green-strong: #10b981;
-  --orange: #f59e0b;
-  --red: #ef4444;
-  --grey: #6b7280;
-  --card-radius: 16px;
-  --button-radius: 14px;
-  --avatar: #21262d;
-  --space-1: 6px;
-  --space-2: 10px;
-  --space-3: 14px;
-  --space-4: 18px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --shadow-soft: 0 8px 30px rgba(0,0,0,0.35);
-  --blur: 18px;
+/* ======================================= */
+/* == 0. ЗМІННІ ТА ГЛОБАЛЬНІ НАЛАШТУВАННЯ == */
+/* ======================================= */
+
+/* Тут ми задаємо нашу палітру кольорів і шрифти, щоб потім легко їх перевикористовувати */
+:root {
+    --bg-color: #1a1a1a; /* Трохи темніший фон, як ти просив */
+    --primary-element-color: rgba(44, 44, 46, 0.7); /* Колір для кнопок і меню */
+    --glass-border-color: rgba(255, 255, 255, 0.1);
+    --text-color: #f5f5f7;
+    --text-color-secondary: #8a8a8e;
+    --accent-color: #0a84ff; /* Яскравий акцент для бейджів та активних елементів */
+    --online-indicator: #34c759;
+
+    /* Шрифти: спочатку пробуємо системний SF від Apple, якщо його нема - беремо Inter. Heavy для лого, Thin для футера і т.д. */
+    --font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    --font-weight-heavy: 900;
+    --font-weight-bold: 700;
+    --font-weight-regular: 400;
+    --font-weight-light: 300;
+    --font-weight-thin: 100;
 }
 
-* { box-sizing: border-box; }
-html,body { height:100%; }
-body{
-  margin:0;
-  background: radial-gradient(1200px 800px at 80% -200px, #17202a 0%, var(--bg) 30%) no-repeat,
-              linear-gradient(180deg, var(--bg-2), var(--bg));
-  color: var(--text);
-  font: 16px/1.35 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",Inter,Roboto,Segoe UI,system-ui,Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Скидаємо стандартні відступи і налаштовуємо базову поведінку */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Прибираємо синю підсвітку при кліку на мобілках */
 }
 
-#app{
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: env(safe-area-inset-top) var(--space-5) calc(70px + env(safe-area-inset-bottom));
+body {
+    background-color: var(--bg-color);
+    /* Додаємо ледь помітний градієнт на фон для кращого ефекту скла */
+    background-image: radial-gradient(circle at 1% 1%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    font-family: var(--font-family);
+    color: var(--text-color);
+    overscroll-behavior: none; /* Щоб сторінка не "стрибала" */
 }
 
-/* Footer brand (UltraThin імітація) */
-.app-footer{
-  position: fixed;
-  left:0; right:0; bottom:0;
-  display:flex; justify-content:center; align-items:center;
-  height:44px;
-  pointer-events:none;
-}
-.brand-thin{
-  font-weight:100;
-  letter-spacing:0.08em;
-  color: var(--muted);
-  font-size:12px;
-  opacity:0.8;
+#app-container {
+    width: 100%;
+    max-width: 480px; /* Обмежуємо ширину для великих екранів, імітуючи телефон */
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* Ховаємо все, що виходить за межі екрану */
 }
 
-/* Glass card */
-.card{
-  width: 100%;
-  max-width: 560px;
-  background: var(--glass);
-  border: 1px solid var(--stroke);
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
-  border-radius: 20px;
-  box-shadow: var(--shadow-soft);
-  padding: var(--space-6);
+/* ======================================= */
+/* == 1. КЕРУВАННЯ ЕКРАНАМИ == */
+/* ======================================= */
+
+.screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Header */
-.header{
-  display:flex; align-items:center; justify-content:space-between;
-  margin-bottom: var(--space-5);
-}
-.header-left, .header-right{ display:flex; align-items:center; gap: var(--space-3); }
-
-/* Back button */
-.back-btn{
-  appearance:none; border:0; background:transparent; color:var(--muted);
-  padding: var(--space-2) var(--space-3); border-radius: 12px; cursor:pointer;
-}
-.back-btn:hover{ color:var(--text); }
-
-/* Avatar (випуклий, неоморфний) */
-.avatar{
-  width:56px; height:56px; border-radius:50%;
-  display:grid; place-items:center; color:#cbd5e1;
-  background: radial-gradient(circle at 30% 30%, #2a2f36, #1c2127 60%, #14171b);
-  box-shadow:
-    inset 6px 6px 12px rgba(0,0,0,0.45),
-    inset -6px -6px 14px rgba(255,255,255,0.05),
-    0 8px 18px rgba(0,0,0,0.45);
-  border:1px solid rgba(255,255,255,0.06);
-}
-.avatar i{ font-size:24px; }
-
-/* Bell */
-.icon-btn{
-  appearance:none; border:1px solid var(--stroke);
-  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  backdrop-filter: blur(var(--blur));
-  color:var(--text);
-  border-radius:14px; padding:10px 12px; cursor:pointer;
-}
-.icon-btn i{ font-size:20px; }
-
-/* Title */
-.h1{
-  font-weight:800; letter-spacing:0.02em; font-size:28px; margin: 0 0 var(--space-2);
-}
-.h2{ font-weight:700; font-size:20px; margin: 0 0 var(--space-2); }
-.sub{ color: var(--muted); font-size:14px; margin-bottom: var(--space-5); }
-
-/* Landing logo */
-.logo{
-  display:flex; align-items:center; justify-content:center; gap:12px;
-  font-size:36px; font-weight:900; letter-spacing:0.02em;
-  margin-bottom: var(--space-6);
-}
-.logo-emoji{ font-size:32px; animation: taxi-bounce 2.4s ease-in-out infinite; }
-@keyframes taxi-bounce{
-  0%,100%{ transform: translateY(0) rotate(0deg); }
-  50%{ transform: translateY(-6px) rotate(-2deg); }
+/* Ховаємо неактивні екрани */
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none; /* Щоб не можна було клікнути на невидимі елементи */
+    transform: scale(0.95);
 }
 
-/* Primary actions (менші кнопки + більше відступів) */
-.actions{
-  display:flex; flex-direction:column; gap: 22px;  /* більше простору між кнопками */
-}
-.action-btn{
-  appearance:none; border:1px solid var(--stroke);
-  color: var(--text);
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
-  border-radius: var(--button-radius);
-  padding: 12px 14px;                 /* менше, під розмір тексту */
-  font-weight: 600; font-size:16px;
-  display:flex; align-items:center; gap:10px; justify-content:center;
-  cursor:pointer;
-}
-.action-btn i{ font-size:20px; }
-.action-btn:hover{ background: var(--glass-strong); }
-
-/* Segments, lists */
-.stack{ display:flex; flex-direction:column; gap: var(--space-4); }
-.section{
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--stroke);
-  border-radius: 18px; padding: var(--space-5);
-}
-.row{
-  display:flex; align-items:center; justify-content:space-between;
-  gap: var(--space-3);
-}
-.row + .row{ margin-top: var(--space-3); }
-
-/* Pills / statuses */
-.pill{
-  padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:0.02em;
-  border:1px solid var(--stroke); color:var(--muted); background: rgba(255,255,255,0.04);
-}
-.pill.green{ color:#052; background: rgba(52,211,153,0.25); border-color: rgba(52,211,153,0.45); }
-.pill.orange{ color:#522; background: rgba(245,158,11,0.25); border-color: rgba(245,158,11,0.45); }
-.pill.grey{ color:#556; background: rgba(107,114,128,0.22); border-color: rgba(107,114,128,0.4); }
-
-/* Dots */
-.dot{ width:10px; height:10px; border-radius:50%; }
-.dot.green{ background: var(--green); box-shadow: 0 0 8px var(--green-strong); animation: blink 1.2s infinite; }
-.dot.orange{ background: var(--orange); }
-@keyframes blink{ 50%{ opacity:0.35; } }
-
-/* List item */
-.item{
-  display:flex; align-items:center; justify-content:space-between; gap: var(--space-3);
-  background: rgba(255,255,255,0.06); border:1px solid var(--stroke); border-radius:14px;
-  padding: 12px 14px;
-}
-.item.left{ justify-content:flex-start; }
-.item .meta{ display:flex; align-items:center; gap:10px; }
-.item .name{ font-weight:700; }
-.item .muted{ color: var(--muted); font-size:13px; }
-
-/* Stars */
-.stars{ display:flex; gap:2px; color:#ffd166; }
-.stars i{ font-size:18px; }
-
-/* Inputs */
-.input, .select, .time, .date{
-  width:100%; padding:12px 14px; border-radius:14px; color:var(--text);
-  background: rgba(255,255,255,0.04); border:1px solid var(--stroke);
-}
-.label{ font-size:12px; color:var(--muted); margin-bottom:6px; }
-
-/* Buttons */
-.btn{
-  appearance:none; border:1px solid var(--stroke); color:var(--text);
-  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
-  border-radius:14px; padding:12px 14px; font-weight:700; cursor:pointer;
-}
-.btn.primary{ background: linear-gradient(180deg, #21c98b, #10936a); border-color: rgba(255,255,255,0.2); }
-.btn.ghost{ background: transparent; }
-.btn.block{ width:100%; }
-
-/* Notice / empty states */
-.notice{
-  padding: 12px 14px; border-radius:12px; color: var(--muted);
-  background: rgba(255,255,255,0.04); border:1px solid var(--stroke);
+/* Показуємо активний екран */
+.screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
 }
 
-/* Notifications panel */
-.notice-panel{
-  position: fixed; top: 12px; right: 12px; width: 320px; max-width: calc(100vw - 24px);
-  background: var(--glass); border:1px solid var(--stroke); border-radius:14px;
-  padding: 12px; backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
-  box-shadow: var(--shadow-soft);
-  display:none;
+/* ======================================= */
+/* == 2. ОСНОВНІ КОМПОНЕНТИ ТА ЛЕЯУТ == */
+/* ======================================= */
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
 }
-.notice-panel.active{ display:block; }
-.notice-item{ display:flex; gap:10px; padding:10px; border-radius:10px; background: rgba(255,255,255,0.05); }
 
-/* Autocomplete */
-.ac-wrap{ position:relative; }
-.ac-list{
-  position:absolute; top: calc(100% + 6px); left:0; right:0; z-index:20;
-  background: var(--glass); border:1px solid var(--stroke); border-radius:12px;
-  backdrop-filter: blur(var(--blur));
-  display:none; max-height: 220px; overflow:auto;
+main {
+    flex-grow: 1; /* Основний контент займає весь доступний простір */
+    display: flex;
+    flex-direction: column;
 }
-.ac-list.active{ display:block; }
-.ac-item{ padding:10px 12px; cursor:pointer; }
-.ac-item:hover{ background: rgba(255,255,255,0.08); }
 
-/* QR */
-.qr{
-  display:grid; grid-template-columns: repeat(21, 8px); gap:2px; justify-content:center;
-  padding:12px; background:#fff; border-radius:12px;
+/* Центрує контент по вертикалі і горизонталі */
+.content-center {
+    justify-content: center;
+    align-items: center;
 }
-.qr .q{ width:8px; height:8px; background:#000; }
 
-/* Spacing helpers */
-.mt-2{ margin-top: var(--space-2); }
-.mt-3{ margin-top: var(--space-3); }
-.mt-4{ margin-top: var(--space-4); }
-.mt-5{ margin-top: var(--space-5); }
-.mt-6{ margin-top: var(--space-6); }
-.gap-2{ gap: var(--space-2); }
-.gap-3{ gap: var(--space-3); }
-.gap-4{ gap: var(--space-4); }
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: var(--font-weight-thin);
+    color: var(--text-color-secondary);
+    font-size: 14px;
+}
 
-/* Links */
-.link{ color: #9bd5ff; text-decoration:none; }
-.link:hover{ text-decoration:underline; }
+/* ======================================= */
+/* == 3. СТИЛІ ЕЛЕМЕНТІВ (КНОПКИ, ЛОГО І ТД) == */
+/* ======================================= */
 
-/* Make everything comfy on mobile */
-@media (max-width: 420px){
-  .card{ padding: var(--space-5); }
-  .logo{ font-size:30px; }
+.logo {
+    font-size: 48px;
+    font-weight: var(--font-weight-heavy);
+    margin-bottom: 50px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Ось він, простір між кнопками */
+    width: 80%;
+}
+
+.btn-main {
+    padding: 15px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border-color);
+    background-color: var(--primary-element-color);
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: var(--font-weight-regular);
+    cursor: pointer;
+    backdrop-filter: blur(15px); /* Ось вона, магія glassmorphism */
+    -webkit-backdrop-filter: blur(15px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-main:active {
+    transform: scale(0.97); /* Ефект натискання */
+    background-color: rgba(60, 60, 62, 0.8);
+}
+
+.btn-telegram-login {
+    width: 90%;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    background-color: #29a9ea;
+    color: white;
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-telegram-login:active {
+    transform: scale(0.97);
+    background-color: #2392c9;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Це для пустого місця в хедері, щоб заголовок був по центру */
+.header-placeholder {
+    width: 24px; 
+}
+
+
+/* == СТИЛІ ДЛЯ ДЕШБОРДІВ == */
+
+.profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-badge h3 {
+    font-size: 24px;
+    font-weight: var(--font-weight-bold);
+}
+
+/* Об'ємна аватарка (ефект Neumorphism/Convex) */
+.avatar-convex {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #2e2e30, #262628);
+    box-shadow: 6px 6px 12px #161617, -6px -6px 12px #363638;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: var(--text-color-secondary);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* І ще простір! */
+}
+
+.menu-item {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border-color);
+    background-color: var(--primary-element-color);
+    color: var(--text-color);
+    font-size: 17px;
+    font-weight: var(--font-weight-regular);
+    cursor: pointer;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.menu-item:active {
+    transform: scale(0.98);
+    background-color: rgba(60, 60, 62, 0.8);
+}
+
+.menu-item span > i {
+    margin-right: 15px;
+    width: 20px; /* Щоб іконки були вирівняні */
+    color: var(--text-color-secondary);
+}
+
+.badge {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+}
+
+.badge.online {
+    background-color: var(--online-indicator);
 }
