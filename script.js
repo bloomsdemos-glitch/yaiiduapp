@@ -1,4 +1,3 @@
-// ЦЕ ПОВНИЙ КОД, КОПІЮЙ ВСЕ ВІД ПОЧАТКУ ДО КІНЦЯ
 document.addEventListener('DOMContentLoaded', () => {
     const clickableElements = document.querySelectorAll('[data-target]');
     let navigationHistory = ['splash-screen'];
