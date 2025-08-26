@@ -64,13 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('login-screen-passenger');
     });
 
-    // Проходимось по всіх кнопках "Назад"...
+        // Проходимось по всіх кнопках "Назад"...
     backButtons.forEach(button => {
-        // ...і кожній даємо команду повертатись на головний екран при кліку
+        // ...і кожній даємо команду повертатись на вказаний екран
         button.addEventListener('click', () => {
-            showScreen('home-screen');
+            // Беремо ціль з атрибута data-target, якщо він є, інакше - на головний
+            const targetScreen = button.dataset.target || 'home-screen';
+            showScreen(targetScreen);
         });
     });
+
     
     // Тимчасова логіка для кнопок "Увійти через Telegram"
     // Клік на вхід водія -> показуємо меню водія
@@ -83,6 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('passenger-dashboard');
     });
     
+        // Знаходимо кнопку "Знайти водія"
+    const findDriverBtn = passengerDashboard.querySelector('.menu-item:nth-child(2)');
+    
+    // При кліку на неї показуємо екран зі списком водіїв
+    findDriverBtn.addEventListener('click', () => {
+        showScreen('passenger-find-driver-screen');
+    });
+
 
     // Ініціалізація: при першому завантаженні показуємо головний екран
     showScreen('home-screen');
