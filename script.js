@@ -32,39 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // Функціонал для зміни фону поки що видалимо, щоб не було помилок
+    // Повернемо його, коли додамо екран налаштувань
 
-    const backgroundUrlInput = document.getElementById('background-url-input');
-    const saveBackgroundBtn = document.getElementById('save-background-btn');
-    const bodyElement = document.body;
-
-    function applyBackground(url) {
-        if (url) { bodyElement.style.backgroundImage = `url('${url}')`; } 
-        else { bodyElement.style.backgroundImage = 'none'; }
-    }
-
-    function loadBackground() {
-        const savedUrl = localStorage.getItem('yaYiduAppBackground');
-        if (savedUrl) {
-            applyBackground(savedUrl);
-            if (backgroundUrlInput) backgroundUrlInput.value = savedUrl;
-        }
-    }
-
-    if (saveBackgroundBtn) {
-        saveBackgroundBtn.addEventListener('click', () => {
-            const newUrl = backgroundUrlInput.value.trim();
-            if (newUrl) {
-                localStorage.setItem('yaYiduAppBackground', newUrl);
-                applyBackground(newUrl);
-                alert('Фон оновлено!');
-            } else {
-                localStorage.removeItem('yaYiduAppBackground');
-                applyBackground(null);
-                alert('Фон видалено.');
-            }
-        });
-    }
-
-    loadBackground();
     showScreen('splash-screen');
 });
