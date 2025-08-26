@@ -463,3 +463,29 @@ footer {
     transform: scale(0.97);
     background-color: #2b9e4a;
 }
+/* ======================================= */
+/* == 6. СТИЛІ ДЛЯ ЕКРАНУ ДОВІДКИ == */
+/* ======================================= */
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto; /* Додаємо скрол, якщо контенту буде багато */
+}
+
+.help-content h3 {
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    margin-top: 10px;
+}
+
+.help-content p {
+    font-size: 16px;
+    line-height: 1.6; /* Робимо текст більш читабельним */
+    color: var(--text-color-secondary);
+}
+
+.help-content p strong {
+    color: var(--text-color);
+    font-weight: var(--font-weight-bold);
+}
