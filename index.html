@@ -1,58 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>яЇду</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>яЇду: Валки</title>
+  <meta name="theme-color" content="#0d0f12" />
+  <!-- Remix Icon (іконки) -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Hero Section (відео/бекграунд) -->
-  <section id="home" class="screen active">
-    <div class="overlay"></div>
-    <div class="hero-content glass">
-      <h1 class="logo">яЇду</h1>
-      <p class="tagline">Твій швидкий спосіб дістатись куди треба</p>
-      <div class="button-group">
-        <button onclick="showScreen('passenger')">Я пасажир</button>
-        <button onclick="showScreen('driver')">Я водій</button>
-      </div>
-    </div>
-  </section>
+  <div id="app"></div>
 
-  <!-- Passenger Screen -->
-  <section id="passenger" class="screen">
-    <div class="glass card">
-      <h2>Замовити поїздку</h2>
-      <form id="rideForm">
-        <label>Звідки:</label>
-        <input type="text" id="from" placeholder="Наприклад, Валки">
-        
-        <label>Куди:</label>
-        <input type="text" id="to" placeholder="Наприклад, Харків">
-        
-        <label>Час виїзду:</label>
-        <input type="time" id="time">
-        
-        <button type="submit">Замовити</button>
-      </form>
-      <button class="secondary" onclick="showScreen('home')">← Назад</button>
-    </div>
-  </section>
+  <footer class="app-footer">
+    <span class="brand-thin">яЇду: Валки™ 2025</span>
+  </footer>
 
-  <!-- Driver Screen -->
-  <section id="driver" class="screen">
-    <div class="glass card">
-      <h2>Панель водія</h2>
-      <p>Тут з’являтимуться замовлення</p>
-      <div class="driver-buttons">
-        <button onclick="fakeAccept()">Прийняти замовлення</button>
-        <button onclick="fakeArrive()">Я прибув</button>
-      </div>
-      <button class="secondary" onclick="showScreen('home')">← Назад</button>
-    </div>
-  </section>
-
-  <script src="script.js"></script>
+  <!-- App -->
+  <script src="app.js"></script>
 </body>
 </html>
