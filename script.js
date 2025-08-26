@@ -1,40 +1,24 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const clickableElements = document.querySelectorAll('[data-target]');
-    let navigationHistory = ['splash-screen'];
-    
-    function showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        const activeScreen = document.getElementById(screenId);
-        if (activeScreen) { activeScreen.classList.add('active'); }
-    }
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-    clickableElements.forEach(element => {
-        element.addEventListener('click', (event) => {
-            event.stopPropagation(); 
-            const targetScreenId = element.dataset.target;
-            if (!targetScreenId) return;
-            if (targetScreenId === 'PREVIOUS_SCREEN_PLACEHOLDER') {
-                navigationHistory.pop();
-                const previousScreen = navigationHistory[navigationHistory.length - 1];
-                showScreen(previousScreen);
-                return;
-            }
-            if (targetScreenId !== navigationHistory[navigationHistory.length - 1]) {
-                navigationHistory.push(targetScreenId);
-            }
-            showScreen(targetScreenId);
-            const notificationScreen = document.getElementById('notifications');
-            if(notificationScreen) {
-                const backButton = notificationScreen.querySelector('.back-btn');
-                backButton.dataset.target = navigationHistory[navigationHistory.length - 2] || 'splash-screen';
-            }
-        });
-    });
-    
-    // Функціонал для зміни фону поки що видалимо, щоб не було помилок
-    // Повернемо його, коли додамо екран налаштувань
+// Пасажир: замовлення
+document.getElementById("rideForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const time = document.getElementById("time").value;
 
-    showScreen('splash-screen');
+  alert(`🚕 Замовлення створено!\n\nЗвідки: ${from}\nКуди: ${to}\nЧас: ${time}`);
+  showScreen('home');
 });
+
+// Водій: мок-функції
+function fakeAccept() {
+  alert("✅ Ви прийняли замовлення.");
+}
+
+function fakeArrive() {
+  alert("📍 Ви повідомили пасажира: «Я прибув».");
+}
