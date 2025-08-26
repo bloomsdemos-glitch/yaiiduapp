@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('login-screen-passenger');
     });
 
-        // Проходимось по всіх кнопках "Назад"...
+    // Проходимось по всіх кнопках "Назад"...
     backButtons.forEach(button => {
         // ...і кожній даємо команду повертатись на вказаний екран
         button.addEventListener('click', () => {
@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showScreen(targetScreen);
         });
     });
-
     
     // Тимчасова логіка для кнопок "Увійти через Telegram"
     // Клік на вхід водія -> показуємо меню водія
@@ -86,16 +85,41 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('passenger-dashboard');
     });
     
-        // Знаходимо кнопку "Знайти водія"
-    const findDriverBtn = passengerDashboard.querySelector('.menu-item:nth-child(2)');
+    // === ЛОГІКА ДЛЯ МЕНЮ ПАСАЖИРА ===
+
+    // Знаходимо кнопку "Знайти водія" по її новому ID
+    const findDriverBtn = document.getElementById('find-driver-btn');
     
     // При кліку на неї показуємо екран зі списком водіїв
     findDriverBtn.addEventListener('click', () => {
         showScreen('passenger-find-driver-screen');
     });
 
+    // Знаходимо кнопку, яка показує екран швидкого замовлення
+    const showQuickOrderBtn = document.getElementById('show-quick-order-btn');
+    
+    // Вішаємо на неї клік, щоб показати наш новий екран
+    showQuickOrderBtn.addEventListener('click', () => {
+        showScreen('quick-order-screen');
+    });
 
-    // Ініціалізація: при першому завантаженні показуємо головний екран
-    showScreen('home-screen');
-});
+    // Знаходимо саму форму і її кнопку відправки
+    const quickOrderForm = document.getElementById('quick-order-form');
+    
+    // Обробляємо відправку форми
+    quickOrderForm.addEventListener('submit', (event) => {
+        // Забороняємо сторінці перезавантажуватись (стандартна поведінка форми)
+        event.preventDefault(); 
+        
+        // Імітуємо успіх
+        alert('Замовлення створено! Шукаємо вам водія... (це імітація)');
+        
+        // Повертаємо пасажира на його головне меню
+        showScreen('passenger-dashboard');
+        
+        // Очищуємо форму для наступного разу
+        quickOrderForm.reset();
+    });
+
+
 
