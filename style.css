@@ -269,3 +269,99 @@ footer {
 .badge.online {
     background-color: var(--online-indicator);
 }
+/* ======================================= */
+/* == 4. СТИЛІ ДЛЯ СПИСКУ ВОДІЇВ == */
+/* ======================================= */
+
+.driver-list {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.driver-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border-color);
+    background-color: var(--primary-element-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.driver-card.online {
+    cursor: pointer;
+}
+
+.driver-card.online:active {
+    transform: scale(0.98);
+    background-color: rgba(60, 60, 62, 0.8);
+}
+
+.driver-card .avatar-convex {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    /* Робимо тінь трохи меншою, щоб виглядало акуратніше в списку */
+    box-shadow: 4px 4px 8px #161617, -4px -4px 8px #363638;
+}
+
+.driver-info {
+    flex-grow: 1; /* Цей блок займає весь вільний простір */
+}
+
+.driver-info h4 {
+    font-size: 17px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 2px;
+}
+
+.driver-info span {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+}
+
+.driver-info span .fa-star {
+    color: #ffc700;
+}
+
+.driver-info small {
+    display: block;
+    font-size: 13px;
+    color: #e88f35; /* Помаранчевий для статусу "зайнятий" */
+}
+
+/* Статуси водіїв */
+.driver-card.busy {
+    opacity: 0.6; /* Робимо зайнятих водіїв напівпрозорими */
+    pointer-events: none; /* Щоб на них не можна було клікнути */
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-dot.online {
+    background-color: var(--online-indicator);
+    box-shadow: 0 0 8px var(--online-indicator);
+    /* Підключаємо нашу анімацію миготіння */
+    animation: blink 1.5s infinite ease-in-out;
+}
+
+.status-dot.busy {
+    background-color: #e88f35;
+}
+
+/* А ось і сама анімація миготіння. Магія! */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
