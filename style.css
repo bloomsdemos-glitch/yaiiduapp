@@ -706,7 +706,7 @@ footer {
     background-color: #e08e09;
 }
 /* ======================================= */
-/* == 12+. ФІНАЛЬНІ СТИЛІ ДЛЯ ПОЇЗДОК, ДЕТАЛЕЙ І ТРЕКЕРА == */
+/* == 12+. ФІНАЛЬНІ СТИЛІ ДЛЯ ПОЇЗДОК (ВИПРАВЛЕНО) == */
 /* ======================================= */
 
 /* --- Історія поїздок пасажира --- */
@@ -770,21 +770,19 @@ footer {
     border-color: rgba(10, 132, 255, 0.6);
     box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
 }
-.order-card.active .order-status, 
-.order-card.active .order-info .route i,
-.order-card.new .order-info .route i {
+.order-card.active .order-status {
     color: var(--accent-color);
 }
 
 /* --- Нові іконки маршруту (для обох) --- */
 .route .start-point-icon {
     font-size: 10px;
-    color: #ffc700; /* Жовтий */
+    color: #ffc700 !important; /* Жовтий */
     vertical-align: middle;
 }
 .route .end-point-icon {
     font-size: 14px;
-    color: #ff453a; /* Червоний */
+    color: #ff453a !important; /* Червоний */
     vertical-align: middle;
 }
 
@@ -804,8 +802,7 @@ footer {
     background-position: 0 0;
     border-radius: 2px;
     position: relative;
-    animation: moveTrack 2s linear infinite;
-    overflow: hidden; /* Важливо для чистоти анімації */
+    /* overflow: hidden; - ВИДАЛЕНО! Це "їло" машинку */
 }
 
 @keyframes moveTrack {
@@ -816,7 +813,7 @@ footer {
 #car-progress-icon {
     font-size: 18px;
     position: absolute;
-    top: -5px; /* Підняли трохи вище */
+    top: -6px;
     transform: translateY(-50%);
     left: 0%;
     transition: left 1.5s linear;
@@ -827,4 +824,6 @@ footer {
     font-size: 16px;
     color: var(--text-color-secondary);
 }
+
+
 
