@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passengerTelegramLoginBtn = document.querySelector('#login-screen-passenger .btn-telegram-login');
     
     // Елементи пасажира
-    const showMyOrdersBtn = document.getElementById('show-my-orders-btn'); // Нова кнопка
+    const showMyOrdersBtn = document.getElementById('show-my-orders-btn');
     const findDriverBtn = document.getElementById('find-driver-btn');
     const showQuickOrderBtn = document.getElementById('show-quick-order-btn');
     const quickOrderForm = document.getElementById('quick-order-form');
@@ -48,22 +48,35 @@ document.addEventListener('DOMContentLoaded', () => {
     passengerTelegramLoginBtn.addEventListener('click', () => showScreen('passenger-dashboard'));
     
     // ЛОГІКА ПАСАЖИРА
-    showMyOrdersBtn.addEventListener('click', () => showScreen('passenger-orders-screen')); // Новий обробник
+    showMyOrdersBtn.addEventListener('click', () => {
+        updatePassengerOrderCardListeners(); // Оновлюємо слухачі при кожному відкритті
+        showScreen('passenger-orders-screen');
+    });
     findDriverBtn.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
     showHelpBtn.addEventListener('click', () => showScreen('help-screen'));
     quickOrderForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Замовлення створено!'); showScreen('passenger-dashboard'); quickOrderForm.reset(); });
 
     // ЛОГІКА ВОДІЯ
-    showFindPassengersBtn.addEventListener('click', () => { updateOrderCardListeners(); showScreen('driver-find-passengers-screen'); });
+    showFindPassengersBtn.addEventListener('click', () => { updateDriverOrderCardListeners(); showScreen('driver-find-passengers-screen'); });
     acceptOrderBtn.addEventListener('click', () => { setupActiveRide(); showScreen('driver-active-ride-screen'); });
     cancelRideBtn.addEventListener('click', () => { if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) { rideState = 'idle'; showScreen('driver-dashboard'); } });
     rideActionBtn.addEventListener('click', handleRideAction);
     
     // == 5. ДОДАТКОВІ ФУНКЦІЇ ==
-    function updateOrderCardListeners() {
-        document.querySelectorAll('.order-card').forEach(card => card.addEventListener('click', () => { calculateAndDisplayTripDetails(); showScreen('driver-order-details-screen'); }));
+    function updateDriverOrderCardListeners() {
+        document.querySelectorAll('#driver-find-passengers-screen .order-card').forEach(card => card.addEventListener('click', () => { calculateAndDisplayTripDetails(); showScreen('driver-order-details-screen'); }));
     }
+
+    // НОВА ФУНКЦІЯ для кліків по історії поїздок пасажира
+    function updatePassengerOrderCardListeners() {
+        document.querySelectorAll('#passenger-orders-screen .order-card').forEach(card => card.addEventListener('click', () => {
+            // В майбутньому тут будуть передаватись реальні дані поїздки
+            // А поки що просто показуємо статичний екран деталей
+            showScreen('passenger-order-details-screen');
+        }));
+    }
+
     function calculateAndDisplayTripDetails() {
         const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
         const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
