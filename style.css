@@ -489,3 +489,76 @@ footer {
     color: var(--text-color);
     font-weight: var(--font-weight-bold);
 }
+/* ======================================= */
+/* == 7. СТИЛІ ДЛЯ СПИСКУ ЗАМОВЛЕНЬ (ВОДІЙ) == */
+/* ======================================= */
+.order-list {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border-color);
+    background-color: var(--primary-element-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.order-card:active {
+    transform: scale(0.98);
+    background-color: rgba(60, 60, 62, 0.8);
+}
+
+/* Підсвічуємо нові замовлення */
+.order-card.new {
+    border-color: rgba(10, 132, 255, 0.5);
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.15);
+}
+
+.order-info .route {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.order-info .route span {
+    font-size: 16px;
+}
+
+.order-info .route i {
+    color: var(--text-color-secondary);
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.passenger-details {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+}
+.passenger-details .fa-star {
+    color: #ffc700;
+}
+
+.order-time {
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    color: var(--accent-color);
+    align-self: flex-start;
+}
+
+.order-card.new .order-time {
+    color: var(--online-indicator);
+}
