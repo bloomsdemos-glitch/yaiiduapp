@@ -30,16 +30,16 @@
         <div id="driver-order-details-screen" class="screen hidden"><header><button class="btn-back" data-target="driver-find-passengers-screen"><i class="fa-solid fa-arrow-left"></i></button><h2>Деталі замовлення</h2><div class="header-placeholder"></div></header><main><div class="map-placeholder"><p>Тут буде карта маршруту</p></div><div class="details-card"><div class="route-details"><span><strong>Звідки:</strong> вул. Весняна, 15</span><span><strong>Куди:</strong> вул. Музейна, 4</span></div><div class="trip-summary"><div class="summary-item"><i class="fa-solid fa-road"></i><span id="trip-distance">~ 4.5 км</span></div><div class="summary-item"><i class="fa-solid fa-hryvnia-sign"></i><span id="trip-fare">~ 108 грн</span></div><div class="summary-item"><i class="fa-solid fa-money-bill-wave"></i><span id="payment-method">Готівка</span></div></div><div class="passenger-card"><div class="avatar-convex"><i class="fa-solid fa-user"></i></div><div class="passenger-info"><h4>Олена</h4><span>Рейтинг: 4.9 <i class="fa-solid fa-star"></i></span></div><button class="btn-icon"><i class="fa-solid fa-comment-dots"></i></button></div></div><button id="accept-order-btn" class="btn-submit">Прийняти замовлення</button></main></div>
 
         <div id="driver-active-ride-screen" class="screen hidden">
-            <header><h2>Поїздка до пасажира</h2><div class="header-placeholder"></div></header>
+            <header><h2 id="ride-status-header">Поїздка до пасажира</h2><div class="header-placeholder"></div></header>
             <main>
-                <div class="map-placeholder active-ride"><p>Їдьте до пасажира</p></div>
+                <div id="ride-map-placeholder" class="map-placeholder active-ride"><p>Їдьте до пасажира</p></div>
                 <div class="details-card">
-                    <div class="route-details"><span><strong>Адреса:</strong> вул. Весняна, 15</span></div>
+                    <div id="ride-address-details" class="route-details"><span><strong>Адреса:</strong> вул. Весняна, 15</span></div>
                     <div class="passenger-card"><div class="avatar-convex"><i class="fa-solid fa-user"></i></div><div class="passenger-info"><h4>Олена</h4><span>Рейтинг: 4.9 <i class="fa-solid fa-star"></i></span></div><button class="btn-icon"><i class="fa-solid fa-phone"></i></button></div>
                 </div>
                 <div class="action-buttons">
                     <button id="cancel-ride-btn" class="btn-secondary">Скасувати</button>
-                    <button id="arrived-btn" class="btn-submit">✅ Я на місці</button>
+                    <button id="ride-action-btn" class="btn-submit">✅ Я на місці</button>
                 </div>
             </main>
         </div>
