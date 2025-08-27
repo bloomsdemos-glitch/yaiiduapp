@@ -686,3 +686,22 @@ footer {
 .action-buttons .btn-submit {
     flex: 2; /* Робимо основну кнопку більшою */
 }
+/* ======================================= */
+/* == 11. СТИЛІ ДЛЯ СТАНІВ КНОПОК ПОЇЗДКИ == */
+/* ======================================= */
+.btn-submit.start-ride {
+    background-color: var(--accent-color); /* Синій для початку поїздки */
+}
+
+.btn-submit.start-ride:active {
+    background-color: #0060c4;
+}
+
+.btn-submit.end-ride {
+    background-color: #ff9f0a; /* Помаранчевий для завершення */
+    color: #000;
+}
+
+.btn-submit.end-ride:active {
+    background-color: #e08e09;
+}
