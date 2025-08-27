@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // == 1. ЗБИРАЄМО ВСІ ПОТРІБНІ ЕЛЕМЕНТИ ==
     const screens = document.querySelectorAll('.screen');
+    const backButtons = document.querySelectorAll('.btn-back');
+    
+    // Елементи входу
     const showDriverLoginBtn = document.getElementById('show-driver-login');
     const showPassengerLoginBtn = document.getElementById('show-passenger-login');
-    const backButtons = document.querySelectorAll('.btn-back');
     const driverLoginScreen = document.getElementById('login-screen-driver');
     const passengerLoginScreen = document.getElementById('login-screen-passenger');
     const driverTelegramLoginBtn = driverLoginScreen.querySelector('.btn-telegram-login');
@@ -16,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const quickOrderForm = document.getElementById('quick-order-form');
     const showHelpBtn = document.getElementById('show-help-btn');
 
-    // Новий елемент водія
+    // Елементи водія
     const showFindPassengersBtn = document.getElementById('show-find-passengers-btn');
+    const acceptOrderBtn = document.getElementById('accept-order-btn');
 
     // == 2. ФУНКЦІЯ ДЛЯ НАВІГАЦІЇ ==
     function showScreen(screenId) {
@@ -50,17 +53,36 @@ document.addEventListener('DOMContentLoaded', () => {
     findDriverBtn.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
     showHelpBtn.addEventListener('click', () => showScreen('help-screen'));
-
-    // ЛОГІКА ДЛЯ МЕНЮ ВОДІЯ (НОВЕ)
-    showFindPassengersBtn.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
-
-    // Обробка форми швидкого замовлення
     quickOrderForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
         alert('Замовлення створено! Шукаємо вам водія... (це імітація)');
         showScreen('passenger-dashboard');
         quickOrderForm.reset();
     });
+
+    // ЛОГІКА ДЛЯ МЕНЮ ВОДІЯ
+    showFindPassengersBtn.addEventListener('click', () => {
+        // Оновлюємо слухачі на картках замовлень кожного разу, як відкриваємо екран
+        updateOrderCardListeners();
+        showScreen('driver-find-passengers-screen');
+    });
+
+    acceptOrderBtn.addEventListener('click', () => {
+        alert('Замовлення прийнято! (імітація)');
+        showScreen('driver-dashboard'); // Повертаємо водія на головне меню
+    });
+    
+    // == 4. ДОДАТКОВІ ФУНКЦІЇ ==
+    function updateOrderCardListeners() {
+        const orderCards = document.querySelectorAll('.order-card');
+        orderCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // В реальному додатку тут ми б передавали дані цього замовлення
+                // А поки просто показуємо екран з деталями
+                showScreen('driver-order-details-screen');
+            });
+        });
+    }
 
     // Ініціалізація
     showScreen('home-screen');
