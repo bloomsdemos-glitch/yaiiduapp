@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quickOrderForm = document.getElementById('quick-order-form');
     const showHelpBtn = document.getElementById('show-help-btn');
     const carProgressIcon = document.getElementById('car-progress-icon');
+    const passengerCancelRideBtn = document.getElementById('passenger-cancel-ride-btn');
 
     // Елементи водія
     const showDriverOrdersBtn = document.getElementById('show-driver-orders-btn');
@@ -65,6 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
     showHelpBtn.addEventListener('click', () => showScreen('help-screen'));
     quickOrderForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Замовлення створено!'); showScreen('passenger-dashboard'); quickOrderForm.reset(); });
+    passengerCancelRideBtn.addEventListener('click', () => {
+        if (confirm('Ви впевнені, що хочете скасувати поїздку?')) {
+            alert('Поїздку скасовано.');
+            showScreen('passenger-dashboard');
+        }
+    });
 
     // ЛОГІКА ВОДІЯ
     showDriverOrdersBtn.addEventListener('click', () => alert('Цей екран ще в розробці :)'));
@@ -86,10 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let progress = 0;
         carProgressIcon.style.left = '0%';
         progressInterval = setInterval(() => {
-            progress += 15;
+            progress += 10;
             if (progress > 90) { progress = 90; clearInterval(progressInterval); progressInterval = null; }
             carProgressIcon.style.left = `${progress}%`;
-        }, 2000);
+        }, 1500);
     }
     function calculateAndDisplayTripDetails() {
         const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
