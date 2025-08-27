@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_FARE = 40;
     const PRICE_PER_KM = 15;
     const PAYMENT_OPTIONS = ['Готівка', 'Картка'];
+    const DRIVER_CAR_COLOR = '#ffffff'; // За замовчуванням білий
     let rideState = 'idle';
     let progressInterval = null;
 
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carProgressIcon = document.getElementById('car-progress-icon');
 
     // Елементи водія
+    const showDriverOrdersBtn = document.getElementById('show-driver-orders-btn');
     const showFindPassengersBtn = document.getElementById('show-find-passengers-btn');
     const acceptOrderBtn = document.getElementById('accept-order-btn');
     const tripDistanceEl = document.getElementById('trip-distance');
@@ -65,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quickOrderForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Замовлення створено!'); showScreen('passenger-dashboard'); quickOrderForm.reset(); });
 
     // ЛОГІКА ВОДІЯ
+    showDriverOrdersBtn.addEventListener('click', () => alert('Цей екран ще в розробці :)'));
     showFindPassengersBtn.addEventListener('click', () => { updateDriverOrderCardListeners(); showScreen('driver-find-passengers-screen'); });
     acceptOrderBtn.addEventListener('click', () => { setupActiveRide(); showScreen('driver-active-ride-screen'); });
     cancelRideBtn.addEventListener('click', () => { if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) { rideState = 'idle'; showScreen('driver-dashboard'); } });
@@ -79,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function startCarAnimation() {
         if (!carProgressIcon) return;
+        carProgressIcon.style.color = DRIVER_CAR_COLOR;
         let progress = 0;
         carProgressIcon.style.left = '0%';
         progressInterval = setInterval(() => {
