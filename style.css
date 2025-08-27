@@ -648,3 +648,41 @@ footer {
     font-size: 20px;
     color: var(--accent-color);
 }
+/* ======================================= */
+/* == 10. СТИЛІ ДЛЯ ЕКРАНУ АКТИВНОЇ ПОЇЗДКИ == */
+/* ======================================= */
+.map-placeholder.active-ride {
+    height: 250px; /* Робимо карту трохи більшою на цьому екрані */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-top: auto; /* Притискаємо кнопки до низу екрану */
+    padding-top: 20px;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border-color);
+    background-color: var(--primary-element-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: #ff453a; /* Червоний колір для небезпечної дії */
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-secondary:active {
+    transform: scale(0.97);
+    background-color: rgba(99, 99, 102, 0.5);
+}
+
+.action-buttons .btn-submit {
+    flex: 2; /* Робимо основну кнопку більшою */
+}
