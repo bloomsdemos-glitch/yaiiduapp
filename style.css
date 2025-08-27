@@ -706,119 +706,50 @@ footer {
     background-color: #e08e09;
 }
 /* ======================================= */
-/* == 12. СТИЛІ ДЛЯ ІСТОРІЇ ЗАМОВЛЕНЬ (ПАСАЖИР) == */
+/* == 12+. ФІНАЛЬНІ СТИЛІ ДЛЯ ПОЇЗДОК, ДЕТАЛЕЙ І ТРЕКЕРА == */
 /* ======================================= */
+
+/* --- Історія поїздок пасажира --- */
 .order-list.passenger .order-card {
-    cursor: pointer; /* Робимо картки знову клікабельними */
+    cursor: pointer;
 }
-
 .order-list.passenger .order-card:active {
-    transform: scale(0.98); /* Повертаємо ефект натискання */
+    transform: scale(0.98);
 }
-
 .order-card .driver-details {
     font-size: 14px;
     color: var(--text-color-secondary);
 }
-
 .order-card .order-status {
     font-size: 14px;
     font-weight: var(--font-weight-regular);
     color: var(--text-color-secondary);
     text-align: right;
 }
-
 .order-card.archived {
     opacity: 0.7;
 }
 
-/* ======================================= */
-/* == 13. СТИЛІ ДЛЯ ДЕТАЛЕЙ ПОЇЗДКИ (ПАСАЖИР) == */
-/* ======================================= */
+/* --- Деталі поїздки пасажира --- */
 .driver-card-full {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-
 .driver-card-full .driver-info {
     flex-grow: 1;
 }
-
 .driver-card-full .driver-info span {
     font-size: 14px;
     color: var(--text-color-secondary);
 }
-
 .driver-card-full .driver-rating {
     font-size: 16px;
     font-weight: var(--font-weight-bold);
     color: #ffc700;
 }
 
-.btn-secondary.full-width {
-    width: 100%;
-}
-
-/* ======================================= */
-/* == 14. ОНОВЛЕНІ СТИЛІ (АКЦЕНТИ, ІКОНКИ, ТРЕКЕР) == */
-/* ======================================= */
-.order-card.active {
-    border-color: rgba(10, 132, 255, 0.6);
-    box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
-}
-
-.order-card.active .order-status, 
-.order-card.active .order-info .route i {
-    color: var(--accent-color);
-}
-
-.route .start-point-icon {
-    font-size: 10px;
-    color: #ffc700; /* Жовтий */
-    vertical-align: middle;
-}
-
-.route .end-point-icon {
-    font-size: 14px;
-    color: #ff453a; /* Червоний */
-    vertical-align: middle;
-}
-
-.progress-tracker {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 5px 5px 5px;
-}
-
-.progress-tracker .track {
-    flex-grow: 1;
-    height: 10px;
-    background: none;
-    border-bottom: 3px dashed var(--glass-border-color);
-    position: relative;
-}
-
-#car-progress-icon {
-    font-size: 18px;
-    position: absolute;
-    top: -8px;
-    transform: translateY(-50%);
-    left: 0%;
-    transition: left 1.5s linear;
-}
-
-.progress-tracker .start-point-icon, 
-.progress-tracker .end-point-icon {
-    font-size: 16px;
-    color: var(--text-color-secondary);
-}
-/* ======================================= */
-/* == 15. ФІКСИ І РЕДИЗАЙН ТРЕКЕРА == */
-/* ======================================= */
-
-/* Фікс для кнопок, щоб не падали вниз */
+/* --- Фікс для кнопок, щоб не падали вниз --- */
 .main-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -828,24 +759,24 @@ footer {
     flex-grow: 1;
 }
 .main-content-wrapper .action-buttons {
-    margin-top: 20px; /* Замість auto, щоб був фіксований відступ */
+    margin-top: 20px;
 }
 .btn-secondary.full-width {
     width: 100%;
 }
 
-
-/* Виділення активних замовлень */
+/* --- Виділення активних замовлень (для обох) --- */
 .order-card.active, .order-card.new {
     border-color: rgba(10, 132, 255, 0.6);
     box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
 }
 .order-card.active .order-status, 
-.order-card.active .order-info .route i {
+.order-card.active .order-info .route i,
+.order-card.new .order-info .route i {
     color: var(--accent-color);
 }
 
-/* Нові іконки маршруту */
+/* --- Нові іконки маршруту (для обох) --- */
 .route .start-point-icon {
     font-size: 10px;
     color: #ffc700; /* Жовтий */
@@ -857,7 +788,13 @@ footer {
     vertical-align: middle;
 }
 
-/* Редизайн трекера */
+/* --- Редизайн трекера (пасажир) --- */
+.progress-tracker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 5px 5px 5px;
+}
 .progress-tracker .track {
     flex-grow: 1;
     height: 4px;
@@ -868,6 +805,7 @@ footer {
     border-radius: 2px;
     position: relative;
     animation: moveTrack 2s linear infinite;
+    overflow: hidden; /* Важливо для чистоти анімації */
 }
 
 @keyframes moveTrack {
@@ -878,7 +816,7 @@ footer {
 #car-progress-icon {
     font-size: 18px;
     position: absolute;
-    top: -6px;
+    top: -5px; /* Підняли трохи вище */
     transform: translateY(-50%);
     left: 0%;
     transition: left 1.5s linear;
@@ -889,3 +827,4 @@ footer {
     font-size: 16px;
     color: var(--text-color-secondary);
 }
+
