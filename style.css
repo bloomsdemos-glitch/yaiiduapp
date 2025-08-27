@@ -814,3 +814,78 @@ footer {
     font-size: 16px;
     color: var(--text-color-secondary);
 }
+/* ======================================= */
+/* == 15. ФІКСИ І РЕДИЗАЙН ТРЕКЕРА == */
+/* ======================================= */
+
+/* Фікс для кнопок, щоб не падали вниз */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.main-content-wrapper .top-content {
+    flex-grow: 1;
+}
+.main-content-wrapper .action-buttons {
+    margin-top: 20px; /* Замість auto, щоб був фіксований відступ */
+}
+.btn-secondary.full-width {
+    width: 100%;
+}
+
+
+/* Виділення активних замовлень */
+.order-card.active, .order-card.new {
+    border-color: rgba(10, 132, 255, 0.6);
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
+}
+.order-card.active .order-status, 
+.order-card.active .order-info .route i {
+    color: var(--accent-color);
+}
+
+/* Нові іконки маршруту */
+.route .start-point-icon {
+    font-size: 10px;
+    color: #ffc700; /* Жовтий */
+    vertical-align: middle;
+}
+.route .end-point-icon {
+    font-size: 14px;
+    color: #ff453a; /* Червоний */
+    vertical-align: middle;
+}
+
+/* Редизайн трекера */
+.progress-tracker .track {
+    flex-grow: 1;
+    height: 4px;
+    background: linear-gradient(90deg, #555 50%, #333 50%), linear-gradient(90deg, #555 50%, #333 50%);
+    background-size: 8px 3px;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    border-radius: 2px;
+    position: relative;
+    animation: moveTrack 2s linear infinite;
+}
+
+@keyframes moveTrack {
+    from { background-position: 0 0; }
+    to { background-position: -8px 0; }
+}
+
+#car-progress-icon {
+    font-size: 18px;
+    position: absolute;
+    top: -6px;
+    transform: translateY(-50%);
+    left: 0%;
+    transition: left 1.5s linear;
+}
+
+.progress-tracker .start-point-icon, 
+.progress-tracker .end-point-icon {
+    font-size: 16px;
+    color: var(--text-color-secondary);
+}
