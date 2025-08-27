@@ -709,10 +709,11 @@ footer {
 /* == 12. СТИЛІ ДЛЯ ІСТОРІЇ ЗАМОВЛЕНЬ (ПАСАЖИР) == */
 /* ======================================= */
 .order-list.passenger .order-card {
-    cursor: default; /* Робимо картки неклікабельними */
+    cursor: pointer; /* Робимо картки знову клікабельними */
 }
+
 .order-list.passenger .order-card:active {
-    transform: none; /* Прибираємо ефект натискання */
+    transform: scale(0.98); /* Повертаємо ефект натискання */
 }
 
 .order-card .driver-details {
@@ -727,14 +728,10 @@ footer {
     text-align: right;
 }
 
-.order-card.active .order-status {
-    color: var(--online-indicator);
-    font-weight: var(--font-weight-bold);
-}
-
 .order-card.archived {
     opacity: 0.7;
 }
+
 /* ======================================= */
 /* == 13. СТИЛІ ДЛЯ ДЕТАЛЕЙ ПОЇЗДКИ (ПАСАЖИР) == */
 /* ======================================= */
@@ -761,13 +758,33 @@ footer {
 
 .btn-secondary.full-width {
     width: 100%;
-    margin-top: auto;
 }
-/* ... всі попередні стилі ... */
 
 /* ======================================= */
-/* == 14. СТИЛІ ДЛЯ ПРОГРЕС-ТРЕКЕРА (ОНОВЛЕНО ПІД ІКОНКИ) == */
+/* == 14. ОНОВЛЕНІ СТИЛІ (АКЦЕНТИ, ІКОНКИ, ТРЕКЕР) == */
 /* ======================================= */
+.order-card.active {
+    border-color: rgba(10, 132, 255, 0.6);
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
+}
+
+.order-card.active .order-status, 
+.order-card.active .order-info .route i {
+    color: var(--accent-color);
+}
+
+.route .start-point-icon {
+    font-size: 10px;
+    color: #ffc700; /* Жовтий */
+    vertical-align: middle;
+}
+
+.route .end-point-icon {
+    font-size: 14px;
+    color: #ff453a; /* Червоний */
+    vertical-align: middle;
+}
+
 .progress-tracker {
     display: flex;
     align-items: center;
@@ -777,23 +794,23 @@ footer {
 
 .progress-tracker .track {
     flex-grow: 1;
-    height: 4px;
-    background-color: var(--glass-border-color);
-    border-radius: 2px;
+    height: 10px;
+    background: none;
+    border-bottom: 3px dashed var(--glass-border-color);
     position: relative;
 }
 
 #car-progress-icon {
-    font-size: 18px; /* Трохи менше, щоб виглядало акуратніше */
-    color: var(--accent-color);
+    font-size: 18px;
     position: absolute;
-    top: 50%;
+    top: -8px;
     transform: translateY(-50%);
     left: 0%;
     transition: left 1.5s linear;
 }
 
-.progress-tracker .start-point, .progress-tracker .end-point {
+.progress-tracker .start-point-icon, 
+.progress-tracker .end-point-icon {
     font-size: 16px;
     color: var(--text-color-secondary);
 }
