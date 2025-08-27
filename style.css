@@ -705,3 +705,33 @@ footer {
 .btn-submit.end-ride:active {
     background-color: #e08e09;
 }
+/* ======================================= */
+/* == 12. СТИЛІ ДЛЯ ІСТОРІЇ ЗАМОВЛЕНЬ (ПАСАЖИР) == */
+/* ======================================= */
+.order-list.passenger .order-card {
+    cursor: default; /* Робимо картки неклікабельними */
+}
+.order-list.passenger .order-card:active {
+    transform: none; /* Прибираємо ефект натискання */
+}
+
+.order-card .driver-details {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+}
+
+.order-card .order-status {
+    font-size: 14px;
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-secondary);
+    text-align: right;
+}
+
+.order-card.active .order-status {
+    color: var(--online-indicator);
+    font-weight: var(--font-weight-bold);
+}
+
+.order-card.archived {
+    opacity: 0.7;
+}
