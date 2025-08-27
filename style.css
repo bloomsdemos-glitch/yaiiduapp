@@ -3,14 +3,37 @@
 /* ======================================= */
 
 /* Тут ми задаємо нашу палітру кольорів і шрифти, щоб потім легко їх перевикористовувати */
-:root {
-    --bg-color: #1a1a1a; /* Трохи темніший фон, як ти просив */
-    --primary-element-color: rgba(44, 44, 46, 0.7); /* Колір для кнопок і меню */
-    --glass-border-color: rgba(255, 255, 255, 0.1);
-    --text-color: #f5f5f7;
-    --text-color-secondary: #8a8a8e;
-    --accent-color: #0a84ff; /* Яскравий акцент для бейджів та активних елементів */
-    --online-indicator: #34c759;
+:root{
+  --bg: #0b0f14;
+  --fg: #eef2f6;
+  --muted: #93a1b1;
+  --accent: #5ad1ff;      /* холодний блакитний для акцентів */
+  --accent-2: #7affc9;    /* зелений для статусів */
+  --danger: #ff5a7a;      /* червоний для попереджень/очікування */
+  --glass: rgba(255,255,255,0.08);
+  --glass-stroke: rgba(255,255,255,0.18);
+  --blur: 16px;
+  --radius: 14px;
+  --shadow-soft: 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-neo-hi: -2px -2px 6px rgba(255,255,255,0.08);
+  --shadow-neo-lo:  3px  4px 10px rgba(0,0,0,0.35);
+}
+
+body{
+  background: radial-gradient(1200px 800px at 20% -10%, #121823 0%, #0b0f14 60%, #070a0d 100%);
+  color: var(--fg);
+  font-smooth: always;
+}
+
+.glass-card{
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--glass-stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
 
     /* Шрифти: спочатку пробуємо системний SF від Apple, якщо його нема - беремо Inter. Heavy для лого, Thin для футера і т.д. */
     --font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
