@@ -624,3 +624,27 @@ footer {
 .passenger-info .fa-star {
     color: #ffc700;
 }
+/* ======================================= */
+/* == 9. ДОДАТКОВІ СТИЛІ ДЛЯ ДЕТАЛЕЙ ЗАМОВЛЕННЯ == */
+/* ======================================= */
+.trip-summary {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid var(--glass-border-color);
+    border-bottom: 1px solid var(--glass-border-color);
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.summary-item i {
+    font-size: 20px;
+    color: var(--accent-color);
+}
