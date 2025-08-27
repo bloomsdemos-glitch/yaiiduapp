@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const passengerLoginScreen = document.getElementById('login-screen-passenger');
     const driverTelegramLoginBtn = driverLoginScreen.querySelector('.btn-telegram-login');
     const passengerTelegramLoginBtn = passengerLoginScreen.querySelector('.btn-telegram-login');
+    
+    // Елементи пасажира
     const findDriverBtn = document.getElementById('find-driver-btn');
     const showQuickOrderBtn = document.getElementById('show-quick-order-btn');
     const quickOrderForm = document.getElementById('quick-order-form');
-    // Нова кнопка для довідки
     const showHelpBtn = document.getElementById('show-help-btn');
+
+    // Новий елемент водія
+    const showFindPassengersBtn = document.getElementById('show-find-passengers-btn');
 
     // == 2. ФУНКЦІЯ ДЛЯ НАВІГАЦІЇ ==
     function showScreen(screenId) {
@@ -45,9 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ЛОГІКА ДЛЯ МЕНЮ ПАСАЖИРА
     findDriverBtn.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
-    
-    // Новий обробник для кнопки довідки
     showHelpBtn.addEventListener('click', () => showScreen('help-screen'));
+
+    // ЛОГІКА ДЛЯ МЕНЮ ВОДІЯ (НОВЕ)
+    showFindPassengersBtn.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
 
     // Обробка форми швидкого замовлення
     quickOrderForm.addEventListener('submit', (event) => {
