@@ -2,28 +2,37 @@
 /* == 0. ЗМІННІ ТА ГЛОБАЛЬНІ НАЛАШТУВАННЯ == */
 /* ======================================= */
 
-/* Тут ми задаємо нашу палітру кольорів і шрифти, щоб потім легко їх перевикористовувати */
-:root{
-  --bg: #0b0f14;
-  --bg-secondary-rgb: 59, 59, 59; /* Це RGB-значення вашого --bg-secondary */
-  --fg: #eef2f6;
-  --muted: #93a1b1;
-  --accent: #5ad1ff;      /* холодний блакитний для акцентів */
-  --accent-2: #7affc9;    /* зелений для статусів */
-  --danger: #ff5a7a;      /* червоний для попереджень/очікування */
-  --glass: rgba(255,255,255,0.08);
-  --glass-stroke: rgba(255,255,255,0.18);
-  --blur: 16px;
-  --radius: 14px;
-  --shadow-soft: 0 8px 24px rgba(0,0,0,0.35);
-  --shadow-neo-hi: -2px -2px 6px rgba(255,255,255,0.08);
-  --shadow-neo-lo:  3px  4px 10px rgba(0,0,0,0.35);
+:root {
+    /* Нова світла тема з прозорістю для Glassmorphism */
+    --bg-primary: rgba(255, 255, 255, 0.85);
+    --bg-secondary: rgba(240, 240, 240, 0.7);
+    --bg-secondary-rgb: 240, 240, 240;
+    --bg-accent: rgba(220, 240, 255, 0.9);
+    
+    --text-primary: #222222;
+    --text-secondary: #5c5c5c;
+    --text-accent: #0066cc;
+    
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --shadow-dark: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-light: inset 0 -2px 4px rgba(255, 255, 255, 0.8);
+    
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-color-light: rgba(255, 255, 255, 0.5);
+    
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
 }
 
-body{
-  background: radial-gradient(1200px 800px at 20% -10%, #121823 0%, #0b0f14 60%, #070a0d 100%);
-  color: var(--fg);
-  font-smooth: always;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #d6e4f0 0%, #f8f9fa 100%) fixed;
+    min-height: 100vh;
+    color: var(--text-primary);
 }
 
 .glass-card{
@@ -85,6 +94,26 @@ body {
     display: flex;
     flex-direction: column;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    /* НОВІ СТИЛІ ДЛЯ GLASSMORPHISM: */
+    background: var(--bg-primary); /* Напівпрозорий білий фон */
+    backdrop-filter: blur(12px); /* Ефект розмиття для "скла" */
+    border-radius: 20px; /* Закруглені кути */
+    box-shadow: var(--shadow); /* М'яка тінь для об'єму */
+    border: 1px solid var(--border-color-light); /* Дуже легка світла обводка */
+}
+
+/* Ховаємо неактивні екрани */
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+}
+
+/* Показуємо активний екран */
+.screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
 }
 
 /* Ховаємо неактивні екрани */
