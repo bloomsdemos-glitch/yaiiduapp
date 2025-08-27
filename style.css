@@ -223,17 +223,35 @@ footer {
 }
 
 /* Об'ємна аватарка (ефект Neumorphism/Convex) */
-.avatar-convex {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #2e2e30, #262628);
-    box-shadow: 6px 6px 12px #161617, -6px -6px 12px #363638;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-    color: var(--text-color-secondary);
+.avatar{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,0,0,0.3));
+  box-shadow: var(--shadow-neo-hi), var(--shadow-neo-lo);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* тонкий “glow”-контур, що дружить з glass */
+.avatar::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 18px rgba(255,255,255,0.06);
+  pointer-events: none;
 }
 
 .btn-icon {
