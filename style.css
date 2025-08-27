@@ -763,3 +763,37 @@ footer {
     width: 100%;
     margin-top: auto;
 }
+/* ... всі попередні стилі ... */
+
+/* ======================================= */
+/* == 14. СТИЛІ ДЛЯ ПРОГРЕС-ТРЕКЕРА (ОНОВЛЕНО ПІД ІКОНКИ) == */
+/* ======================================= */
+.progress-tracker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 5px 5px 5px;
+}
+
+.progress-tracker .track {
+    flex-grow: 1;
+    height: 4px;
+    background-color: var(--glass-border-color);
+    border-radius: 2px;
+    position: relative;
+}
+
+#car-progress-icon {
+    font-size: 18px; /* Трохи менше, щоб виглядало акуратніше */
+    color: var(--accent-color);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0%;
+    transition: left 1.5s linear;
+}
+
+.progress-tracker .start-point, .progress-tracker .end-point {
+    font-size: 16px;
+    color: var(--text-color-secondary);
+}
