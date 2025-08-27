@@ -5,6 +5,7 @@
 /* Тут ми задаємо нашу палітру кольорів і шрифти, щоб потім легко їх перевикористовувати */
 :root{
   --bg: #0b0f14;
+    --bg-secondary-rgb: 59, 59, 59; /* Це RGB-значення вашого --bg-secondary */
   --fg: #eef2f6;
   --muted: #93a1b1;
   --accent: #5ad1ff;      /* холодний блакитний для акцентів */
@@ -222,19 +223,23 @@ footer {
     font-weight: var(--font-weight-bold);
 }
 
-/* Об'ємна аватарка (ефект Neumorphism/Convex) */
-.avatar{
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,0,0,0.3));
-  box-shadow: var(--shadow-neo-hi), var(--shadow-neo-lo);
-  border: 1px solid rgba(255,255,255,0.14);
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    /* Змінюємо колір фону на більш прозорий для glass-ефекту */
+    background-color: rgba(var(--bg-secondary-rgb), 0.7);
+    /* Прибираємо випуклі тіні і замінюємо на дуже легкий контур */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), /* Білий контур */ 
+                0 4px 12px rgba(0, 0, 0, 0.1); /* М'яка тінь для об'єму */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    /* Додаємо блюр для glassmorphism */
+    backdrop-filter: blur(10px);
+    /* Міцніша рамка, але також прозора */
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .avatar img{
