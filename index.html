@@ -122,50 +122,42 @@
     <main>
         <ul class="order-list passenger">
             
-           <li class="order-card active">
-    <div class="active-order-header">
-        <span class="order-number">Активне замовлення #A7X291</span>
+<li class="order-card active">
+    <div class="active-order-number">Активне замовлення #A7X291</div>
+    
+    <div class="order-info">
+        <div class="route">
+            <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31</span>
+            <span><i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал</span>
+        </div>
+        
+        <div class="driver-details">
+            <i class="fa-solid fa-steering-wheel"></i> Водій: Андрій, Skoda Octavia сірий
+        </div>
+        
+        <div class="progress-tracker">
+            <i class="fa-solid fa-circle start-point-icon red-dot"></i>
+            <div class="track">
+                <i id="car-progress-icon" class="fa-solid fa-car-side"></i>
+            </div>
+            <i class="fa-solid fa-location-dot end-point-icon green-pulsing"></i>
+        </div>
+        
+        <div class="trip-status-details">
+            <span id="arrival-time-status">В дорозі <span id="status-timer">5:23</span></span>
+        </div>
     </div>
     
-    <div class="route-addresses">
-        <div class="address-line">
-            <i class="fa-solid fa-circle start-location"></i>
-            <span>вул. Зоряна, 31</span>
-        </div>
-        <div class="address-line">
-            <i class="fa-solid fa-location-dot end-location"></i>
-            <span>Залізничний вокзал</span>
-        </div>
-    </div>
-    
-    <div class="driver-info-line">
-        <i class="fa-solid fa-steering-wheel driver-icon"></i>
-        <span>Водій: Андрій, Skoda Octavia сірий</span>
-    </div>
-    
-    <div class="progress-tracker-new">
-        <i class="fa-solid fa-circle progress-start red-dot"></i>
-        <div class="progress-track">
-            <i id="car-progress-icon" class="fa-solid fa-car-side"></i>
-        </div>
-        <i class="fa-solid fa-location-dot progress-end pulsing-green" id="destination-icon"></i>
-    </div>
-    
-    <div class="status-and-details">
-        <div class="trip-status">
-            <span id="status-text">В дорозі</span>
-            <span id="status-timer">5:23</span>
-        </div>
+    <div class="order-status">
         <button class="details-btn" onclick="showOrderDetails()">
             <i class="fa-solid fa-info-circle"></i>
         </button>
     </div>
 </li>
 
-<!-- Розділювач архіву -->
-<li class="archive-separator">
-    <i class="fa-solid fa-archive"></i>
-    <span>Архів поїздок</span>
+<!-- Розділювач (додати після активного замовлення) -->
+<li class="archive-divider">
+    <i class="fa-solid fa-archive"></i> Архів поїздок
 </li>
 
             <li class="order-card archived">
