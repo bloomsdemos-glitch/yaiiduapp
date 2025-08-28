@@ -58,10 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // ЛОГІКА ПАСАЖИРА
     showMyOrdersBtn.addEventListener('click', () => {
-        showScreen('passenger-orders-screen');
-        startCarAnimation();
-        updatePassengerOrderCardListeners();
-    });
+    showScreen('passenger-orders-screen');
+    startCarAnimation();
+    updatePassengerOrderCardListeners();
+    simulateActivePassengerTrip(); // <--- ОСЬ ЦЯ ВАЖЛИВА ЗМІНА
+});
+
     findDriverBtn.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
     showHelpBtn.addEventListener('click', () => showScreen('help-screen'));
@@ -80,33 +82,49 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelRideBtn.addEventListener('click', () => { if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) { rideState = 'idle'; showScreen('driver-dashboard'); } });
     rideActionBtn.addEventListener('click', handleRideAction);
     
-    // == 5. ДОДАТКОВІ ФУНКЦІЇ ==
-    function updateDriverOrderCardListeners() {
-        document.querySelectorAll('#driver-find-passengers-screen .order-card').forEach(card => card.addEventListener('click', () => { calculateAndDisplayTripDetails(); showScreen('driver-order-details-screen'); }));
-    }
-    function updatePassengerOrderCardListeners() {
-        document.querySelectorAll('#passenger-orders-screen .order-card').forEach(card => card.addEventListener('click', () => showScreen('passenger-order-details-screen')));
-    }
-    function startCarAnimation() {
-        if (!carProgressIcon) return;
-        carProgressIcon.style.color = DRIVER_CAR_COLOR;
-        let progress = 0;
-        carProgressIcon.style.left = '0%';
-        progressInterval = setInterval(() => {
-            progress += 10;
-            if (progress > 90) { progress = 90; clearInterval(progressInterval); progressInterval = null; }
-            carProgressIcon.style.left = `${progress}%`;
-        }, 1500);
-    }
-    function calculateAndDisplayTripDetails() {
-        const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
-        const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
-        const paymentMethod = PAYMENT_OPTIONS[Math.floor(Math.random() * PAYMENT_OPTIONS.length)];
-        tripDistanceEl.textContent = `~ ${distance} км`;
-        tripFareEl.textContent = `~ ${fare} грн`;
-        paymentMethodEl.textContent = paymentMethod;
-    }
- function setupActiveRide() {
+// == 5. ДОДАТКОВІ ФУНКЦІЇ ==
+function updateDriverOrderCardListeners() {
+    document.querySelectorAll('#driver-find-passengers-screen .order-card').forEach(card => {
+        card.addEventListener('click', () => {
+            calculateAndDisplayTripDetails();
+            showScreen('driver-order-details-screen');
+        });
+    });
+}
+
+function updatePassengerOrderCardListeners() {
+    document.querySelectorAll('#passenger-orders-screen .order-card').forEach(card => {
+        card.addEventListener('click', () => showScreen('passenger-order-details-screen'));
+    });
+}
+
+function startCarAnimation() {
+    if (!carProgressIcon) return;
+    carProgressIcon.style.color = DRIVER_CAR_COLOR;
+    let progress = 0;
+    carProgressIcon.style.left = '0%';
+    progressInterval = setInterval(() => {
+        progress += 10;
+        if (progress > 90) {
+            progress = 90;
+            clearInterval(progressInterval);
+            progressInterval = null;
+        }
+        carProgressIcon.style.left = `${progress}%`;
+    }, 1500);
+}
+
+function calculateAndDisplayTripDetails() {
+    const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
+    const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
+    const paymentMethod = PAYMENT_OPTIONS[Math.floor(Math.random() * PAYMENT_OPTIONS.length)];
+
+    tripDistanceEl.textContent = `~ ${distance} км`;
+    tripFareEl.textContent = `~ ${fare} грн`;
+    paymentMethodEl.textContent = paymentMethod;
+}
+
+function setupActiveRide() {
     rideState = 'driving_to_client';
     updateRideScreenUI();
 }
@@ -127,17 +145,32 @@ function handleRideAction() {
             break;
     }
     updateRideScreenUI();
-
 }
 
-    function updateRideScreenUI() {
-        rideActionBtn.classList.remove('start-ride', 'end-ride');
-        switch (rideState) {
-            case 'driving_to_client': rideStatusHeader.textContent = 'Поїздка до пасажира'; rideMapPlaceholder.textContent = 'Їдьте до пасажира'; rideAddressDetails.innerHTML = '<span><strong>Адреса:</strong> вул. Весняна, 15</span>'; rideActionBtn.innerHTML = '✅ Я на місці'; break;
-            case 'waiting_for_client': rideStatusHeader.textContent = 'Очікування пасажира'; rideActionBtn.innerHTML = '🚀 Почати поїздку'; rideActionBtn.classList.add('start-ride'); break;
-            case 'in_progress': rideStatusHeader.textContent = 'В дорозі'; rideMapPlaceholder.textContent = 'Їдьте до точки призначення'; rideAddressDetails.innerHTML = '<span><strong>Пункт призначення:</strong> вул. Музейна, 4</span>'; rideActionBtn.innerHTML = '🏁 Завершити поїздку'; rideActionBtn.classList.add('end-ride'); break;
-        }
+function updateRideScreenUI() {
+    rideActionBtn.classList.remove('start-ride', 'end-ride');
+    switch (rideState) {
+        case 'driving_to_client':
+            rideStatusHeader.textContent = 'Поїздка до пасажира';
+            rideMapPlaceholder.textContent = 'Їдьте до пасажира';
+            rideAddressDetails.innerHTML = '<span><strong>Адреса:</strong> вул. Весняна, 15</span>';
+            rideActionBtn.innerHTML = '✅ Я на місці';
+            break;
+        case 'waiting_for_client':
+            rideStatusHeader.textContent = 'Очікування пасажира';
+            rideActionBtn.innerHTML = '🚀 Почати поїздку';
+            rideActionBtn.classList.add('start-ride');
+            break;
+        case 'in_progress':
+            rideStatusHeader.textContent = 'В дорозі';
+            rideMapPlaceholder.textContent = 'Їдьте до точки призначення';
+            rideAddressDetails.innerHTML = '<span><strong>Пункт призначення:</strong> вул. Музейна, 4</span>';
+            rideActionBtn.innerHTML = '🏁 Завершити поїздку';
+            rideActionBtn.classList.add('end-ride');
+            break;
     }
+}
+
 function simulateActivePassengerTrip() {
     const startIcon = document.querySelector('#passenger-orders-screen .start-point-icon');
     const endIcon = document.querySelector('#passenger-orders-screen .end-point-icon');
@@ -147,8 +180,3 @@ function simulateActivePassengerTrip() {
         endIcon.classList.add('pulsing');     // Робимо пульсуючою зеленою
     }
 }
-
-
-    // Ініціалізація
-    showScreen('home-screen');
-});
