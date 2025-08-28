@@ -700,6 +700,71 @@ footer {
     font-size: 14px;
     color: var(--text-secondary);
 }
+
+.order-card.active .driver-details {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-card.active .driver-details i {
+    color: var(--accent);
+    font-size: 16px;
+}
+
+.progress-tracker .red-dot {
+    color: var(--danger) !important;
+}
+
+.progress-tracker .green-pulsing {
+    color: var(--accent-2) !important;
+    animation: blink 1.5s infinite ease-in-out;
+}
+
+.progress-tracker .green-pulsing.arrived {
+    animation: none;
+    transform: scale(1.2);
+}
+
+.progress-tracker .red-dot.arrived {
+    color: var(--muted) !important;
+}
+
+.order-card.active .order-status {
+    margin-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+}
+
+.details-btn {
+    background: rgba(90, 209, 255, 0.1);
+    border: 1px solid rgba(90, 209, 255, 0.3);
+    color: var(--accent);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.details-btn:active {
+    background: rgba(90, 209, 255, 0.2);
+}
+
+.archive-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+    color: var(--muted);
+    font-size: 14px;
+    list-style: none;
+}
+
+.archive-divider:active {
+    transform: none;
+}
 .order-card .order-status {
     font-size: 14px;
     font-weight: var(--font-weight-regular);
@@ -857,8 +922,11 @@ footer {
 }
 /* === НОВІ СТИЛІ ДЛЯ АКТИВНОГО ЗАМОВЛЕННЯ === */
 
-.active-order-header {
+.active-order-number {
     text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: var(--font-weight-light);
     margin-bottom: 15px;
 }
 
@@ -1039,8 +1107,8 @@ footer {
 
 /* РОЗШИРЕННЯ КАРТКИ */
 .order-card.active {
-    padding: 20px;
-    margin-bottom: 15px;
+    padding: 20px !important;
+    flex-direction: column !important;
 }
 /* === СТИЛІ ДЛЯ ОНОВЛЕНОЇ СТОРІНКИ ДЕТАЛЕЙ === */
 
