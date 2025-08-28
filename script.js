@@ -217,6 +217,59 @@ function simulateActivePassengerTrip() {
     }
 }
 
+// === НОВА ЛОГІКА ДЛЯ АКТИВНОГО ЗАМОВЛЕННЯ ===
+
+let driverArrived = false;
+let statusTimer = 323; // секунди
+
+function updateActiveOrderStatus() {
+    const statusText = document.getElementById('status-text');
+    const statusTimerEl = document.getElementById('status-timer');
+    const destinationIcon = document.getElementById('destination-icon');
+    const progressStart = document.querySelector('.progress-start');
+    
+    if (!driverArrived) {
+        // Водій ще їде
+        statusText.textContent = 'В дорозі';
+        statusText.classList.remove('arrived');
+        
+        // Форматуємо таймер
+        const mins = Math.floor(statusTimer / 60);
+        const secs = statusTimer % 60;
+        statusTimerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        
+        statusTimer++;
+    } else {
+        // Водій прибув
+        statusText.textContent = 'Водій прибув';
+        statusText.classList.add('arrived');
+        
+        // Змінюємо іконки
+        destinationIcon.classList.remove('pulsing-green');
+        destinationIcon.classList.add('arrived');
+        progressStart.classList.add('arrived');
+        
+        // Таймер очікування
+        const waitMins = Math.floor(statusTimer / 60);
+        const waitSecs = statusTimer % 60;
+        statusTimerEl.textContent = `Очікує ${waitMins}:${waitSecs.toString().padStart(2, '0')}`;
+        
+        statusTimer++;
+    }
+}
+
+function showOrderDetails() {
+    showScreen('passenger-order-details-screen');
+}
+
+// Імітація прибуття водія через 10 секунд
+setTimeout(() => {
+    driverArrived = true;
+    statusTimer = 0; // Скидаємо таймер для очікування
+}, 10000);
+
+// Оновлюємо статус кожну секунду
+setInterval(updateActiveOrderStatus, 1000);
 // Ініціалізація (запускає головний екран при старті)
 showScreen('home-screen');
     
