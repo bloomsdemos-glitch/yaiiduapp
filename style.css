@@ -3,45 +3,67 @@
 /* ======================================= */
 
 :root {
-    /* Нова світла тема з прозорістю для Glassmorphism */
-    --bg-primary: rgba(255, 255, 255, 0.85);
-    --bg-secondary: rgba(240, 240, 240, 0.7);
-    --bg-secondary-rgb: 240, 240, 240;
-    --bg-accent: rgba(220, 240, 255, 0.9);
+    /* Змінні для Glassmorphism */
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-stroke: rgba(255, 255, 255, 0.2);
+    --blur: 12px;
+    --radius: 16px;
     
-    --text-primary: #222222;
-    --text-secondary: #5c5c5c;
-    --text-accent: #0066cc;
-    
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
-    --shadow-dark: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-light: inset 0 -2px 4px rgba(255, 255, 255, 0.8);
-    
-    --border-color: rgba(0, 0, 0, 0.08);
-    --border-color-light: rgba(255, 255, 255, 0.5);
-    
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
+    /* Текстові кольори для темної теми */
+    --text-primary: #e1e1e1;
+    --text-secondary: #a0a0a0;
+    --text-accent: #0A84FF; /* Яскравий синій Apple */
+
+    /* Тіні */
+    --shadow-soft: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+
+    /* Шрифти */
+    --font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    --font-weight-heavy: 900;
+    --font-weight-bold: 700;
+    --font-weight-regular: 400;
+    --font-weight-light: 300;
+    --font-weight-thin: 100;
+
+    /* Системні кольори */
+    --success-color: #30D158; /* Яскравий зелений Apple */
+    --warning-color: #FF9F0A; /* Яскравий помаранчевий Apple */
+    --danger-color: #FF453A; /* Яскравий червоний Apple */
+}
+
+/* Скидаємо стандартні відступи і налаштовуємо базову поведінку */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-family);
     
-    /* === ОСЬ ТУТ ЗМІНИ === */
-    background-color: #121212; /* Базовий темний колір для старих браузерів */
+    /* НАША НОВА ТЕМНА ТЕМА */
+    background-color: #121212;
     background-image: linear-gradient(160deg, #1e1e1e 0%, #121212 100%);
-    background-attachment: fixed; /* Фон не рухається при скролі */
+    background-attachment: fixed;
     
     min-height: 100vh;
-    color: #e1e1e1; /* Змінюємо базовий колір тексту на світло-сірий для читабельності */
+    color: var(--text-primary);
+    overscroll-behavior: none; 
 }
 
+#app-container {
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
 
-.glass-card{
+.glass-card {
   background: var(--glass);
   backdrop-filter: blur(var(--blur));
   -webkit-backdrop-filter: blur(var(--blur));
@@ -50,41 +72,6 @@ body {
   box-shadow: var(--shadow-soft);
 }
 
-
-    /* Шрифти: спочатку пробуємо системний SF від Apple, якщо його нема - беремо Inter. Heavy для лого, Thin для футера і т.д. */
-    --font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    --font-weight-heavy: 900;
-    --font-weight-bold: 700;
-    --font-weight-regular: 400;
-    --font-weight-light: 300;
-    --font-weight-thin: 100;
-}
-
-/* Скидаємо стандартні відступи і налаштовуємо базову поведінку */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Прибираємо синю підсвітку при кліку на мобілках */
-}
-
-body {
-    background-color: var(--bg-color);
-    /* Додаємо ледь помітний градієнт на фон для кращого ефекту скла */
-    background-image: radial-gradient(circle at 1% 1%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-    font-family: var(--font-family);
-    color: var(--text-color);
-    overscroll-behavior: none; /* Щоб сторінка не "стрибала" */
-}
-
-#app-container {
-    width: 100%;
-    max-width: 480px; /* Обмежуємо ширину для великих екранів, імітуючи телефон */
-    height: 100vh;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden; /* Ховаємо все, що виходить за межі екрану */
-}
 
 /* ======================================= */
 /* == 1. КЕРУВАННЯ ЕКРАНАМИ == */
