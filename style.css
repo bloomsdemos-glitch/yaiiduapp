@@ -1,37 +1,25 @@
 /* ======================================= */
-/* == 0. ЗМІННІ ТА ГЛОБАЛЬНІ НАЛАШТУВАННЯ == */
+/* == 0. ГЛОБАЛЬНІ СТИЛІ ТА ЗМІННІ (2025) == */
 /* ======================================= */
 
 :root {
-    /* Змінні для Glassmorphism */
-    --glass: rgba(255, 255, 255, 0.1);
-    --glass-stroke: rgba(255, 255, 255, 0.2);
-    --blur: 12px;
-    --radius: 16px;
-    
-    /* Текстові кольори для темної теми */
-    --text-primary: #e1e1e1;
-    --text-secondary: #a0a0a0;
-    --text-accent: #0A84FF; /* Яскравий синій Apple */
-
-    /* Тіні */
-    --shadow-soft: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-
     /* Шрифти */
-    --font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-weight-heavy: 900;
     --font-weight-bold: 700;
     --font-weight-regular: 400;
-    --font-weight-light: 300;
-    --font-weight-thin: 100;
+
+    /* Текстові кольори */
+    --text-primary: #ffffff;
+    --text-secondary: #c7c7c7;
 
     /* Системні кольори */
-    --success-color: #30D158; /* Яскравий зелений Apple */
-    --warning-color: #FF9F0A; /* Яскравий помаранчевий Apple */
-    --danger-color: #FF453A; /* Яскравий червоний Apple */
+    --accent-color: #0A84FF;
+    --success-color: #30D158;
+    --warning-color: #FF9F0A;
 }
 
-/* Скидаємо стандартні відступи і налаштовуємо базову поведінку */
+/* Скидання стилів */
 * {
     margin: 0;
     padding: 0;
@@ -40,16 +28,10 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
     font-family: var(--font-family);
-    
-    /* === ОСЬ ТУТ ЗМІНИ ДЛЯ ФОНУ === */
-    background-image: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-    background-size: cover;
-    background-position: center;
+    background-color: #0d0d0d;
+    background-image: linear-gradient(160deg, #181818 0%, #0d0d0d 100%);
     background-attachment: fixed;
-    
     min-height: 100vh;
     color: var(--text-primary);
     overscroll-behavior: none; 
@@ -64,14 +46,61 @@ body {
     overflow: hidden;
 }
 
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
-  border: 1px solid var(--glass-stroke);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
+/* ======================================= */
+/* == НАШ НОВИЙ СТИЛЬ GLASSMORPHISM == */
+/* ======================================= */
+
+/* Задаємо базовий стиль для всіх "скляних" елементів */
+.btn-main,
+.menu-item,
+.driver-card,
+.order-card,
+.form-input,
+.details-card {
+    background: rgba(255, 255, 255, 0.19);
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 4px 2px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden; /* Важливо для роботи відблисків */
 }
+
+/* Додаємо ефект відблиску для всіх цих елементів */
+.btn-main::before, .menu-item::before, .driver-card::before, .order-card::before, .form-input::before, .details-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+}
+
+/* Задаємо радіус для кожного типу елементів окремо */
+.btn-main, .driver-card, .order-card, .details-card {
+    border-radius: 20px;
+}
+.menu-item, .form-input {
+    border-radius: 14px;
+}
+
+/* ======================================= */
+/* == ІНШІ ГЛОБАЛЬНІ СТИЛІ == */
+/* ======================================= */
+
+.logo {
+    font-size: 48px;
+    font-weight: var(--font-weight-heavy);
+    color: var(--text-primary);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px;
+}
+
 
 /* ======================================= */
 /* == 1. КЕРУВАННЯ ЕКРАНАМИ == */
