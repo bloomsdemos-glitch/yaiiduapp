@@ -100,7 +100,7 @@ function updatePassengerOrderCardListeners() {
 
 function startCarAnimation() {
     if (!carProgressIcon) return;
-    carProgressIcon.style.color = DRIVER_CAR_COLOR;
+    // carProgressIcon.style.color = DRIVER_CAR_COLOR; // Ця змінна не визначена, поки що ховаємо
     let progress = 0;
     carProgressIcon.style.left = '0%';
     progressInterval = setInterval(() => {
@@ -115,10 +115,13 @@ function startCarAnimation() {
 }
 
 function calculateAndDisplayTripDetails() {
+    // Перевіряємо, чи існують елементи, перед тим як їх використовувати
+    if (!tripDistanceEl || !tripFareEl || !paymentMethodEl) return;
+
     const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
     const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
     const paymentMethod = PAYMENT_OPTIONS[Math.floor(Math.random() * PAYMENT_OPTIONS.length)];
-
+    
     tripDistanceEl.textContent = `~ ${distance} км`;
     tripFareEl.textContent = `~ ${fare} грн`;
     paymentMethodEl.textContent = paymentMethod;
@@ -127,7 +130,7 @@ function calculateAndDisplayTripDetails() {
 function setupActiveRide() {
     rideState = 'driving_to_client';
     updateRideScreenUI();
-}
+} // <--- ОСЬ ВОНА, ВАЖЛИВА ДУЖКА!
 
 function handleRideAction() {
     switch (rideState) {
@@ -148,6 +151,7 @@ function handleRideAction() {
 }
 
 function updateRideScreenUI() {
+    if (!rideActionBtn) return; // Додаємо перевірку на існування кнопки
     rideActionBtn.classList.remove('start-ride', 'end-ride');
     switch (rideState) {
         case 'driving_to_client':
