@@ -296,21 +296,23 @@ footer {
 .menu-item {
     width: 100%;
     padding: 18px;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border-color);
-    background-color: var(--primary-element-color);
-    color: var(--text-color);
+    border-radius: var(--radius); /* Використовуємо нашу змінну */
+    border: 1px solid var(--glass-stroke); /* І ще одну */
+    background: var(--glass); /* І ще одну */
+    color: var(--text-primary);
     font-size: 17px;
     font-weight: var(--font-weight-regular);
     cursor: pointer;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     transition: transform 0.2s ease, background-color 0.2s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: left;
+    box-shadow: var(--shadow-soft); /* Додаємо тінь, як у кнопок */
 }
+
 
 .menu-item:active {
     transform: scale(0.98);
