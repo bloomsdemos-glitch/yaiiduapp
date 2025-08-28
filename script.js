@@ -126,6 +126,31 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'in_progress': rideStatusHeader.textContent = 'В дорозі'; rideMapPlaceholder.textContent = 'Їдьте до точки призначення'; rideAddressDetails.innerHTML = '<span><strong>Пункт призначення:</strong> вул. Музейна, 4</span>'; rideActionBtn.innerHTML = '🏁 Завершити поїздку'; rideActionBtn.classList.add('end-ride'); break;
         }
     }
+function updateTrackerIcons(state) {
+    // Спочатку знаходимо потрібні нам іконки на екрані поїздок
+    const startIcon = document.querySelector('#passenger-orders-screen .start-point-icon');
+    const endIcon = document.querySelector('#passenger-orders-screen .end-point-icon');
+
+    if (!startIcon || !endIcon) return; // Якщо іконок немає, нічого не робимо
+
+    // Скидаємо всі старі класи, щоб не було конфліктів
+    startIcon.classList.remove('active-state', 'inactive-state');
+    endIcon.classList.remove('pulsing', 'arrived-state');
+
+    // А тепер вмикаємо потрібні класи в залежності від стану поїздки
+    switch (state) {
+        case 'driving_to_client':
+            startIcon.classList.add('active-state'); // Червона
+            endIcon.classList.add('pulsing'); // Пульсуюча зелена
+            break;
+        case 'waiting_for_client':
+            startIcon.classList.add('inactive-state'); // Сіра
+            endIcon.classList.add('arrived-state'); // Просто зелена
+            break;
+        // Можна додати інші стани, якщо буде потрібно
+    }
+}
+
 
     // Ініціалізація
     showScreen('home-screen');
