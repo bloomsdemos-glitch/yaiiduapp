@@ -836,43 +836,58 @@ footer {
     vertical-align: middle;
 }
 
-/* --- Редизайн трекера (пасажир) --- */
+/* --- Редизайн трекера поїздки --- */
 .progress-tracker {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 15px 5px 5px 5px;
+    gap: 12px; /* Трохи збільшимо відступ для "повітря" */
+    padding: 15px 5px;
 }
+
 .progress-tracker .track {
     flex-grow: 1;
     height: 4px;
-    background: linear-gradient(90deg, #555 50%, #333 50%), linear-gradient(90deg, #555 50%, #333 50%);
-    background-size: 8px 3px;
-    background-repeat: repeat-x;
-    background-position: 0 0;
+    background-color: rgba(255, 255, 255, 0.15); /* Проста, світла лінія-трек */
     border-radius: 2px;
     position: relative;
-    /* overflow: hidden; - ВИДАЛЕНО! Це "їло" машинку */
-}
-
-@keyframes moveTrack {
-    from { background-position: 0 0; }
-    to { background-position: -8px 0; }
 }
 
 #car-progress-icon {
-    font-size: 18px;
+    font-size: 20px; /* Можна зробити машинку трохи більшою */
+    color: var(--text-primary);
     position: absolute;
-    top: -6px;
+    top: 50%; /* Чітко центруємо по вертикалі */
     transform: translateY(-50%);
     left: 0%;
     transition: left 1.5s linear;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Додамо тінь самій машинці */
 }
 
 .progress-tracker .start-point-icon, 
 .progress-tracker .end-point-icon {
-    font-size: 16px;
-    color: var(--text-color-secondary);
+    font-size: 14px; /* Робимо іконки початку/кінця меншими, як ти і хотів */
+    color: var(--text-secondary);
+}
+
+/* Додаємо анімацію пульсації для іконки призначення */
+.progress-tracker .end-point-icon.pulsing {
+    color: var(--success-color); /* Робимо її зеленою */
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(48, 209, 88, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 15px rgba(48, 209, 88, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(48, 209, 88, 0.7);
+    }
 }
 
 
