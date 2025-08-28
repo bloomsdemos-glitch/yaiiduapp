@@ -831,3 +831,27 @@ footer {
     color: var(--success-color); /* Робить іконку зеленою */
     animation: none; /* Вимикає пульсацію */
 }
+/* === 15. ФІНАЛЬНІ ПРАВКИ ДЛЯ ТРЕКЕРА === */
+
+/* -- Робимо іконки меншими і ближчими до треку -- */
+.progress-tracker .start-point-icon, 
+.progress-tracker .end-point-icon {
+    font-size: 16px; /* Зменшуємо розмір */
+    margin: 0 -5px; /* "Притягуємо" іконки ближче до лінії */
+}
+
+/* -- Стилі для нового блоку зі статусом -- */
+.trip-status-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 8px 5px 0 5px; /* Відступи зверху */
+}
+
+.trip-status-details .driver-details {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Простір між іконкою і текстом */
+}
