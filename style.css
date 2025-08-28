@@ -471,25 +471,27 @@ footer {
 .form-input {
     width: 100%;
     padding: 14px;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border-color);
-    background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--text-color);
+    border-radius: 12px; /* Трохи менший радіус для полів */
+    border: 1px solid var(--glass-stroke); /* Наш стандартний контур */
+    background: var(--glass); /* Наш стандартний фон */
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    color: var(--text-primary); /* Світлий текст */
     font-size: 16px;
     font-family: var(--font-family);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Плавний перехід для фокусу */
 }
 
 .form-input::placeholder {
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 
 .form-input:focus {
     outline: none;
-    border: 1px solid var(--accent-color);
-    box-shadow: 0 0 10px rgba(10, 132, 255, 0.3);
+    border-color: var(--text-accent); /* Робимо контур яскравішим при фокусі */
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.3); /* Трохи посилимо світіння */
 }
+
 
 .button-group-horizontal {
     display: flex;
