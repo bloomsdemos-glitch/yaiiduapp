@@ -122,30 +122,51 @@
     <main>
         <ul class="order-list passenger">
             
-            <li class="order-card active">
-                <div class="order-info">
-                    <div class="route">
-                        <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31</span>
-                        <span><i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал</span>
-                    </div>
-                    <div class="progress-tracker">
-                        <i class="fa-solid fa-circle start-point-icon"></i>
-                        <div class="track">
-                            <i id="car-progress-icon" class="fa-solid fa-car-side"></i>
-                        </div>
-                        <i class="fa-solid fa-location-dot end-point-icon"></i>
-                    </div>
-                    <div class="trip-status-details">
-                        <span id="arrival-time-status">Прибуде приблизно через 5 хв.</span>
-                        <div class="driver-details">
-                            <i class="fa-solid fa-user-tie"></i> Водій: Андрій
-                        </div>
-                    </div>
-                </div>
-                <div class="order-status">
-                    <i class="fa-solid fa-spinner fa-spin"></i> В дорозі
-                </div>
-            </li>
+           <li class="order-card active">
+    <div class="active-order-header">
+        <span class="order-number">Активне замовлення #A7X291</span>
+    </div>
+    
+    <div class="route-addresses">
+        <div class="address-line">
+            <i class="fa-solid fa-circle start-location"></i>
+            <span>вул. Зоряна, 31</span>
+        </div>
+        <div class="address-line">
+            <i class="fa-solid fa-location-dot end-location"></i>
+            <span>Залізничний вокзал</span>
+        </div>
+    </div>
+    
+    <div class="driver-info-line">
+        <i class="fa-solid fa-steering-wheel driver-icon"></i>
+        <span>Водій: Андрій, Skoda Octavia сірий</span>
+    </div>
+    
+    <div class="progress-tracker-new">
+        <i class="fa-solid fa-circle progress-start red-dot"></i>
+        <div class="progress-track">
+            <i id="car-progress-icon" class="fa-solid fa-car-side"></i>
+        </div>
+        <i class="fa-solid fa-location-dot progress-end pulsing-green" id="destination-icon"></i>
+    </div>
+    
+    <div class="status-and-details">
+        <div class="trip-status">
+            <span id="status-text">В дорозі</span>
+            <span id="status-timer">5:23</span>
+        </div>
+        <button class="details-btn" onclick="showOrderDetails()">
+            <i class="fa-solid fa-info-circle"></i>
+        </button>
+    </div>
+</li>
+
+<!-- Розділювач архіву -->
+<li class="archive-separator">
+    <i class="fa-solid fa-archive"></i>
+    <span>Архів поїздок</span>
+</li>
 
             <li class="order-card archived">
                 <div class="order-info">
@@ -188,9 +209,16 @@
     <main class="main-content-wrapper">
         <div class="top-content">
             <div class="map-placeholder"><p>Тут буде карта з трекером водія</p></div>
+            
+            <!-- ETA блок -->
+            <div class="eta-block glass-card">
+                <i class="fa-solid fa-clock eta-icon"></i>
+                <span>Прибуде приблизно через 4 хвилини. Очікуйте.</span>
+            </div>
+            
             <div class="details-card">
                 <div class="driver-card-full">
-                    <div class="avatar-convex"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="avatar-convex"><i class="fa-solid fa-steering-wheel"></i></div>
                     <div class="driver-info">
                         <h4>Андрій</h4>
                         <span>Skoda Octavia, сірий</span>
@@ -213,9 +241,21 @@
                 </div>
             </div>
         </div>
-        <div class="action-buttons">
-            <button class="btn-secondary">Поскаржитись</button>
-            <button id="passenger-cancel-ride-btn" class="btn-secondary">Скасувати поїздку</button>
+        
+        <!-- Кнопки дій -->
+        <div class="passenger-actions">
+            <button class="driver-call-btn glass-card" onclick="callDriver()">
+                <i class="fa-solid fa-phone"></i>
+            </button>
+            
+            <button class="im-waiting-btn glass-card" onclick="sendWaitingNotification()">
+                <i class="fa-solid fa-hand-paper"></i>
+                <span>Я вже чекаю</span>
+            </button>
+            
+            <div class="waiting-note">
+                <small>Натискайте цю кнопку лише у крайніх випадках — наприклад, коли водій запізнюється більше, ніж на 5 хвилин.</small>
+            </div>
         </div>
     </main>
 </div>
