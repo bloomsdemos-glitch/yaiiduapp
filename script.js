@@ -305,6 +305,45 @@ function updateETA() {
     }
 }
 
+
+// Додайте в кінець script.js
+function showOrderDetails() {
+    showScreen('passenger-order-details-screen');
+}
+
+// Додайте логіку таймера
+let statusTimer = 323;
+let driverArrived = false;
+
+function updateTimer() {
+    const timerEl = document.getElementById('status-timer');
+    const statusEl = document.getElementById('arrival-time-status');
+    
+    if (!timerEl || !statusEl) return;
+    
+    if (!driverArrived) {
+        const mins = Math.floor(statusTimer / 60);
+        const secs = statusTimer % 60;
+        timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        statusTimer++;
+    } else {
+        statusEl.innerHTML = `Водій прибув <span id="status-timer">Очікує ${Math.floor(statusTimer/60)}:${(statusTimer%60).toString().padStart(2, '0')}</span>`;
+        document.querySelector('.green-pulsing').classList.add('arrived');
+        document.querySelector('.red-dot').classList.add('arrived');
+        statusTimer++;
+    }
+}
+
+// Додайте до обробника кнопки "Мої поїздки"
+const originalHandler = showMyOrdersBtn.onclick;
+showMyOrdersBtn.onclick = function() {
+    showScreen('passenger-orders-screen');
+    startCarAnimation();
+    updatePassengerOrderCardListeners();
+    
+    setInterval(updateTimer, 1000);
+    setTimeout(() => { driverArrived = true; statusTimer = 0; }, 15000);
+};
 // Викликаємо оновлення ETA кожні 30 секунд
 setInterval(updateETA, 30000);
     
