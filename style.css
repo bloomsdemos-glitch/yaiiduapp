@@ -349,27 +349,29 @@ footer {
     gap: 12px;
 }
 
-.driver-card {
+.driver-card,
+.order-card {
     display: flex;
-    align-items: center;
     gap: 15px;
-    padding: 12px;
-    border-radius: 16px;
-    border: 1px solid var(--glass-border-color);
-    background-color: var(--primary-element-color);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    padding: 15px;
+    align-items: center;
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-stroke);
+    background: var(--glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    box-shadow: var(--shadow-soft);
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.driver-card.online {
-    cursor: pointer;
+/* Окремо додаємо :active для клікабельних карток */
+.driver-card.online:active,
+.order-card:active {
+    transform: scale(0.98);
+    background-color: rgba(255, 255, 255, 0.15); /* Робимо трохи світлішим при натисканні */
 }
 
-.driver-card.online:active {
-    transform: scale(0.98);
-    background-color: rgba(60, 60, 62, 0.8);
-}
+
 
 .driver-card .avatar-convex {
     width: 45px;
@@ -404,11 +406,6 @@ footer {
     color: #e88f35; /* Помаранчевий для статусу "зайнятий" */
 }
 
-/* Статуси водіїв */
-.driver-card.busy {
-    opacity: 0.6; /* Робимо зайнятих водіїв напівпрозорими */
-    pointer-events: none; /* Щоб на них не можна було клікнути */
-}
 
 .status-dot {
     width: 10px;
@@ -568,31 +565,6 @@ footer {
     gap: 12px;
 }
 
-.order-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    border-radius: 16px;
-    border: 1px solid var(--glass-border-color);
-    background-color: var(--primary-element-color);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.order-card:active {
-    transform: scale(0.98);
-    background-color: rgba(60, 60, 62, 0.8);
-}
-
-/* Підсвічуємо нові замовлення */
-.order-card.new {
-    border-color: rgba(10, 132, 255, 0.5);
-    box-shadow: 0 0 15px rgba(10, 132, 255, 0.15);
-}
 
 .order-info .route {
     display: flex;
