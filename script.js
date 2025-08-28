@@ -184,3 +184,8 @@ function simulateActivePassengerTrip() {
         endIcon.classList.add('pulsing');     // Робимо пульсуючою зеленою
     }
 }
+
+// Ініціалізація (запускає головний екран при старті)
+showScreen('home-screen');
+    
+}); // <-- ОСЬ ЦІЄЇ ЧАСТИНИ НЕ ВИСТАЧАЛО
