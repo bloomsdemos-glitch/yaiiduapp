@@ -14,10 +14,11 @@
     --accent-color: #0A84FF;
     --success-color: #30D158;
     --warning-color: #FF9F0A;
+    --danger-color: #FF3B30;
 
     /* -- Стилі для "Скла" (Glassmorphism) -- */
-    --glass-bg: rgba(255, 255, 255, 0.12); /* Фон елементів (зробили яскравішим) */
-    --glass-stroke: rgba(255, 255, 255, 0.25); /* Рамка елементів (зробили чіткішою) */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-stroke: rgba(255, 255, 255, 0.25);
     --glass-blur: 17px;
     --glass-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.1),
@@ -26,7 +27,7 @@
         inset 0 0 4px 2px rgba(255, 255, 255, 0.2);
 }
 
-/* === ОСНОВИ: Тіло сторінки, Скидання стилів === */
+/* === 1. БАЗА: Загальні стилі, Тіло сторінки === */
 * {
     margin: 0;
     padding: 0;
@@ -53,9 +54,63 @@ body {
     overflow: hidden;
 }
 
-/* === 1. ГОЛОВНІ КОМПОНЕНТИ: Скло, Логотип, Меню === */
+/* === 2. ЕКРАНИ: Логіка перемикання === */
+.screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
-/* -- Базовий стиль "Скла" для всіх елементів -- */
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+/* === 3. ЛЕЯУТ: Шапка, Футер, Основний контент === */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-center {
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 300; /* Використовуємо числове значення */
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* === 4. КОМПОНЕНТИ: Універсальний стиль "Скла" === */
+
+/* -- Базовий стиль "Скла" для всіх основних елементів -- */
 .btn-main,
 .menu-item,
 .driver-card,
@@ -69,6 +124,7 @@ body {
     box-shadow: var(--glass-shadow);
     position: relative;
     overflow: hidden;
+    /* Усі інші властивості (padding, display, etc) задаються нижче, для кожного компонента окремо */
 }
 
 /* -- Ефект відблиску для всіх "скляних" елементів -- */
@@ -90,7 +146,8 @@ body {
     border-radius: 14px;
 }
 
-/* -- Інші глобальні елементи -- */
+/* === 5. ЕЛЕМЕНТИ: Кнопки, Лого, Меню === */
+
 .logo {
     font-size: 48px;
     font-weight: var(--font-weight-heavy);
@@ -102,134 +159,32 @@ body {
 .main-menu {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Простір між пунктами меню */
-}
-
-
-
-/* ======================================= */
-/* == 1. КЕРУВАННЯ ЕКРАНАМИ == */
-/* ======================================= */
-
-.screen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    /* НОВІ СТИЛІ ДЛЯ GLASSMORPHISM: */
-    background: var(--bg-primary); /* Напівпрозорий білий фон */
-    backdrop-filter: blur(12px); /* Ефект розмиття для "скла" */
-    border-radius: 20px; /* Закруглені кути */
-    box-shadow: var(--shadow); /* М'яка тінь для об'єму */
-    border: 1px solid var(--border-color-light); /* Дуже легка світла обводка */
-}
-
-/* Ховаємо неактивні екрани */
-.screen.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.95);
-}
-
-/* Показуємо активний екран */
-.screen.active {
-    opacity: 1;
-    pointer-events: all;
-    transform: scale(1);
-}
-
-/* Ховаємо неактивні екрани */
-.screen.hidden {
-    opacity: 0;
-    pointer-events: none; /* Щоб не можна було клікнути на невидимі елементи */
-    transform: scale(0.95);
-}
-
-/* Показуємо активний екран */
-.screen.active {
-    opacity: 1;
-    pointer-events: all;
-    transform: scale(1);
-}
-
-/* ======================================= */
-/* == 2. ОСНОВНІ КОМПОНЕНТИ ТА ЛЕЯУТ == */
-/* ======================================= */
-
-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-}
-
-main {
-    flex-grow: 1; /* Основний контент займає весь доступний простір */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Центрує контент по вертикалі і горизонталі */
-.content-center {
-    justify-content: center;
-    align-items: center;
-}
-
-footer {
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    font-weight: var(--font-weight-thin);
-    color: var(--text-color-secondary);
-    font-size: 14px;
-}
-
-/* ======================================= */
-/* == 3. СТИЛІ ЕЛЕМЕНТІВ (КНОПКИ, ЛОГО І ТД) == */
-/* ======================================= */
-
-.logo {
-    font-size: 48px;
-    font-weight: var(--font-weight-heavy);
-    margin-bottom: 50px;
+    gap: 15px;
 }
 
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Ось він, простір між кнопками */
+    gap: 20px;
     width: 80%;
 }
 
+/* -- Стилі для конкретних кнопок -- */
 .btn-main {
-    padding: 18px 25px; /* Трохи збільшимо, щоб були солідніші */
-    border-radius: var(--radius); /* Використовуємо нашу змінну */
-    border: 1px solid var(--glass-stroke); /* І ще одну */
-    background: var(--glass); /* І ще одну :) */
-    color: var(--text-primary); /* Світлий текст */
+    padding: 18px 25px;
+    color: var(--text-primary);
     font-size: 18px;
-    font-weight: var(--font-weight-bold); /* Зробимо текст трохи жирнішим */
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    box-shadow: var(--shadow-soft); /* Додаємо тінь для об'єму */
 }
 
-
 .btn-main:active {
-    transform: scale(0.97); /* Ефект натискання */
-    background-color: rgba(60, 60, 62, 0.8);
+    transform: scale(0.97);
 }
 
 .btn-telegram-login {
@@ -249,27 +204,51 @@ footer {
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-telegram-login:active {
-    transform: scale(0.97);
-    background-color: #2392c9;
+
+/* === 6. КОНКРЕТНІ КОМПОНЕНТИ: Аватари, Бейджі, Іконки === */
+
+/* -- Стилі для Аватарів -- */
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Скляний стиль береться з універсального селектора в секції 4 */
 }
 
-.btn-back {
-    background: none;
-    border: none;
-    color: var(--text-color-secondary);
-    font-size: 24px;
-    cursor: pointer;
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Додаємо, щоб картинка була круглою */
+    object-fit: cover;
 }
 
-/* Це для пустого місця в хедері, щоб заголовок був по центру */
-.header-placeholder {
-    width: 24px; 
+/* -- Маленькі аватари в списках -- */
+.avatar-convex {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Скляний стиль теж береться з універсального селектора */
+    /* Примітка: назва .avatar-convex застаріла, але поки залишаємо, щоб не ламати HTML */
 }
 
+/* -- Ефект внутрішнього світіння для головного аватара -- */
+.avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 18px rgba(255,255,255,0.06);
+    pointer-events: none;
+}
 
-/* == СТИЛІ ДЛЯ ДЕШБОРДІВ == */
-
+/* -- Інші елементи дашбордів -- */
 .profile-badge {
     display: flex;
     align-items: center;
@@ -281,103 +260,16 @@ footer {
     font-weight: var(--font-weight-bold);
 }
 
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1); /* Єдиний напівпрозорий фон */
-    border: 1.5px solid rgba(255, 255, 255, 0.2); /* Єдина чітка рамка */
-    backdrop-filter: blur(12px); /* Основний ефект розмиття */
-    -webkit-backdrop-filter: blur(12px); /* Підтримка для старих браузерів */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* М'яка тінь для "польоту" над фоном */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Ховаємо все, що виходить за межі кола */
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Картинка завжди заповнює аватар */
-}
-
-
-/* тонкий “glow”-контур, що дружить з glass */
-.avatar::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 18px rgba(255,255,255,0.06);
-  pointer-events: none;
-}
-
-.avatar-convex {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-    border-radius: 50%;
-    
-    /* Застосовуємо наш скляний стиль у мініатюрі */
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px); /* Трохи менший блюр для маленького елемента */
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    /* Не забуваємо центрувати іконку всередині */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-
-.btn-icon {
+.btn-icon, .btn-back {
     background: none;
     border: none;
-    color: var(--text-color-secondary);
-    font-size: 22px;
+    color: var(--text-secondary);
+    font-size: 24px;
     cursor: pointer;
 }
 
-.main-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* І ще простір! */
-}
-
-.menu-item {
-    width: 100%;
-    padding: 18px;
-    border-radius: var(--radius); /* Використовуємо нашу змінну */
-    border: 1px solid var(--glass-stroke); /* І ще одну */
-    background: var(--glass); /* І ще одну */
-    color: var(--text-primary);
-    font-size: 17px;
-    font-weight: var(--font-weight-regular);
-    cursor: pointer;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    box-shadow: var(--shadow-soft); /* Додаємо тінь, як у кнопок */
-}
-
-
-.menu-item:active {
-    transform: scale(0.98);
-    background-color: rgba(60, 60, 62, 0.8);
-}
-
-.menu-item span > i {
-    margin-right: 15px;
-    width: 20px; /* Щоб іконки були вирівняні */
-    color: var(--text-color-secondary);
+.header-placeholder {
+    width: 24px; 
 }
 
 .badge {
@@ -390,13 +282,13 @@ footer {
 }
 
 .badge.online {
-    background-color: var(--online-indicator);
+    background-color: var(--success-color);
 }
-/* ======================================= */
-/* == 4. СТИЛІ ДЛЯ СПИСКУ ВОДІЇВ == */
-/* ======================================= */
 
-.driver-list {
+
+/* === 7. СПИСКИ: Картки Водіїв та Замовлень === */
+
+.driver-list, .order-list {
     list-style: none;
     width: 100%;
     display: flex;
@@ -404,55 +296,52 @@ footer {
     gap: 12px;
 }
 
-.driver-card,
-.order-card {
+/* -- Унікальні властивості для карток (базовий вигляд береться з секції 4) -- */
+.driver-card, .order-card {
     display: flex;
     gap: 15px;
     padding: 15px;
     align-items: center;
-    border-radius: var(--radius);
-    border: 1px solid var(--glass-stroke);
-    background: var(--glass);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* Окремо додаємо :active для клікабельних карток */
+.order-card {
+    justify-content: space-between; /* На відміну від .driver-card */
+}
+
+/* -- Реакція на натискання -- */
 .driver-card.online:active,
 .order-card:active {
     transform: scale(0.98);
-    background-color: rgba(255, 255, 255, 0.15); /* Робимо трохи світлішим при натисканні */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-
-.driver-info {
-    flex-grow: 1; /* Цей блок займає весь вільний простір */
+/* -- Стилі для вмісту карток -- */
+.driver-info, .passenger-info {
+    flex-grow: 1;
 }
 
-.driver-info h4 {
+.driver-info h4, .passenger-info h4 {
     font-size: 17px;
     font-weight: var(--font-weight-bold);
     margin-bottom: 2px;
 }
 
-.driver-info span {
+.driver-info span, .passenger-info span {
     font-size: 14px;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 
-.driver-info span .fa-star {
+.driver-info span .fa-star, .passenger-info .fa-star {
     color: #ffc700;
 }
 
 .driver-info small {
     display: block;
     font-size: 13px;
-    color: #e88f35; /* Помаранчевий для статусу "зайнятий" */
+    color: var(--warning-color);
 }
 
-
+/* -- Індикатори статусу -- */
 .status-dot {
     width: 10px;
     height: 10px;
@@ -460,25 +349,22 @@ footer {
 }
 
 .status-dot.online {
-    background-color: var(--online-indicator);
-    box-shadow: 0 0 8px var(--online-indicator);
-    /* Підключаємо нашу анімацію миготіння */
+    background-color: var(--success-color);
+    box-shadow: 0 0 8px var(--success-color);
     animation: blink 1.5s infinite ease-in-out;
 }
 
 .status-dot.busy {
-    background-color: #e88f35;
+    background-color: var(--warning-color);
 }
 
-/* А ось і сама анімація миготіння. Магія! */
 @keyframes blink {
-    0% { opacity: 1; }
+    0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
-    100% { opacity: 1; }
 }
-/* ======================================= */
-/* == 5. СТИЛІ ДЛЯ ФОРМИ ЗАМОВЛЕННЯ == */
-/* ======================================= */
+
+/* === 8. ФОРМИ: Поля вводу, Сегментовані кнопки === */
+
 .order-form {
     width: 100%;
     display: flex;
@@ -495,25 +381,21 @@ footer {
 .form-group label {
     font-size: 15px;
     font-weight: var(--font-weight-regular);
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 
 .form-group label i {
     margin-right: 8px;
 }
 
+/* -- Унікальні властивості для полів вводу -- */
 .form-input {
     width: 100%;
     padding: 14px;
-    border-radius: 12px; /* Трохи менший радіус для полів */
-    border: 1px solid var(--glass-stroke); /* Наш стандартний контур */
-    background: var(--glass); /* Наш стандартний фон */
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    color: var(--text-primary); /* Світлий текст */
+    color: var(--text-primary);
     font-size: 16px;
     font-family: var(--font-family);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Плавний перехід для фокусу */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input::placeholder {
@@ -522,11 +404,11 @@ footer {
 
 .form-input:focus {
     outline: none;
-    border-color: var(--text-accent); /* Робимо контур яскравішим при фокусі */
-    box-shadow: 0 0 15px rgba(10, 132, 255, 0.3); /* Трохи посилимо світіння */
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
 }
 
-
+/* -- Горизонтальна група кнопок -- */
 .button-group-horizontal {
     display: flex;
     width: 100%;
@@ -535,9 +417,9 @@ footer {
 .btn-segment {
     flex: 1;
     padding: 12px;
-    border: 1px solid var(--glass-border-color);
+    border: 1px solid var(--glass-stroke);
     background-color: transparent;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -546,7 +428,9 @@ footer {
 .btn-segment:first-child {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
+    border-right: none;
 }
+
 .btn-segment:last-child {
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -558,32 +442,36 @@ footer {
     font-weight: var(--font-weight-bold);
 }
 
+
+/* === 9. КНОПКИ ДІЇ: Submit, Secondary === */
+
 .btn-submit {
     width: 100%;
     padding: 16px;
     margin-top: 10px;
     border-radius: 16px;
     border: none;
-    background-color: var(--online-indicator);
+    background-color: var(--success-color); /* Використовуємо змінну */
     color: white;
     font-size: 18px;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease, filter 0.2s ease; /* Змінюємо на filter */
 }
 
 .btn-submit:active {
     transform: scale(0.97);
-    background-color: #2b9e4a;
+    filter: brightness(0.9); /* Трохи затемнюємо кнопку при натисканні */
 }
-/* ======================================= */
-/* == 6. СТИЛІ ДЛЯ ЕКРАНУ ДОВІДКИ == */
-/* ======================================= */
+
+/* === 10. КОНТЕНТ: Довідка, Вміст карток === */
+
+/* -- Стилі для екрану довідки -- */
 .help-content {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    overflow-y: auto; /* Додаємо скрол, якщо контенту буде багато */
+    overflow-y: auto;
 }
 
 .help-content h3 {
@@ -594,26 +482,16 @@ footer {
 
 .help-content p {
     font-size: 16px;
-    line-height: 1.6; /* Робимо текст більш читабельним */
-    color: var(--text-color-secondary);
+    line-height: 1.6;
+    color: var(--text-secondary);
 }
 
 .help-content p strong {
-    color: var(--text-color);
+    color: var(--text-primary);
     font-weight: var(--font-weight-bold);
 }
-/* ======================================= */
-/* == 7. СТИЛІ ДЛЯ СПИСКУ ЗАМОВЛЕНЬ (ВОДІЙ) == */
-/* ======================================= */
-.order-list {
-    list-style: none;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
-
+/* -- Стилі для вмісту картки замовлення -- */
 .order-info .route {
     display: flex;
     flex-direction: column;
@@ -626,7 +504,7 @@ footer {
 }
 
 .order-info .route i {
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     width: 20px;
     text-align: center;
     margin-right: 8px;
@@ -634,7 +512,7 @@ footer {
 
 .passenger-details {
     font-size: 14px;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 .passenger-details .fa-star {
     color: #ffc700;
@@ -644,38 +522,42 @@ footer {
     font-size: 18px;
     font-weight: var(--font-weight-bold);
     color: var(--accent-color);
-    align-self: flex-start;
+    align-self: flex-start; /* Вирівнюємо час по верху картки */
+    text-align: right; /* Вирівнюємо текст по правому краю */
+    min-width: 60px; /* Задаємо мінімальну ширину, щоб не стрибало */
 }
 
 .order-card.new .order-time {
-    color: var(--online-indicator);
+    color: var(--success-color);
 }
-/* ======================================= */
-/* == 8. СТИЛІ ДЛЯ ДЕТАЛЕЙ ЗАМОВЛЕННЯ (ВОДІЙ) == */
-/* ======================================= */
+
+
+/* === 11. КОМПОНЕНТИ: Карта, Деталі замовлення === */
+
+/* -- Плейсхолдер для карти -- */
 .map-placeholder {
     width: 100%;
     height: 200px;
     border-radius: 16px;
-    background-color: #333;
+    background-color: rgba(255, 255, 255, 0.05); /* Робимо фон більш консистентним */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     margin-bottom: 20px;
-    border: 1px dashed var(--glass-border-color);
+    border: 1px dashed rgba(255, 255, 255, 0.2); /* І рамку теж */
 }
 
+/* -- Унікальні властивості для картки деталей -- */
 .details-card {
     padding: 15px;
-    border-radius: 16px;
-    background-color: var(--primary-element-color);
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+/* -- Вміст картки деталей -- */
 .route-details {
     display: flex;
     flex-direction: column;
@@ -689,35 +571,17 @@ footer {
     align-items: center;
     gap: 15px;
     padding-top: 15px;
-    border-top: 1px solid var(--glass-border-color);
+    border-top: 1px solid var(--glass-stroke);
 }
 
-.passenger-info {
-    flex-grow: 1;
-}
-
-.passenger-info h4 {
-    font-size: 17px;
-    font-weight: var(--font-weight-bold);
-}
-
-.passenger-info span {
-    font-size: 14px;
-    color: var(--text-color-secondary);
-}
-.passenger-info .fa-star {
-    color: #ffc700;
-}
-/* ======================================= */
-/* == 9. ДОДАТКОВІ СТИЛІ ДЛЯ ДЕТАЛЕЙ ЗАМОВЛЕННЯ == */
-/* ======================================= */
+/* -- Блок з підсумками поїздки (ціна, відстань) -- */
 .trip-summary {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 15px 0;
-    border-top: 1px solid var(--glass-border-color);
-    border-bottom: 1px solid var(--glass-border-color);
+    border-top: 1px solid var(--glass-stroke);
+    border-bottom: 1px solid var(--glass-stroke);
 }
 
 .summary-item {
@@ -732,89 +596,107 @@ footer {
     font-size: 20px;
     color: var(--accent-color);
 }
-/* ======================================= */
-/* == 10. СТИЛІ ДЛЯ ЕКРАНУ АКТИВНОЇ ПОЇЗДКИ == */
-/* ======================================= */
-.map-placeholder.active-ride {
-    height: 250px; /* Робимо карту трохи більшою на цьому екрані */
-}
 
+/* === 12. КОМПОНЕНТИ: Кнопки дій === */
+
+/* -- Кнопки для екрану активної поїздки -- */
 .action-buttons {
     display: flex;
     gap: 15px;
     width: 100%;
-    margin-top: auto; /* Притискаємо кнопки до низу екрану */
+    margin-top: auto; /* Притискаємо до низу */
     padding-top: 20px;
 }
 
+/* -- Вторинна/небезпечна кнопка (напр. "Скасувати") -- */
 .btn-secondary {
     flex: 1;
     padding: 16px;
     border-radius: 16px;
-    border: 1px solid var(--glass-border-color);
-    background-color: var(--primary-element-color);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    color: #ff453a; /* Червоний колір для небезпечної дії */
+    color: var(--danger-color); /* Червоний текст */
     font-size: 18px;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
+    /* Скляний стиль береться з універсального селектора в секції 4 */
 }
 
 .btn-secondary:active {
     transform: scale(0.97);
-    background-color: rgba(99, 99, 102, 0.5);
+    background-color: rgba(255, 255, 255, 0.2); /* Стає світлішою при натисканні */
 }
 
+/* -- Модифікатори для головної кнопки Submit -- */
 .action-buttons .btn-submit {
     flex: 2; /* Робимо основну кнопку більшою */
 }
-/* ======================================= */
-/* == 11. СТИЛІ ДЛЯ СТАНІВ КНОПОК ПОЇЗДКИ == */
-/* ======================================= */
-.btn-submit.start-ride {
-    background-color: var(--accent-color); /* Синій для початку поїздки */
-}
 
+.btn-submit.start-ride {
+    background-color: var(--accent-color);
+}
 .btn-submit.start-ride:active {
-    background-color: #0060c4;
+    filter: brightness(0.9);
 }
 
 .btn-submit.end-ride {
-    background-color: #ff9f0a; /* Помаранчевий для завершення */
-    color: #000;
+    background-color: var(--warning-color);
+    color: #000; /* Чорний текст для контрасту на помаранчевому */
 }
-
 .btn-submit.end-ride:active {
-    background-color: #e08e09;
+    filter: brightness(0.9);
 }
-/* ======================================= */
-/* == 12+. ФІНАЛЬНІ СТИЛІ ДЛЯ ПОЇЗДОК (ВИПРАВЛЕНО) == */
-/* ======================================= */
 
-/* --- Історія поїздок пасажира --- */
+
+/* === 13. МОДИФІКАТОРИ: Стани карток, Іконки === */
+
+/* -- Стилі для вмісту карток в історії поїздок -- */
 .order-list.passenger .order-card {
     cursor: pointer;
 }
-.order-list.passenger .order-card:active {
-    transform: scale(0.98);
-}
+
 .order-card .driver-details {
     font-size: 14px;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 .order-card .order-status {
     font-size: 14px;
     font-weight: var(--font-weight-regular);
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     text-align: right;
 }
+
+/* -- Архівні та активні картки -- */
 .order-card.archived {
     opacity: 0.7;
 }
 
-/* --- Деталі поїздки пасажира --- */
+.order-card.active, .order-card.new {
+    border: 1px solid var(--accent-color); /* Просто яскрава рамка, без тіні */
+}
+
+.order-card.active .order-status {
+    color: var(--accent-color);
+}
+
+/* -- Іконки маршруту -- */
+.route .start-point-icon {
+    font-size: 10px;
+    color: var(--warning-color);
+    vertical-align: middle;
+}
+.route .end-point-icon {
+    font-size: 14px;
+    color: var(--danger-color);
+    vertical-align: middle;
+}
+
+/* === 14. СПЕЦИФІЧНІ КОМПОНЕНТИ: Трекер, Деталі поїздки === */
+
+.map-placeholder.active-ride {
+    height: 250px;
+}
+
+/* -- Картка з деталями про водія/пасажира -- */
 .driver-card-full {
     display: flex;
     align-items: center;
@@ -825,7 +707,7 @@ footer {
 }
 .driver-card-full .driver-info span {
     font-size: 14px;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 .driver-card-full .driver-rating {
     font-size: 16px;
@@ -833,7 +715,7 @@ footer {
     color: #ffc700;
 }
 
-/* --- Фікс для кнопок, щоб не падали вниз --- */
+/* -- Фікс для притискання кнопок до низу -- */
 .main-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -849,80 +731,45 @@ footer {
     width: 100%;
 }
 
-/* --- Виділення активних замовлень (для обох) --- */
-.order-card.active, .order-card.new {
-    border-color: rgba(10, 132, 255, 0.6);
-    box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
-}
-.order-card.active .order-status {
-    color: var(--accent-color);
-}
-
-/* --- Нові іконки маршруту (для обох) --- */
-.route .start-point-icon {
-    font-size: 10px;
-    color: #ffc700 !important; /* Жовтий */
-    vertical-align: middle;
-}
-.route .end-point-icon {
-    font-size: 14px;
-    color: #ff453a !important; /* Червоний */
-    vertical-align: middle;
-}
-
-/* --- Редизайн трекера поїздки --- */
+/* -- Трекер поїздки з анімацією -- */
 .progress-tracker {
     display: flex;
     align-items: center;
-    gap: 12px; /* Трохи збільшимо відступ для "повітря" */
+    gap: 12px;
     padding: 15px 5px;
 }
 
 .progress-tracker .track {
     flex-grow: 1;
     height: 4px;
-    background-color: rgba(255, 255, 255, 0.15); /* Проста, світла лінія-трек */
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 2px;
     position: relative;
 }
 
 #car-progress-icon {
-    font-size: 20px; /* Можна зробити машинку трохи більшою */
+    font-size: 20px;
     color: var(--text-primary);
     position: absolute;
-    top: 50%; /* Чітко центруємо по вертикалі */
+    top: 50%;
     transform: translateY(-50%);
     left: 0%;
     transition: left 1.5s linear;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Додамо тінь самій машинці */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .progress-tracker .start-point-icon, 
 .progress-tracker .end-point-icon {
-    font-size: 14px; /* Робимо іконки початку/кінця меншими, як ти і хотів */
+    font-size: 14px;
     color: var(--text-secondary);
 }
 
-/* Додаємо анімацію пульсації для іконки призначення */
 .progress-tracker .end-point-icon.pulsing {
-    color: var(--success-color); /* Робимо її зеленою */
+    color: var(--success-color);
     animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 5px rgba(48, 209, 88, 0.7);
-    }
-    50% {
-        transform: scale(1.1);
-        text-shadow: 0 0 15px rgba(48, 209, 88, 0.7);
-    }
-    100% {
-        transform: scale(1);
-        text-shadow: 0 0 5px rgba(48, 209, 88, 0.7);
-    }
+    0%, 100% { transform: scale(1); text-shadow: 0 0 5px rgba(48, 209, 88, 0.7); }
+    50% { transform: scale(1.1); text-shadow: 0 0 15px rgba(48, 209, 88, 0.7); }
 }
-
-
-
