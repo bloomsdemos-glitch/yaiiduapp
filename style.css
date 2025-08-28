@@ -671,8 +671,10 @@ footer {
 }
 
 .order-card.active, .order-card.new {
-    border: 1px solid var(--accent-color); /* Просто яскрава рамка, без тіні */
+    border: 1px solid rgba(255, 255, 255, 0.5) !important; /* Яскравіша біла рамка */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2) !important; /* Ледь помітне біле світіння */
 }
+
 
 .order-card.active .order-status {
     color: var(--accent-color);
