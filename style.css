@@ -817,3 +817,17 @@ footer {
     0%, 100% { transform: scale(1); text-shadow: 0 0 5px rgba(48, 209, 88, 0.7); }
     50% { transform: scale(1.1); text-shadow: 0 0 15px rgba(48, 209, 88, 0.7); }
 }
+/* === 15. ДОДАТКОВІ СТАНИ ДЛЯ ТРЕКЕРА === */
+
+.progress-tracker .start-point-icon.active-state {
+    color: var(--danger-color); /* Робить іконку червоною */
+}
+
+.progress-tracker .start-point-icon.inactive-state {
+    color: var(--text-secondary); /* Робить іконку сірою */
+}
+
+.progress-tracker .end-point-icon.arrived-state {
+    color: var(--success-color); /* Робить іконку зеленою */
+    animation: none; /* Вимикає пульсацію */
+}
