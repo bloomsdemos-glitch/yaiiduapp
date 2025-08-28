@@ -57,12 +57,44 @@ document.addEventListener('DOMContentLoaded', () => {
     passengerTelegramLoginBtn.addEventListener('click', () => showScreen('passenger-dashboard'));
     
     // ЛОГІКА ПАСАЖИРА
-    showMyOrdersBtn.addEventListener('click', () => {
+showMyOrdersBtn.addEventListener('click', () => {
     showScreen('passenger-orders-screen');
-    startCarAnimation();
+
+    // --- НОВА, ПОКРАЩЕНА СИМУЛЯЦІЯ ПОЇЗДКИ ---
+
+    // 1. Знаходимо всі потрібні елементи всередині активної картки
+    const activeCard = document.querySelector('.order-card.active');
+    if (!activeCard) return; // Якщо активної картки немає, нічого не робимо
+
+    const startIcon = activeCard.querySelector('.start-point-icon');
+    const endIcon = activeCard.querySelector('.end-point-icon');
+    const carIcon = activeCard.querySelector('#car-progress-icon');
+    const statusText = activeCard.querySelector('.order-status');
+    const arrivalTime = activeCard.querySelector('#arrival-time-status');
+
+    // 2. Встановлюємо початковий стан "Водій в дорозі"
+    startIcon.style.color = 'var(--danger-color)'; // Червоний
+    endIcon.style.color = 'var(--success-color)';
+    endIcon.classList.add('pulsing');
+    if (carIcon) carIcon.style.left = '10%'; // Починаємо рух машинки
+    if (statusText) statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> В дорозі';
+    if (arrivalTime) arrivalTime.textContent = 'Прибуде приблизно через 5 хв.';
+
+    // 3. Симулюємо прибуття водія через 4 секунди
+    setTimeout(() => {
+        startIcon.style.color = 'var(--text-secondary)'; // Сірий
+        endIcon.classList.remove('pulsing');
+        if (carIcon) carIcon.style.left = '90%'; // Машинка майже приїхала
+        if (statusText) {
+            statusText.innerHTML = '<i class="fa-solid fa-check"></i> Водій прибув';
+            statusText.style.color = 'var(--success-color)';
+        }
+        if (arrivalTime) arrivalTime.textContent = 'Водій очікує';
+    }, 4000); // 4000 мілісекунд = 4 секунди
+
     updatePassengerOrderCardListeners();
-    simulateActivePassengerTrip(); // <--- ОСЬ ЦЯ ВАЖЛИВА ЗМІНА
 });
+
 
     findDriverBtn.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn.addEventListener('click', () => showScreen('quick-order-screen'));
