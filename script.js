@@ -106,18 +106,30 @@ document.addEventListener('DOMContentLoaded', () => {
         tripFareEl.textContent = `~ ${fare} грн`;
         paymentMethodEl.textContent = paymentMethod;
     }
-    function setupActiveRide() {
-        rideState = 'driving_to_client';
-        updateRideScreenUI();
+ function setupActiveRide() {
+    rideState = 'driving_to_client';
+    updateRideScreenUI();
+    updateTrackerIcons(rideState); // <--- ДОДАНО: Оновлюємо іконки трекера
+}
+function handleRideAction() {
+    switch (rideState) {
+        case 'driving_to_client':
+            alert('Пасажиру надіслано сповіщення, що ви на місці!');
+            rideState = 'waiting_for_client';
+            break;
+        case 'waiting_for_client':
+            rideState = 'in_progress';
+            break;
+        case 'in_progress':
+            alert('Поїздку завершено!');
+            rideState = 'idle';
+            showScreen('driver-dashboard');
+            break;
     }
-    function handleRideAction() {
-        switch (rideState) {
-            case 'driving_to_client': alert('Пасажиру надіслано сповіщення, що ви на місці!'); rideState = 'waiting_for_client'; break;
-            case 'waiting_for_client': rideState = 'in_progress'; break;
-            case 'in_progress': alert('Поїздку завершено!'); rideState = 'idle'; showScreen('driver-dashboard'); break;
-        }
-        updateRideScreenUI();
-    }
+    updateRideScreenUI();
+    updateTrackerIcons(rideState); // <--- ДОДАНО: Оновлюємо іконки і тут
+}
+
     function updateRideScreenUI() {
         rideActionBtn.classList.remove('start-ride', 'end-ride');
         switch (rideState) {
