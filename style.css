@@ -279,6 +279,27 @@ footer {
   pointer-events: none;
 }
 
+.avatar-convex {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 50%;
+    
+    /* Застосовуємо наш скляний стиль у мініатюрі */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px); /* Трохи менший блюр для маленького елемента */
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    /* Не забуваємо центрувати іконку всередині */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
 .btn-icon {
     background: none;
     border: none;
@@ -371,15 +392,6 @@ footer {
     background-color: rgba(255, 255, 255, 0.15); /* Робимо трохи світлішим при натисканні */
 }
 
-
-
-.driver-card .avatar-convex {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-    /* Робимо тінь трохи меншою, щоб виглядало акуратніше в списку */
-    box-shadow: 4px 4px 8px #161617, -4px -4px 8px #363638;
-}
 
 .driver-info {
     flex-grow: 1; /* Цей блок займає весь вільний простір */
@@ -642,10 +654,6 @@ footer {
     gap: 15px;
     padding-top: 15px;
     border-top: 1px solid var(--glass-border-color);
-}
-.passenger-card .avatar-convex {
-    width: 45px;
-    height: 45px;
 }
 
 .passenger-info {
