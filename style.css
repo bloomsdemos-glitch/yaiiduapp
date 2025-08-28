@@ -1,25 +1,32 @@
-/* ======================================= */
-/* == 0. ГЛОБАЛЬНІ СТИЛІ ТА ЗМІННІ (2025) == */
-/* ======================================= */
-
+/* === 0. НАЛАШТУВАННЯ: Шрифти, Кольори, Скло === */
 :root {
-    /* Шрифти */
+    /* -- Шрифти -- */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-weight-heavy: 900;
     --font-weight-bold: 700;
     --font-weight-regular: 400;
 
-    /* Текстові кольори */
+    /* -- Текстові кольори -- */
     --text-primary: #ffffff;
     --text-secondary: #c7c7c7;
 
-    /* Системні кольори */
+    /* -- Системні кольори -- */
     --accent-color: #0A84FF;
     --success-color: #30D158;
     --warning-color: #FF9F0A;
+
+    /* -- Стилі для "Скла" (Glassmorphism) -- */
+    --glass-bg: rgba(255, 255, 255, 0.12); /* Фон елементів (зробили яскравішим) */
+    --glass-stroke: rgba(255, 255, 255, 0.25); /* Рамка елементів (зробили чіткішою) */
+    --glass-blur: 17px;
+    --glass-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 4px 2px rgba(255, 255, 255, 0.2);
 }
 
-/* Скидання стилів */
+/* === ОСНОВИ: Тіло сторінки, Скидання стилів === */
 * {
     margin: 0;
     padding: 0;
@@ -46,31 +53,25 @@ body {
     overflow: hidden;
 }
 
-/* ======================================= */
-/* == НАШ НОВИЙ СТИЛЬ GLASSMORPHISM == */
-/* ======================================= */
+/* === 1. ГОЛОВНІ КОМПОНЕНТИ: Скло, Логотип, Меню === */
 
-/* Задаємо базовий стиль для всіх "скляних" елементів */
+/* -- Базовий стиль "Скла" для всіх елементів -- */
 .btn-main,
 .menu-item,
 .driver-card,
 .order-card,
 .form-input,
 .details-card {
-    background: rgba(255, 255, 255, 0.19);
-    backdrop-filter: blur(17px);
-    -webkit-backdrop-filter: blur(17px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 4px 2px rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
+    box-shadow: var(--glass-shadow);
     position: relative;
-    overflow: hidden; /* Важливо для роботи відблисків */
+    overflow: hidden;
 }
 
-/* Додаємо ефект відблиску для всіх цих елементів */
+/* -- Ефект відблиску для всіх "скляних" елементів -- */
 .btn-main::before, .menu-item::before, .driver-card::before, .order-card::before, .form-input::before, .details-card::before {
     content: '';
     position: absolute;
@@ -81,7 +82,7 @@ body {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
 }
 
-/* Задаємо радіус для кожного типу елементів окремо */
+/* -- Радіуси для різних типів елементів -- */
 .btn-main, .driver-card, .order-card, .details-card {
     border-radius: 20px;
 }
@@ -89,10 +90,7 @@ body {
     border-radius: 14px;
 }
 
-/* ======================================= */
-/* == ІНШІ ГЛОБАЛЬНІ СТИЛІ == */
-/* ======================================= */
-
+/* -- Інші глобальні елементи -- */
 .logo {
     font-size: 48px;
     font-weight: var(--font-weight-heavy);
@@ -100,6 +98,13 @@ body {
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     margin-bottom: 40px;
 }
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Простір між пунктами меню */
+}
+
 
 
 /* ======================================= */
