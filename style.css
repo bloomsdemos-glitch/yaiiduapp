@@ -30,10 +30,16 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #d6e4f0 0%, #f8f9fa 100%) fixed;
+    
+    /* === ОСЬ ТУТ ЗМІНИ === */
+    background-color: #121212; /* Базовий темний колір для старих браузерів */
+    background-image: linear-gradient(160deg, #1e1e1e 0%, #121212 100%);
+    background-attachment: fixed; /* Фон не рухається при скролі */
+    
     min-height: 100vh;
-    color: var(--text-primary);
+    color: #e1e1e1; /* Змінюємо базовий колір тексту на світло-сірий для читабельності */
 }
+
 
 .glass-card{
   background: var(--glass);
