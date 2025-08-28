@@ -256,27 +256,23 @@ footer {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    /* Змінюємо колір фону на більш прозорий для glass-ефекту */
-    background-color: rgba(var(--bg-secondary-rgb), 0.7);
-    /* Прибираємо випуклі тіні і замінюємо на дуже легкий контур */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), /* Білий контур */ 
-                0 4px 12px rgba(0, 0, 0, 0.1); /* М'яка тінь для об'єму */
+    background: rgba(255, 255, 255, 0.1); /* Єдиний напівпрозорий фон */
+    border: 1.5px solid rgba(255, 255, 255, 0.2); /* Єдина чітка рамка */
+    backdrop-filter: blur(12px); /* Основний ефект розмиття */
+    -webkit-backdrop-filter: blur(12px); /* Підтримка для старих браузерів */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* М'яка тінь для "польоту" над фоном */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    /* Додаємо блюр для glassmorphism */
-    backdrop-filter: blur(10px);
-    /* Міцніша рамка, але також прозора */
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden; /* Ховаємо все, що виходить за межі кола */
 }
 
-.avatar img{
+.avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.02);
+  object-fit: cover; /* Картинка завжди заповнює аватар */
 }
+
 
 /* тонкий “glow”-контур, що дружить з glass */
 .avatar::after{
