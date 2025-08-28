@@ -174,22 +174,24 @@ footer {
 }
 
 .btn-main {
-    padding: 15px 20px;
-    border-radius: 16px;
-    border: 1px solid var(--glass-border-color);
-    background-color: var(--primary-element-color);
-    color: var(--text-color);
+    padding: 18px 25px; /* Трохи збільшимо, щоб були солідніші */
+    border-radius: var(--radius); /* Використовуємо нашу змінну */
+    border: 1px solid var(--glass-stroke); /* І ще одну */
+    background: var(--glass); /* І ще одну :) */
+    color: var(--text-primary); /* Світлий текст */
     font-size: 18px;
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-bold); /* Зробимо текст трохи жирнішим */
     cursor: pointer;
-    backdrop-filter: blur(15px); /* Ось вона, магія glassmorphism */
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     transition: transform 0.2s ease, background-color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
+    box-shadow: var(--shadow-soft); /* Додаємо тінь для об'єму */
 }
+
 
 .btn-main:active {
     transform: scale(0.97); /* Ефект натискання */
