@@ -47,7 +47,7 @@ body {
     
     /* === ОСЬ ГОЛОВНА МАГІЯ === */
     background-color: #0d0d0d; /* Колір на випадок, якщо картинка не завантажиться */
-    background-image: url('assets/IMG_2490.jpeg'); /* <-- ШЛЯХ ДО ТВОЄЇ КАРТИНКИ */
+    background-image: url('assets/IMG_2493.gif'); /* <-- ШЛЯХ ДО ТВОЄЇ КАРТИНКИ */
     background-size: cover; /* Масштабує картинку, щоб заповнити весь екран */
     background-position: center; /* Центрує картинку */
     background-attachment: fixed; /* Фон не скролиться разом зі сторінкою */
