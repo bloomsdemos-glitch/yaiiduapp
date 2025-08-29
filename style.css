@@ -888,3 +888,91 @@ footer {
     color: var(--muted);
     vertical-align: middle;
 }
+/* === РЕДИЗАЙН КАРТКИ АКТИВНОЇ ПОЇЗДКИ === */
+
+.order-card.active {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-width: 1.5px;
+    min-height: 380px; /* Збільшили висоту */
+}
+.active-order-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.active-order-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 10px 0;
+}
+.progress-dots-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 2px;
+}
+.dots-row {
+    display: flex;
+    gap: 5px;
+}
+.dot {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 0.5s ease-in-out;
+}
+.dot.filled {
+    color: var(--warning-color);
+}
+.progress-start, .progress-end {
+    font-size: 12px; /* Зменшили іконки */
+}
+.progress-line-bar {
+    position: relative;
+    width: 90%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#car-progress-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #fff;
+    transition: left 1s linear;
+}
+.card-divider {
+    width: 100%; height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+}
+.driver-row { display: flex; flex-direction: column; gap: 8px; }
+.driver-info-line { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--text-secondary); }
+.driver-info-line i { color: var(--text-primary); font-size: 14px;}
+.route-info { display: flex; flex-direction: column; gap: 12px; }
+.route-info p { text-align: left; font-size: 15px; font-weight: var(--font-weight-bold); margin-bottom: 0; }
+.address-line { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.address-line .start-point-icon { color: var(--danger-color); }
+.address-line .end-point-icon { color: var(--success-color); }
+.details-link-row { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; cursor: pointer; }
+.archive-divider { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 0; color: var(--muted); font-size: 14px; list-style: none; }
+.order-card.archived { display: flex; justify-content: space-between; align-items: center; padding: 15px; flex-wrap: wrap; }
+.archived .order-info { flex-basis: 100%;}
+.archived .driver-details { margin-top: 10px; }
+.archived .details-btn { font-size: 22px; color: var(--muted); cursor: pointer; background: none; border: none; }
