@@ -118,20 +118,27 @@ showMyOrdersBtn?.addEventListener('click', () => {
     }
 
     function startCarAnimation() {
-        if (!carProgressIcon) return;
-        let progress = 0;
-        carProgressIcon.style.left = '0%';
-        if (carAnimationInterval) clearInterval(carAnimationInterval);
-        carAnimationInterval = setInterval(() => {
-            progress += 10;
-            if (progress > 90) {
-                progress = 90;
-                clearInterval(carAnimationInterval);
-                carAnimationInterval = null;
+    if (!carProgressIcon) return;
+    let progress = 0;
+    carProgressIcon.style.left = '0%';
+    progressInterval = setInterval(() => {
+        progress += 15;
+        if (progress > 75) { 
+            progress = 75; 
+            clearInterval(progressInterval); 
+            progressInterval = null; 
+        }
+        carProgressIcon.style.left = `${progress}%`;
+        
+        // Оновлюємо точки прогресу
+        const dots = document.querySelectorAll('.progress-dot');
+        dots.forEach((dot, index) => {
+            if (index < Math.floor(progress / 25)) {
+                dot.classList.add('filled');
             }
-            carProgressIcon.style.left = `${progress}%`;
-        }, 1500);
-    }
+        });
+    }, 1200);
+}
 
     function calculateAndDisplayTripDetails() {
         if (!tripDistanceEl || !tripFareEl || !paymentMethodEl) return;
