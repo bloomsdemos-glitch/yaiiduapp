@@ -202,116 +202,111 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ======= Симуляція поїздки пасажира =======
-    function simulatePassengerOrderCard() {
-        // 1. Знаходимо всі потрібні елементи всередині активної картки
-        const activeCard = document.querySelector('.order-card.active');
-        if (!activeCard) return;
-        // Прогрес-бар (нова структура)
-        const progressStart = activeCard.querySelector('.progress-start');
-        const progressEnd = activeCard.querySelector('.progress-end');
-        const progressTrack = activeCard.querySelector('.progress-track-dash');
-        const carIcon = activeCard.querySelector('#car-progress-icon');
-        const statusRow = activeCard.querySelector('.status-row .trip-status');
-        // Початковий стан
-        if (progressStart) progressStart.classList.remove('arrived');
+    // ======= Симуляція поїздки пасажира (оновлено для Dots прогрес-бару) =======
+function simulatePassengerOrderCard() {
+    // 1. Знаходимо всі потрібні елементи всередині активної картки
+    const activeCard = document.querySelector('.order-card.active');
+    if (!activeCard) return;
+
+    // Прогрес-бар (нова структура)
+    const dots = [...activeCard.querySelectorAll('.dot')];
+    const carIcon = activeCard.querySelector('#car-progress-icon');
+    const progressStart = activeCard.querySelector('.progress-start');
+    const progressEnd = activeCard.querySelector('.progress-end');
+    const statusRow = activeCard.querySelector('.status-row .trip-status');
+
+    // Скидаємо початковий стан
+    dots.forEach(dot => dot.classList.remove('dot-filled'));
+    if (progressStart) progressStart.classList.remove('arrived');
+    if (progressEnd) {
+        progressEnd.classList.remove('arrived', 'fa-map-pin');
+        progressEnd.classList.add('fa-circle-dot');
+        progressEnd.classList.remove('pulsing-green');
+        progressEnd.classList.add('progress-end');
+        progressEnd.style.color = '#ffc700';
+        progressEnd.style.animation = 'pulse 1.5s infinite';
+    }
+    if (carIcon) carIcon.style.left = '0%';
+    if (statusRow) {
+        statusRow.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Водій прямує до вас';
+        statusRow.classList.remove('success');
+    }
+
+    // Анімація dots + машинки
+    let step = 0;
+    let totalSteps = dots.length;
+    let carPositions = [0, 14, 28, 42, 56, 70, 84, 92]; // у %
+    if (carIcon) carIcon.style.left = `${carPositions[0]}%`;
+
+    // Крок анімації dots/машинки кожну ~900мс
+    let carAnim = setInterval(() => {
+        if (step < totalSteps) {
+            dots[step].classList.add('dot-filled');
+            if (carIcon) carIcon.style.left = `${carPositions[step + 1]}%`;
+        }
+        step++;
+        if (step === totalSteps) {
+            // Прибуття водія
+            setTimeout(() => {
+                if (progressStart) progressStart.classList.add('arrived');
+                if (progressEnd) {
+                    progressEnd.classList.remove('fa-circle-dot');
+                    progressEnd.classList.add('fa-map-pin', 'arrived');
+                    progressEnd.style.color = 'var(--success-color)';
+                    progressEnd.style.animation = 'none';
+                }
+                if (carIcon) carIcon.style.left = `${carPositions[carPositions.length-1]}%`;
+                if (statusRow) {
+                    statusRow.innerHTML = '<i class="fa-solid fa-circle-check"></i> Водій на місці';
+                    statusRow.classList.add('success');
+                }
+            }, 600); // невелика пауза після останньої крапки
+            clearInterval(carAnim);
+        }
+    }, 900);
+}
+
+// === СТАТУС АКТИВНОГО ЗАМОВЛЕННЯ ДЛЯ ПАСАЖИРА (залишити як було, якщо потрібно для таймеру) ===
+function updateActiveOrderStatus() {
+    const statusText = document.getElementById('status-text');
+    const statusTimerEl = document.getElementById('status-timer');
+    const progressStart = document.querySelector('.progress-start');
+    const progressEnd = document.querySelector('.progress-end');
+    if (!statusText || !statusTimerEl) return;
+    if (!driverArrived) {
+        statusText.textContent = 'В дорозі';
+        statusText.classList.remove('arrived');
+        const mins = Math.floor(statusTimer / 60);
+        const secs = statusTimer % 60;
+        statusTimerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        statusTimer++;
+    } else {
+        statusText.textContent = 'Водій прибув';
+        statusText.classList.add('arrived');
         if (progressEnd) {
-            progressEnd.classList.remove('arrived');
-            progressEnd.classList.add('pulsing-yellow');
-            progressEnd.classList.remove('fa-map-pin');
-            progressEnd.classList.add('fa-circle-dot');
+            progressEnd.classList.remove('pulsing-green');
+            progressEnd.classList.add('arrived');
         }
-        if (carIcon) carIcon.style.left = '0%';
-        if (statusRow) {
-            statusRow.innerHTML = '<i class="fa-solid fa-arrows-rotate fa-spin"></i> Водій прямує до вас';
-            statusRow.classList.remove('success');
-        }
-        // Симулюємо рух авто та зміну статусу
-        let progress = 0;
-        let carAnim = setInterval(() => {
-            progress += 17;
-            if (progress > 84) progress = 84;
-            if (carIcon) carIcon.style.left = `${progress}%`;
-            if (progress >= 84) {
-                clearInterval(carAnim);
-            }
-        }, 1200);
-
-        // Прибуття через 7 секунд
-        setTimeout(() => {
-            if (progressStart) progressStart.classList.add('arrived');
-            if (progressEnd) {
-                progressEnd.classList.remove('pulsing-yellow', 'fa-circle-dot');
-                progressEnd.classList.add('arrived', 'fa-map-pin');
-            }
-            if (carIcon) carIcon.style.left = '92%';
-            if (statusRow) {
-                statusRow.innerHTML = '<i class="fa-solid fa-circle-check"></i> Водій на місці';
-                statusRow.classList.add('success');
-            }
-        }, 7000);
-    }
-
-    // === СТАТУС АКТИВНОГО ЗАМОВЛЕННЯ ДЛЯ ПАСАЖИРА ===
-    function updateActiveOrderStatus() {
-        const statusText = document.getElementById('status-text');
-        const statusTimerEl = document.getElementById('status-timer');
-        const progressStart = document.querySelector('.progress-start');
-        const progressEnd = document.querySelector('.progress-end');
-        if (!statusText || !statusTimerEl) return;
-        if (!driverArrived) {
-            statusText.textContent = 'В дорозі';
-            statusText.classList.remove('arrived');
-            const mins = Math.floor(statusTimer / 60);
-            const secs = statusTimer % 60;
-            statusTimerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-            statusTimer++;
-        } else {
-            statusText.textContent = 'Водій прибув';
-            statusText.classList.add('arrived');
-            if (progressEnd) {
-                progressEnd.classList.remove('pulsing-green');
-                progressEnd.classList.add('arrived');
-            }
-            if (progressStart) progressStart.classList.add('arrived');
-            const waitMins = Math.floor(statusTimer / 60);
-            const waitSecs = statusTimer % 60;
-            statusTimerEl.textContent = `Очікує ${waitMins}:${waitSecs.toString().padStart(2, '0')}`;
-            statusTimer++;
-        }
-    }
-
-    function updatePassengerOrderCardProgressBarArrived() {
-        const activeCard = document.querySelector('.order-card.active');
-        if (!activeCard) return;
-        const progressStart = activeCard.querySelector('.progress-start');
-        const progressEnd = activeCard.querySelector('.progress-end');
-        const carIcon = activeCard.querySelector('#car-progress-icon');
-        const statusRow = activeCard.querySelector('.status-row .trip-status');
         if (progressStart) progressStart.classList.add('arrived');
-        if (progressEnd) {
-            progressEnd.classList.remove('pulsing-yellow', 'fa-circle-dot');
-            progressEnd.classList.add('arrived', 'fa-map-pin');
-        }
-        if (carIcon) carIcon.style.left = '92%';
-        if (statusRow) {
-            statusRow.innerHTML = '<i class="fa-solid fa-circle-check"></i> Водій на місці';
-            statusRow.classList.add('success');
-        }
+        const waitMins = Math.floor(statusTimer / 60);
+        const waitSecs = statusTimer % 60;
+        statusTimerEl.textContent = `Очікує ${waitMins}:${waitSecs.toString().padStart(2, '0')}`;
+        statusTimer++;
     }
+}
 
-    // === ETA блок ===
-    function updateETA() {
-        const etaBlock = document.querySelector('.eta-block span');
-        if (!etaBlock) return;
-        if (!driverArrived) {
-            const mins = Math.max(1, 4 - Math.floor(statusTimer / 60));
-            etaBlock.textContent = `Прибуде приблизно через ${mins} ${mins === 1 ? 'хвилину' : 'хвилини'}. Очікуйте.`;
-        } else {
-            etaBlock.textContent = 'Водій на місці. Виходьте!';
-            etaBlock.parentElement.style.background = 'rgba(122, 255, 201, 0.2)';
-        }
+// === ETA блок (залишити як було) ===
+function updateETA() {
+    const etaBlock = document.querySelector('.eta-block span');
+    if (!etaBlock) return;
+    if (!driverArrived) {
+        const mins = Math.max(1, 4 - Math.floor(statusTimer / 60));
+        etaBlock.textContent = `Прибуде приблизно через ${mins} ${mins === 1 ? 'хвилину' : 'хвилини'}. Очікуйте.`;
+    } else {
+        etaBlock.textContent = 'Водій на місці. Виходьте!';
+        etaBlock.parentElement.style.background = 'rgba(122, 255, 201, 0.2)';
     }
+}
 
     // === ДЕТАЛІ ЗАМОВЛЕННЯ ===
     window.callDriver = function() {
