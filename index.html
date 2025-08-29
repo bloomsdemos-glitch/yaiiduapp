@@ -128,117 +128,62 @@
                 <div class="header-placeholder"></div>
             </header>
             <main>
-                <ul class="order-list passenger">
-
-                    <!-- Active order - ОНОВЛЕНИЙ БЛОК -->
-<li class="order-card active">
-    <!-- Верхній номер і дата+час -->
-    <div class="active-order-number">Активне замовлення #A7X291</div>
-    <div class="active-order-meta">29.08.25&nbsp;14:37</div>
-
-    <div class="order-main-content">
-        <!-- ПРОГРЕС-БАР: крапки -->
-        <div class="progress-dots-bar">
-            <i class="fa-solid fa-circle progress-start"></i>
-            <span class="dots-row">
-                <i class="fa-solid fa-dot dot dot-1"></i>
-                <i class="fa-solid fa-dot dot dot-2"></i>
-                <i class="fa-solid fa-dot dot dot-3"></i>
-                <i class="fa-solid fa-dot dot dot-4"></i>
-                <i class="fa-solid fa-dot dot dot-5"></i>
-                <i class="fa-solid fa-dot dot dot-6"></i>
-                <i class="fa-solid fa-dot dot dot-7"></i>
-            </span>
-            <i class="fa-solid fa-circle-dot progress-end"></i>
-        </div>
-        <!-- Тонка лінія з машинкою зверху -->
-        <div class="progress-line-bar">
-            <div class="progress-thin-line"></div>
-            <i class="fa-solid fa-car-side" id="car-progress-icon"></i>
-        </div>
-
-        <!-- Статус -->
-        <div class="status-row">
-            <span class="trip-status">
-                <i class="fa-solid fa-spinner fa-spin"></i> Водій прямує до вас
-            </span>
-            <!-- Якщо водій на місці:
-            <span class="trip-status success">
-                <i class="fa-solid fa-circle-check"></i> Водій на місці
-            </span>
-            -->
-        </div>
-
-        <!-- Водій/авто -->
-        <div class="driver-row">
-            <span>Водій: Андрій</span>
-            <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
-        </div>
-
-        <!-- Ви поїдете (центр, великий жирний) -->
-        <div class="you-go-row">
-            <span>Ви поїдете: <i class="fa-solid fa-arrow-turn-down"></i></span>
-        </div>
-
-        <!-- Маршрут, по центру -->
-        <div class="route-addresses">
-            <div class="address-line">
-                <i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31
-            </div>
-            <div class="address-line">
-                <i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал
-            </div>
-        </div>
-
-        <!-- Детальніше з іконкою внизу ліворуч -->
-        <div class="details-link-row">
-            <span class="details-link-text">Детальніше</span>
-            <i class="fa-solid fa-circle-chevron-right details-link-icon"></i>
-        </div>
-    </div>
-</li>
-
-                    <!-- Archive divider -->
-                    <li class="archive-divider">
-                        <i class="fa-solid fa-archive"></i> Архів поїздок
-                    </li>
-
-                    <!-- Archived orders -->
-                    <li class="order-card archived">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Весняна, 15</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Музейна, 4</span>
-                            </div>
-                            <div class="driver-details">
-                                <i class="fa-solid fa-steering-wheel"></i> Водій: Олена
-                            </div>
+                       <ul class="order-list passenger" id="active-order-container">
+            <li class="order-card active glass-effect">
+                <div class="active-order-header">
+                    <span id="active-order-title">Активне замовлення #XXXXXX</span>
+                    <span id="active-order-time">--:--</span>
+                </div>
+                <div class="active-order-body">
+                    <div class="progress-container">
+                        <div class="progress-dots-bar">
+                            <i class="fa-solid fa-circle progress-start"></i>
+                            <span class="dots-row"></span> <i class="fa-solid fa-location-dot progress-end"></i>
                         </div>
-                        <button class="details-btn show-order-details-btn" aria-label="Деталі">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
-                        </button>
-                        <div class="order-status">
-                            <i class="fa-solid fa-check"></i> 25.08.2025
+                        <div class="progress-line-bar">
+                            <i class="fa-solid fa-car-side" id="car-progress-icon"></i>
                         </div>
-                    </li>
-                    <li class="order-card archived">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> Центр</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Стадіонна, 8</span>
-                            </div>
-                            <div class="driver-details">
-                                <i class="fa-solid fa-steering-wheel"></i> Водій: Ігор
-                            </div>
-                        </div>
-                        <button class="details-btn show-order-details-btn" aria-label="Деталі">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
-                        </button>
-                        <div class="order-status">
-                            <i class="fa-solid fa-check"></i> 24.08.2025
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="status-row">
+                        <span class="trip-status"><i class="fa-solid fa-spinner fa-spin"></i> <span>Водій прямує до вас</span></span>
+                    </div>
+                    <hr class="card-divider">
+                    <div class="driver-row">
+                        <div class="driver-info-line"><span>Водій: Андрій</span></div>
+                        <div class="driver-info-line"><span><i class="fa-solid fa-car-front"></i> Skoda Octavia, сірий</span></div>
+                    </div>
+                    <div class="route-info">
+                        <p>Ви поїдете</p>
+                        <div class="address-line"><i class="fa-solid fa-circle start-point-icon"></i><span>вул. Зоряна, 31</span></div>
+                        <div class="address-line"><i class="fa-solid fa-location-dot end-point-icon"></i><span>Залізничний вокзал</span></div>
+                    </div>
+                    <div class="details-link-row">
+                        <span>Детальніше</span>
+                        <i class="fa-solid fa-circle-chevron-right"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="archive-separator">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Архів поїздок</span>
+        </div>
+
+        <ul class="order-list passenger" id="archived-orders-container">
+            <li class="order-card archived glass-effect">
+                <div class="order-info">
+                    <div class="route">
+                        <span><i class="fa-solid fa-circle"></i> вул. Весняна, 15</span>
+                        <span><i class="fa-solid fa-location-dot"></i> вул. Музейна, 4</span>
+                    </div>
+                    <div class="driver-details"><i class="fa-solid fa-user-tie"></i> Водій: Олена</div>
+                </div>
+                <div class="order-status">25.08.2025</div>
+                <button class="details-btn"><i class="fa-solid fa-circle-chevron-right"></i></button>
+            </li>
+        </ul>
+
             </main>
         </div>
 
