@@ -62,22 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
 
     // ========== ЛОГІКА ПАСАЖИРА ==========
-    showMyOrdersBtn?.addEventListener('click', () => {
-        showScreen('passenger-orders-screen');
-        simulatePassengerOrderCard();
-        if (activeOrderInterval) clearInterval(activeOrderInterval);
-        if (etaInterval) clearInterval(etaInterval);
-        statusTimer = 0;
-        driverArrived = false;
-        activeOrderInterval = setInterval(updateActiveOrderStatus, 1000);
-        etaInterval = setInterval(updateETA, 30000);
-        setTimeout(() => {
-            driverArrived = true;
-            statusTimer = 0;
-            updatePassengerOrderCardProgressBarArrived();
-        }, 10000);
-        updatePassengerOrderCardListeners();
-    });
+showMyOrdersBtn?.addEventListener('click', () => {
+    showScreen('passenger-orders-screen');
+    runActiveTripSimulation(); 
+});
+
 
     findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn?.addEventListener('click', () => showScreen('quick-order-screen'));
@@ -201,6 +190,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
         }
     }
+    
+    function runActiveTripSimulation() {
+    const activeCard = document.querySelector('.order-card.active');
+    if (!activeCard) return;
+
+    const dotsRow = activeCard.querySelector('.dots-row');
+    const carIcon = activeCard.querySelector('#car-progress-icon');
+    const progressStart = activeCard.querySelector('.progress-start');
+    const progressEnd = activeCard.querySelector('.progress-end');
+    const statusTextSpan = activeCard.querySelector('.trip-status span');
+    const statusIcon = activeCard.querySelector('.trip-status i');
+
+    // Зупиняємо старі анімації, якщо вони є
+    if (window.dotInterval) clearInterval(window.dotInterval);
+    if (window.carInterval) clearInterval(window.carInterval);
+
+    // Скидання стану
+    dotsRow.innerHTML = '';
+    const totalDots = 10;
+    for (let i = 0; i < totalDots; i++) {
+        dotsRow.innerHTML += '<i class="fa-solid fa-circle dot"></i>';
+    }
+    const dots = dotsRow.querySelectorAll('.dot');
+    progressStart.style.color = 'var(--danger-color)';
+    progressEnd.style.color = 'var(--muted)';
+    carIcon.style.left = '0%';
+    statusTextSpan.textContent = 'Водій прямує до вас';
+    statusIcon.className = 'fa-solid fa-spinner fa-spin';
+
+    // Запуск анімації
+    let currentDot = 0;
+    window.dotInterval = setInterval(() => {
+        if (currentDot < dots.length) {
+            dots[currentDot].classList.add('filled');
+            currentDot++;
+        }
+    }, 800);
+
+    let carProgress = 0;
+    window.carInterval = setInterval(() => {
+        carProgress += 1;
+        carIcon.style.left = `${carProgress}%`;
+        if (carProgress >= 100) {
+            clearInterval(window.dotInterval);
+            clearInterval(window.carInterval);
+            // Стан "Прибув"
+            progressStart.style.color = 'var(--muted)';
+            progressEnd.style.color = 'var(--success-color)';
+            statusTextSpan.textContent = 'Водій прибув';
+            statusIcon.className = 'fa-solid fa-circle-check';
+            dots.forEach(dot => dot.classList.add('filled'));
+        }
+    }, 90);
+}
+
 
     // ======= Симуляція поїздки пасажира (оновлено для Dots прогрес-бару) =======
 function simulatePassengerOrderCard() {
