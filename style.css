@@ -41,13 +41,18 @@
 
 body {
     font-family: var(--font-family);
-    background-color: #0d0d0d;
-    background-image: linear-gradient(160deg, #181818 0%, #0d0d0d 100%);
-    background-attachment: fixed;
     min-height: 100vh;
     color: var(--text-primary);
     overscroll-behavior: none; 
+    
+    /* === ОСЬ ГОЛОВНА МАГІЯ === */
+    background-color: #0d0d0d; /* Колір на випадок, якщо картинка не завантажиться */
+    background-image: url('assets/IMG_2490.jpeg'); /* <-- ШЛЯХ ДО ТВОЄЇ КАРТИНКИ */
+    background-size: cover; /* Масштабує картинку, щоб заповнити весь екран */
+    background-position: center; /* Центрує картинку */
+    background-attachment: fixed; /* Фон не скролиться разом зі сторінкою */
 }
+
 
 #app-container {
     width: 100%;
