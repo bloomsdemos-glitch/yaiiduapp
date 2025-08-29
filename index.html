@@ -130,46 +130,73 @@
             <main>
                 <ul class="order-list passenger">
 
-                    <!-- Active order (NEW STRUCTURE) -->
-                    <li class="order-card active">
-                        <div class="active-order-number">Активне замовлення #A7X291</div>
-                        <div class="order-main-content">
-                            <div class="progress-tracker-new">
-                                <i class="fa-solid fa-circle progress-start" id="progress-start"></i>
-                                <div class="progress-track-dash">
-                                    <i class="fa-solid fa-car-side" id="car-progress-icon"></i>
-                                </div>
-                                <!-- Якщо ще їде -->
-                                <i class="fa-solid fa-circle-dot progress-end pulsing-yellow" id="progress-end"></i>
-                                <!-- Якщо прибув, замінити на: -->
-                                <!-- <i class="fa-solid fa-map-pin progress-end arrived" id="progress-end"></i> -->
-                            </div>
-                            <div class="status-row">
-                                <!-- Якщо їде -->
-                                <span class="trip-status"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Водій прямує до вас</span>
-                                <!-- Якщо прибув -->
-                                <!-- <span class="trip-status success"><i class="fa-solid fa-circle-check"></i> Водій на місці</span> -->
-                            </div>
-                            <div class="driver-row">
-                                <span>Водій: Андрій</span>
-                                <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
-                            </div>
-                            <div class="you-go-row">
-                                <span>Ви поїдете: <i class="fa-solid fa-arrow-turn-down"></i></span>
-                            </div>
-                            <div class="route-addresses">
-                                <div class="address-line">
-                                    <i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31
-                                </div>
-                                <div class="address-line">
-                                    <i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал
-                                </div>
-                            </div>
-                        </div>
-                        <button class="details-btn show-order-details-btn" aria-label="Деталі">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
-                        </button>
-                    </li>
+                    <!-- Active order - ОНОВЛЕНИЙ БЛОК -->
+<li class="order-card active">
+    <!-- Верхній номер і дата+час -->
+    <div class="active-order-number">Активне замовлення #A7X291</div>
+    <div class="active-order-meta">29.08.25&nbsp;14:37</div>
+
+    <div class="order-main-content">
+        <!-- ПРОГРЕС-БАР: крапки -->
+        <div class="progress-dots-bar">
+            <i class="fa-solid fa-circle progress-start"></i>
+            <span class="dots-row">
+                <i class="fa-solid fa-dot dot dot-1"></i>
+                <i class="fa-solid fa-dot dot dot-2"></i>
+                <i class="fa-solid fa-dot dot dot-3"></i>
+                <i class="fa-solid fa-dot dot dot-4"></i>
+                <i class="fa-solid fa-dot dot dot-5"></i>
+                <i class="fa-solid fa-dot dot dot-6"></i>
+                <i class="fa-solid fa-dot dot dot-7"></i>
+            </span>
+            <i class="fa-solid fa-circle-dot progress-end"></i>
+        </div>
+        <!-- Тонка лінія з машинкою зверху -->
+        <div class="progress-line-bar">
+            <div class="progress-thin-line"></div>
+            <i class="fa-solid fa-car-side" id="car-progress-icon"></i>
+        </div>
+
+        <!-- Статус -->
+        <div class="status-row">
+            <span class="trip-status">
+                <i class="fa-solid fa-spinner fa-spin"></i> Водій прямує до вас
+            </span>
+            <!-- Якщо водій на місці:
+            <span class="trip-status success">
+                <i class="fa-solid fa-circle-check"></i> Водій на місці
+            </span>
+            -->
+        </div>
+
+        <!-- Водій/авто -->
+        <div class="driver-row">
+            <span>Водій: Андрій</span>
+            <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
+        </div>
+
+        <!-- Ви поїдете (центр, великий жирний) -->
+        <div class="you-go-row">
+            <span>Ви поїдете: <i class="fa-solid fa-arrow-turn-down"></i></span>
+        </div>
+
+        <!-- Маршрут, по центру -->
+        <div class="route-addresses">
+            <div class="address-line">
+                <i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31
+            </div>
+            <div class="address-line">
+                <i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал
+            </div>
+        </div>
+
+        <!-- Детальніше з іконкою внизу ліворуч -->
+        <div class="details-link-row">
+            <span class="details-link-text">Детальніше</span>
+            <i class="fa-solid fa-circle-chevron-right details-link-icon"></i>
+        </div>
+    </div>
+</li>
 
                     <!-- Archive divider -->
                     <li class="archive-divider">
