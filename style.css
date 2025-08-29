@@ -976,3 +976,210 @@ footer {
 .archived .order-info { flex-basis: 100%;}
 .archived .driver-details { margin-top: 10px; }
 .archived .details-btn { font-size: 22px; color: var(--muted); cursor: pointer; background: none; border: none; }
+/* ======================================= */
+/* == ВИПРАВЛЕННЯ АКТИВНОЇ КАРТКИ == */
+/* ======================================= */
+
+/* Збільшуємо активну картку */
+.order-card.active {
+    padding: 24px;
+    min-height: 450px;
+}
+
+/* Заголовок активного замовлення */
+.active-order-header {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.order-number {
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    color: var(--fg);
+}
+
+.order-datetime {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* Відступи */
+.spacer-medium {
+    height: 20px;
+}
+
+.spacer-with-divider {
+    height: 20px;
+    position: relative;
+    margin: 20px 0;
+}
+
+.spacer-with-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 1px;
+    background: var(--glass-stroke);
+}
+
+/* Новий прогрес-бар з точками */
+.progress-section {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.progress-dots {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dot-red {
+    font-size: 8px;
+    color: var(--danger);
+}
+
+.dot-green {
+    font-size: 12px;
+    color: var(--accent-2);
+}
+
+.progress-dot {
+    font-size: 6px;
+    color: var(--muted);
+}
+
+.progress-dot.filled {
+    color: var(--accent);
+}
+
+/* Лінія з машинкою */
+.car-track {
+    position: relative;
+    margin: 15px 20px 0 20px;
+}
+
+.track-line {
+    height: 2px;
+    background: var(--muted);
+    border-radius: 1px;
+}
+
+#car-progress-icon {
+    position: absolute;
+    top: -8px;
+    font-size: 16px;
+    color: var(--fg);
+    left: 0%;
+    transition: left 1.5s linear;
+}
+
+/* Статус */
+.status-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.status-section i {
+    font-size: 14px;
+    color: var(--accent);
+}
+
+/* Водій та машина */
+.driver-section {
+    text-align: left;
+}
+
+.driver-name {
+    font-size: 16px;
+    color: var(--fg);
+    margin-bottom: 8px;
+}
+
+.car-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--muted);
+}
+
+.car-info .fa-car {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* Маршрут */
+.route-section {
+    text-align: left;
+}
+
+.route-title {
+    font-size: 16px;
+    color: var(--fg);
+    margin-bottom: 12px;
+}
+
+.route-points {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.route-point {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.route-point .start-point-icon {
+    font-size: 10px;
+    color: var(--danger);
+}
+
+.route-point .end-point-icon {
+    font-size: 12px;
+    color: var(--accent-2);
+}
+
+/* Кнопка "Детальніше" */
+.details-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.details-button i {
+    color: white;
+    font-size: 16px;
+}
+
+/* Архівні картки */
+.order-card.archived .order-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.archived-date {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.archived-chevron {
+    font-size: 14px;
+    color: var(--muted);
+}
