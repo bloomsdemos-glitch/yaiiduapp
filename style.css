@@ -144,7 +144,7 @@ footer {
 }
 
 .btn-main, .driver-card, .order-card, .details-card {
-    border-radius: 20px;
+    border-radius: 25px;
 }
 .menu-item, .form-input {
     border-radius: 14px;
