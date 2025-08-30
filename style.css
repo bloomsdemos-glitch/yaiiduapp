@@ -515,8 +515,8 @@ footer {
     color: #ffc700;
 }
 .order-time {
-    font-size: 18px;
-    font-weight: var(--font-weight-bold);
+    font-size: 14px;
+    font-weight: var(--font-weight-regular);
     color: var(--accent-color);
     align-self: flex-start;
     text-align: right;
