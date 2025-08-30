@@ -23,7 +23,7 @@
 
     /* -- Стилі для "Скла" (Glassmorphism) -- */
     --glass-bg: rgba(0, 0, 0, 0.2); /* А це напівпрозорий ЧОРНИЙ */
-    --glass-stroke: rgba(255, 255, 255, 0.25);
+    --glass-stroke: rgba(255, 255, 255, 0.15);
     --glass-blur: 13px;
     --glass-shadow: 
         0 4px 15px rgba(0, 0, 0, 0.2),
