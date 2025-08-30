@@ -306,11 +306,20 @@ footer {
 .badge {
     background-color: var(--accent-color);
     color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
+    min-width: 26px; /* Мінімальна ширина, щоб вмістити цифру */
+    height: 26px; /* Фіксована висота */
+    border-radius: 50%; /* Ця магія робить його ідеально круглим */
     font-size: 14px;
     font-weight: var(--font-weight-bold);
+    
+    /* Додаємо flex, щоб ідеально центрувати цифру всередині */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1; /* Прибираємо зайву висоту рядка для кращого центрування */
+    padding: 0 4px; /* Невеликі відступи по боках, якщо цифра буде двозначною */
 }
+
 .badge.online {
     background-color: var(--success-color);
 }
