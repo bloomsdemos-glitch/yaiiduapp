@@ -1211,3 +1211,128 @@ footer {
     text-align: center; /* Центруємо саму іконку в її "коробці" */
     margin-right: 10px; /* Відступ від тексту */
 }
+/* === РЕДИЗАЙН КАРТКИ "МОЇ ПОЇЗДКИ" === */
+.order-card.active {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Збільшений простір між елементами */
+    border-radius: 28px;
+    border-width: 1.5px;
+}
+.active-order-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    width: 100%;
+    font-weight: 500;
+}
+#active-order-title {
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: var(--font-weight-bold);
+}
+#active-order-time {
+    font-size: 14px;
+    color: var(--muted);
+}
+.status-row {
+    text-align: center;
+    font-size: 15px;
+}
+.trip-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 0;
+}
+.progress-dots-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%; /* Трохи коротший прогрес-бар */
+}
+.dots-row {
+    display: flex;
+    gap: 5px;
+}
+.dot {
+    font-size: 7px;
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 0.5s ease-in-out;
+}
+.dot.filled {
+    color: var(--warning-color);
+}
+.progress-start, .progress-end {
+    font-size: 12px; /* Менші іконки */
+    color: var(--muted);
+    transition: color 0.5s ease;
+}
+.driver-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start; /* Вирівнювання по лівому краю */
+}
+.driver-info-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+.driver-info-line i {
+    color: var(--muted);
+    width: 15px;
+    text-align: center;
+}
+.route-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start; /* Вирівнювання по лівому краю */
+}
+.address-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+.details-btn {
+    position: absolute;
+    bottom: 18px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+.archive-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+.order-card.archived {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+.archived .order-info { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
+.archived .driver-details { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.archived .order-status { font-size: 14px; color: var(--muted); }
+.archived .details-btn { position: static; font-size: 22px; color: var(--muted); }
