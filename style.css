@@ -1197,3 +1197,17 @@ footer {
     font-size: 14px;
     color: var(--muted);
 }
+/* === ВИРІВНЮВАННЯ ІКОНОК В КАРТКАХ ЗАМОВЛЕНЬ === */
+
+.order-card .route span,
+.order-card .passenger-details {
+    display: flex;
+    align-items: center; /* Це вертикально центрує іконку і текст в одному рядку */
+}
+
+.order-card .route i,
+.order-card .passenger-details i {
+    width: 20px; /* Задаємо всім іконкам однакову ширину, щоб вони не "стрибали" */
+    text-align: center; /* Центруємо саму іконку в її "коробці" */
+    margin-right: 10px; /* Відступ від тексту */
+}
