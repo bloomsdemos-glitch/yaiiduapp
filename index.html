@@ -423,38 +423,49 @@
             </main>
         </div>
 
-        <!-- Quick order screen -->
-        <div id="quick-order-screen" class="screen hidden">
-            <header>
-                <button class="btn-back" data-target="passenger-dashboard"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>Створення замовлення</h2>
-                <div class="header-placeholder"></div>
-            </header>
-            <main>
-                <form id="quick-order-form" class="order-form">
-                    <div class="form-group">
-                        <label for="from-address"><i class="fa-solid fa-location-dot"></i> Звідки</label>
-                        <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="to-address"><i class="fa-solid fa-flag-checkered"></i> Куди</label>
-                        <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-clock"></i> Коли</label>
-                        <div class="button-group-horizontal">
-                            <button type="button" class="btn-segment active">Зараз</button>
-                            <button type="button" class="btn-segment">На інший час</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="comment"><i class="fa-solid fa-comment-dots"></i> Коментар (необов'язково)</label>
-                        <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною'"></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Відправити замовлення</button>
-                </form>
-            </main>
-        </div>
+<div id="quick-order-screen" class="screen hidden">
+    <header>
+        <button class="btn-back" data-target="passenger-dashboard"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Створення замовлення</h2>
+        <div class="header-placeholder"></div>
+    </header>
+    <main>
+        <form id="quick-order-form" class="order-form">
+            <div class="form-group">
+                <label for="from-address"><i class="fa-solid fa-location-dot"></i> Звідки</label>
+                <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+            </div>
+            <div class="form-group">
+                <label for="to-address"><i class="fa-solid fa-flag-checkered"></i> Куди</label>
+                <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-clock"></i> Коли</label>
+                <div class="button-group-horizontal">
+                    <button type="button" class="btn-segment active" data-time-option="now">
+                        Зараз <span id="current-time-display">[00:00]</span>
+                        <i id="now-info-icon" class="fa-solid fa-circle-info"></i>
+                    </button>
+                    <button type="button" class="btn-segment" data-time-option="later">На інший час</button>
+                </div>
+            </div>
+
+            <div id="later-options-container" class="hidden">
+                <div class="button-group-horizontal">
+                    <button type="button" class="btn-segment-secondary" data-schedule="today">Сьогодні</button>
+                    <button type="button" class="btn-segment-secondary" data-schedule="tomorrow">Завтра</button>
+                    <button type="button" class="btn-segment-secondary" data-schedule="date">Вибрати дату</button>
+                </div>
+                </div>
+            <div class="form-group">
+                <label for="comment"><i class="fa-solid fa-comment-dots"></i> Коментар (необов'язково)</label>
+                <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною'"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Відправити замовлення</button>
+        </form>
+    </main>
+</div>
 
         <!-- Help screen -->
         <div id="help-screen" class="screen hidden">
