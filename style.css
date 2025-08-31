@@ -645,7 +645,7 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Трохи зменшимо загальний відступ */
-    padding: 15px 20px 20px 20px; /* Зверху тепер менше відступ */
+    padding: 10px 20px 20px 20px; /* Зверху тепер менше відступ */
     border-radius: 28px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-stroke);
