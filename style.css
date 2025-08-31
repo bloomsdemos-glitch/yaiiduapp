@@ -636,703 +636,198 @@ footer {
     font-size: 14px;
     color: var(--text-secondary);
 }
-/* === АКТИВНА КАРТКА ЗАМОВЛЕННЯ (оновлена структура) === */
+/* ======================================= */
+/* == НОВИЙ СТИЛЬ СТОРІНКИ "МОЇ ПОЇЗДКИ" == */
+/* ======================================= */
 
-/* --- 1. Велика картка, більше простору --- */
+/* --- Загальний контейнер картки --- */
 .order-card.active {
-  position: relative;
-  flex-direction: column !important;
-  align-items: flex-start;
-  padding: 38px 22px 32px 22px !important; /* значно більше простору */
-  min-height: 335px;
-  gap: 0;
-  background: var(--glass-bg);
-  border: 1.5px solid rgba(255,255,255,0.6);
-  box-shadow: 0 0 20px 4px rgba(0,0,0,0.09);
-}
-
-/* --- 2. Верхній блок: номер, дата, час --- */
-.active-order-number {
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 4px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-.active-order-meta {
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-  color: var(--muted);
-  font-weight: 400;
-  margin-bottom: 18px;
-  letter-spacing: 0.03em;
-}
-
-/* --- 3. Відступи між елементами --- */
-.order-main-content > * {
-  margin-bottom: 20px;
-}
-.order-main-content > *:last-child {
-  margin-bottom: 0;
-}
-
-/* --- 4. Прогрес-бар з крапками та лінією --- */
-.progress-dots-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  margin-bottom: 7px;
-}
-.dots-row {
-  display: flex;
-  gap: 4px;
-  margin: 0 6px;
-}
-.dot {
-  color: #444;
-  font-size: 17px;
-  transition: color 0.4s;
-}
-.dot-filled {
-  color: #ffc700;
-}
-.progress-start {
-  color: var(--danger-color);
-  font-size: 14px;
-}
-.progress-end {
-  color: #ffc700;
-  font-size: 17px;
-  animation: pulse 1.5s infinite;
-}
-.progress-end.arrived {
-  color: var(--success-color);
-  animation: none;
-  transform: scale(1.15);
-}
-
-/* Лінія під dots і авто */
-.progress-line-bar {
-  position: relative;
-  width: 100%;
-  margin: 0 auto 8px auto;
-  height: 20px;
-}
-.progress-thin-line {
-  width: 90%;
-  margin: 0 5%;
-  height: 2px;
-  background: rgba(200,200,200,0.2);
-  border-radius: 1px;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-}
-#car-progress-icon {
-  position: absolute;
-  top: 50%;
-  left: 0%;
-  transform: translate(-50%, -50%);
-  font-size: 19px;
-  color: #fff;
-  transition: left 1s linear;
-  z-index: 2;
-}
-
-/* --- 5. Статус --- */
-.status-row .trip-status {
-  font-size: 15px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  justify-content: flex-start;
-}
-.status-row .trip-status.success {
-  color: var(--success-color);
-}
-
-/* --- 6. Водій/авто --- */
-.driver-row {
-  font-size: 15px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-.driver-row i {
-  color: var(--accent-color);
-  margin-right: 5px;
-}
-
-/* --- 7. "Ви поїдете" — по центру, більше --- */
-.you-go-row {
-  width: 100%;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--text-primary);
-  text-align: center;
-  margin: 0 auto 8px auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* --- 8. Адреси — по центру, великі кольорові іконки --- */
-.route-addresses {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 0;
-}
-.address-line {
-  font-size: 15px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-}
-.route-addresses .start-point-icon {
-  color: var(--danger-color) !important;
-  font-size: 15px;
-  margin-right: 8px;
-}
-.route-addresses .end-point-icon {
-  color: var(--success-color) !important;
-  font-size: 17px;
-  margin-right: 8px;
-}
-
-/* --- 9. "Детальніше" з іконкою внизу --- */
-.details-link-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  color: #fff;
-  margin-top: 18px;
-  margin-left: 0;
-  cursor: pointer;
-  font-weight: 500;
-  user-select: none;
-}
-.details-link-icon {
-  color: #fff;
-  font-size: 20px;
-}
-.details-link-text {
-  font-size: 16px;
-  color: #fff;
-  font-weight: 500;
-}
-
-/* --- 10. Кнопка details-btn для іконки у архівних (залишаємо як було) --- */
-.details-btn {
-  background: none;
-  border: none;
-  color: var(--accent-color);
-  font-size: 22px;
-  cursor: pointer;
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-  padding: 3px;
-  border-radius: 50%;
-  transition: background 0.2s;
-}
-.details-btn:hover,
-.details-btn:focus {
-  background: rgba(10, 132, 255, 0.12);
-}
-.order-card.archived .details-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 20px;
-}
-.order-card.archived {
-  opacity: 0.7;
-  position: relative;
-}
-
-/* --- 11. Анімації --- */
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.9); }
-}
-
-/* --- 12. Решта — архіви, статуси, базове --- */
-.archive-divider {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px 0;
-    color: var(--muted);
-    font-size: 14px;
-    list-style: none;
-}
-.archive-divider:active {
-    transform: none;
-}
-.order-card .order-status {
-    font-size: 14px;
-    font-weight: var(--font-weight-regular);
-    color: var(--text-secondary);
-    text-align: right;
-}
-.order-card.active .order-status {
-    color: var(--accent-color);
-}
-.route .start-point-icon {
-    font-size: 10px;
-    color: var(--muted);
-    vertical-align: middle;
-}
-.route .end-point-icon {
-    font-size: 14px;
-    color: var(--muted);
-    vertical-align: middle;
-}
-/* === РЕДИЗАЙН КАРТКИ АКТИВНОЇ ПОЇЗДКИ === */
-
-.order-card.active {
+    flex-direction: column;
+    gap: 12px; /* Простір між основними блоками */
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    border-width: 1.5px;
-    min-height: 380px; /* Збільшили висоту */
-}
-.active-order-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 14px;
-    color: var(--muted);
-    font-weight: 500;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.active-order-body {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-}
-.progress-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding: 10px 0;
-}
-.progress-dots-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    margin-bottom: 2px;
-}
-.dots-row {
-    display: flex;
-    gap: 5px;
-}
-.dot {
-    font-size: 8px;
-    color: rgba(255, 255, 255, 0.2);
-    transition: color 0.5s ease-in-out;
-}
-.dot.filled {
-    color: var(--warning-color);
-}
-.progress-start, .progress-end {
-    font-size: 12px; /* Зменшили іконки */
-}
-.progress-line-bar {
+    border-radius: 28px;
+    background: var(--glass-bg);
+    border: none; /* Прибираємо білу рамку */
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     position: relative;
-    width: 90%;
-    height: 2px;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-#car-progress-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #fff;
-    transition: left 1s linear;
-}
-.card-divider {
-    width: 100%; height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-}
-.driver-row { display: flex; flex-direction: column; gap: 8px; }
-.driver-info-line { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--text-secondary); }
-.driver-info-line i { color: var(--text-primary); font-size: 14px;}
-.route-info { display: flex; flex-direction: column; gap: 12px; }
-.route-info p { text-align: left; font-size: 15px; font-weight: var(--font-weight-bold); margin-bottom: 0; }
-.address-line { display: flex; align-items: center; gap: 10px; font-size: 15px; }
-.address-line .start-point-icon { color: var(--danger-color); }
-.address-line .end-point-icon { color: var(--success-color); }
-.details-link-row { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; cursor: pointer; }
-.archive-divider { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 0; color: var(--muted); font-size: 14px; list-style: none; }
-.order-card.archived { display: flex; justify-content: space-between; align-items: center; padding: 15px; flex-wrap: wrap; }
-.archived .order-info { flex-basis: 100%;}
-.archived .driver-details { margin-top: 10px; }
-.archived .details-btn { font-size: 22px; color: var(--muted); cursor: pointer; background: none; border: none; }
-/* ======================================= */
-/* == ВИПРАВЛЕННЯ АКТИВНОЇ КАРТКИ == */
-/* ======================================= */
-
-/* Збільшуємо активну картку */
-.order-card.active {
-    padding: 24px;
-    min-height: 450px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* Заголовок активного замовлення */
-.active-order-header {
+/* --- Заголовок --- */
+.order-header {
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
-
-.order-number {
+.order-title {
+    color: var(--success-color);
     font-size: 18px;
     font-weight: var(--font-weight-bold);
-    color: var(--fg);
+}
+.order-timestamp {
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
-.order-datetime {
-    font-size: 16px;
-    color: var(--muted);
-    margin-top: 4px;
-}
-
-/* Відступи */
-.spacer-medium {
-    height: 20px;
-}
-
-.spacer-with-divider {
-    height: 20px;
-    position: relative;
-    margin: 20px 0;
-}
-
-.spacer-with-divider::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 1px;
-    background: var(--glass-stroke);
-}
-
-/* Новий прогрес-бар з точками */
-.progress-section {
+/* --- Статус (іконка і текст) --- */
+.order-status-visual {
     display: flex;
-    justify-content: center;
-    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+#status-icon {
+    font-size: 18px;
+}
+#status-icon.arrived {
+    color: var(--success-color);
+}
+#status-text {
+    font-size: 14px;
 }
 
-.progress-dots {
+/* --- Прогрес-трекер --- */
+.progress-tracker {
     display: flex;
     align-items: center;
-    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
 }
-
-.dot-red {
-    font-size: 8px;
-    color: var(--danger);
+.progress-start-point {
+    color: #FF9F0A; /* Помаранчевий */
+    font-size: 14px;
 }
-
-.dot-green {
-    font-size: 12px;
-    color: var(--accent-2);
+.progress-end-point {
+    color: var(--success-color);
+    font-size: 14px;
+    animation: blink-green 1.5s infinite ease-in-out;
 }
-
-.progress-dot {
-    font-size: 6px;
-    color: var(--muted);
-}
-
-.progress-dot.filled {
-    color: var(--accent);
-}
-
-/* Лінія з машинкою */
-.car-track {
-    position: relative;
-    margin: 15px 20px 0 20px;
+.progress-end-point.arrived {
+    animation: none;
+    font-size: 18px; /* Збільшуємо пін при прибутті */
 }
 
 .track-line {
+    flex-grow: 1;
     height: 2px;
-    background: var(--muted);
-    border-radius: 1px;
+    margin: 0 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
-
-#car-progress-icon {
+.dots-container {
     position: absolute;
-    top: -8px;
-    font-size: 16px;
-    color: var(--fg);
-    left: 0%;
-    transition: left 1.5s linear;
-}
-
-/* Статус */
-.status-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 16px;
-}
-
-.status-section i {
-    font-size: 14px;
-    color: var(--accent);
-}
-
-/* Водій та машина */
-.driver-section {
-    text-align: left;
-}
-
-.driver-name {
-    font-size: 16px;
-    color: var(--fg);
-    margin-bottom: 8px;
-}
-
-.car-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    color: var(--muted);
-}
-
-.car-info .fa-car {
-    font-size: 14px;
-    color: var(--muted);
-}
-
-/* Маршрут */
-.route-section {
-    text-align: left;
-}
-
-.route-title {
-    font-size: 16px;
-    color: var(--fg);
-    margin-bottom: 12px;
-}
-
-.route-points {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.route-point {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-}
-
-.route-point .start-point-icon {
-    font-size: 10px;
-    color: var(--danger);
-}
-
-.route-point .end-point-icon {
-    font-size: 12px;
-    color: var(--accent-2);
-}
-
-/* Кнопка "Детальніше" */
-.details-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    color: var(--muted);
-    cursor: pointer;
-}
-
-.details-button i {
-    color: white;
-    font-size: 16px;
-}
-
-/* Архівні картки */
-.order-card.archived .order-status {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-}
-
-.archived-date {
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.archived-chevron {
-    font-size: 14px;
-    color: var(--muted);
-}
-/* === ВИРІВНЮВАННЯ ІКОНОК В КАРТКАХ ЗАМОВЛЕНЬ === */
-
-.order-card .route span,
-.order-card .passenger-details {
-    display: flex;
-    align-items: center; /* Це вертикально центрує іконку і текст в одному рядку */
-}
-
-.order-card .route i,
-.order-card .passenger-details i {
-    width: 20px; /* Задаємо всім іконкам однакову ширину, щоб вони не "стрибали" */
-    text-align: center; /* Центруємо саму іконку в її "коробці" */
-    margin-right: 10px; /* Відступ від тексту */
-}
-/* === РЕДИЗАЙН КАРТКИ "МОЇ ПОЇЗДКИ" === */
-.order-card.active {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* Збільшений простір між елементами */
-    border-radius: 28px;
-    border-width: 1.5px;
-}
-.active-order-header {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
     width: 100%;
-    font-weight: 500;
-}
-#active-order-title {
-    font-size: 16px;
-    color: var(--text-primary);
-    font-weight: var(--font-weight-bold);
-}
-#active-order-time {
-    font-size: 14px;
-    color: var(--muted);
-}
-.status-row {
-    text-align: center;
-    font-size: 15px;
-}
-.trip-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-.progress-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 0;
-}
-.progress-dots-bar {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    width: 85%; /* Трохи коротший прогрес-бар */
-}
-.dots-row {
-    display: flex;
-    gap: 5px;
 }
 .dot {
-    font-size: 7px;
-    color: rgba(255, 255, 255, 0.2);
-    transition: color 0.5s ease-in-out;
+    width: 4px;
+    height: 4px;
+    background-color: var(--muted);
+    border-radius: 50%;
 }
-.dot.filled {
-    color: var(--warning-color);
+.dot.passed {
+    background-color: #ffffff;
 }
-.progress-start, .progress-end {
-    font-size: 12px; /* Менші іконки */
-    color: var(--muted);
-    transition: color 0.5s ease;
+#car-icon {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 20px;
+    transition: left 1s linear;
 }
-.driver-row {
+
+/* --- Інфо про водія (вирівняне по лівому краю) --- */
+.order-details-grid {
+    padding: 0 12px; /* Відступ, щоб вирівняти з початком трекера */
+}
+.driver-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    align-items: flex-start; /* Вирівнювання по лівому краю */
+    gap: 5px;
+    font-size: 14px;
 }
-.driver-info-line {
+.driver-info span {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 14px;
+    gap: 8px;
     color: var(--text-secondary);
 }
-.driver-info-line i {
-    color: var(--muted);
-    width: 15px;
-    text-align: center;
+.driver-info strong {
+    color: var(--text-primary);
 }
-.route-info {
+.driver-info .fa-car {
+    font-size: 16px;
+}
+
+/* --- Розділювач і адреси --- */
+.route-separator {
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 5px 0;
+}
+.route-addresses {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: flex-start; /* Вирівнювання по лівому краю */
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
 }
 .address-line {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 15px;
 }
-.details-btn {
+.start-address-icon {
+    color: var(--success-color);
+}
+.end-address-icon {
+    color: var(--danger-color);
+}
+
+/* --- Кнопка "Детальніше" --- */
+.details-btn-arrow {
     position: absolute;
-    bottom: 18px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
     background: none;
     border: none;
-    font-size: 24px;
-    color: var(--text-primary);
+    color: #ffffff;
+    font-size: 28px;
     cursor: pointer;
 }
+
+/* --- Стилі для архіву --- */
 .archive-separator {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 15px 0;
+    padding: 20px 0 15px 0;
     color: var(--muted);
     font-size: 14px;
 }
 .order-card.archived {
     display: flex;
     align-items: center;
-    padding: 15px;
+    justify-content: space-between;
+    padding: 15px 20px;
     border-radius: 16px;
-    margin-bottom: 10px;
 }
-.archived .order-info { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
-.archived .driver-details { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-.archived .order-status { font-size: 14px; color: var(--muted); }
-.archived .details-btn { position: static; font-size: 22px; color: var(--muted); }
+.archived-info { display: flex; flex-direction: column; gap: 8px; }
+.archived-date { font-size: 12px; color: var(--muted); }
+.archived .route, .archived .driver-details { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.archived i { color: var(--text-secondary); }
+.archived .details-btn-arrow { position: static; font-size: 24px; color: var(--muted);}
+
+/* --- Анімація миготіння --- */
+@keyframes blink-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
