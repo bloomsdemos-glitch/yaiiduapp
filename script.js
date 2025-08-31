@@ -175,66 +175,78 @@ showMyOrdersBtn?.addEventListener('click', () => {
         }
     }
     
-    // === ГОЛОВНА ФУНКЦІЯ СИМУЛЯЦІЇ (ЄДИНА І ПРАВИЛЬНА) ===
-    function runTripSimulation() {
-        const activeCard = document.querySelector('.order-card.active');
-        if (!activeCard) return;
+    // === ГОЛОВНА ФУНКЦІЯ СИМУЛЯЦІЇ (версія для нової картки) ===
+function runActiveTripSimulation() {
+    // Зупиняємо будь-які старі анімації, якщо вони є
+    if (window.tripInterval) clearInterval(window.tripInterval);
 
-        // --- Знаходимо всі елементи ---
-        const orderTitle = activeCard.querySelector('#active-order-title');
-        const orderTime = activeCard.querySelector('#active-order-time');
-        const dotsRow = activeCard.querySelector('.dots-row');
-        const carIcon = activeCard.querySelector('#car-progress-icon');
-        const progressStart = activeCard.querySelector('.progress-start');
-        const progressEnd = activeCard.querySelector('.progress-end');
-        const statusTextSpan = activeCard.querySelector('.trip-status span');
-        const statusIcon = activeCard.querySelector('.trip-status i');
+    // --- 1. Знаходимо всі наші елементи на картці ---
+    const activeCard = document.querySelector('.order-card.active');
+    if (!activeCard) return; // Якщо картки нема, нічого не робимо
 
-        // --- Зупиняємо попередні анімації (важливо!) ---
-        if (window.dotInterval) clearInterval(window.dotInterval);
-        if (window.carInterval) clearInterval(window.carInterval);
-        
-        // --- Налаштування симуляції ---
-        const totalDots = 12; // Кількість крапок в прогрес-барі
-        const tripDurationSeconds = 10; // Скільки секунд триватиме симуляція
+    const statusIcon = activeCard.querySelector('#status-icon');
+    const statusText = activeCard.querySelector('#status-text');
+    const carIcon = activeCard.querySelector('#car-icon');
+    const dotsContainer = activeCard.querySelector('.dots-container');
+    const endPoint = activeCard.querySelector('#progress-end-point');
 
-        // --- Скидання до початкового стану при кожному кліку ---
-        orderTitle.textContent = `Активне замовлення #${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
-        orderTime.textContent = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
-        
-        dotsRow.innerHTML = ''; // Очищуємо старі крапки
-        for (let i = 0; i < totalDots; i++) {
-            dotsRow.innerHTML += '<i class="fa-solid fa-circle dot"></i>';
-        }
-        const dots = dotsRow.querySelectorAll('.dot');
+    // --- 2. Налаштування анімації ---
+    const totalDurationSeconds = 15; // Загальна тривалість поїздки в секундах
+    const totalDots = 18; // Скільки крапок-індикаторів на шляху
+    let progress = 0; // Поточний прогрес від 0 до 100
 
-        progressStart.style.color = 'var(--danger-color)'; // Червоний
-        progressEnd.style.color = 'var(--muted)'; // Сірий
-        if(carIcon) carIcon.style.left = '0%';
-        statusTextSpan.textContent = 'Водій прямує до вас';
-        statusIcon.className = 'fa-solid fa-spinner fa-spin';
-
-        // --- Запуск анімації ---
-        let currentDot = 0;
-        window.dotInterval = setInterval(() => {
-            if (currentDot < dots.length) {
-                dots[currentDot++].classList.add('filled');
-            }
-        }, (tripDurationSeconds * 1000) / totalDots);
-
-        // --- Симуляція прибуття ---
-        setTimeout(() => {
-            if (!activeCard) return; 
-            clearInterval(window.dotInterval);
-            
-            // --- Встановлюємо фінальний стан "Прибув" ---
-            progressStart.style.color = 'var(--muted)'; // Сірий
-            progressEnd.style.color = 'var(--success-color)'; // Зелений
-            statusTextSpan.textContent = 'Водій прибув';
-            statusIcon.className = 'fa-solid fa-circle-check';
-            dots.forEach(dot => dot.classList.add('filled')); // Заповнюємо всі крапки
-        }, tripDurationSeconds * 1000);
+    // --- 3. Скидаємо все до початкового стану ---
+    statusIcon.className = 'fa-solid fa-spinner fa-spin';
+    statusText.textContent = 'Водій прямує до вас';
+    endPoint.classList.remove('arrived');
+    endPoint.className = 'fa-solid fa-circle-dot progress-end-point';
+    carIcon.style.left = '0%';
+    
+    // Генеруємо крапки
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dotsContainer.appendChild(dot);
     }
+    const allDots = dotsContainer.querySelectorAll('.dot');
+
+    // --- 4. Запускаємо "двигун" анімації ---
+    // Ця функція буде виконуватись кожні півсекунди
+    window.tripInterval = setInterval(() => {
+        progress += (100 / (totalDurationSeconds * 2)); // Розраховуємо, на скільки просунутись за раз
+
+        if (progress >= 100) {
+            // --- 5. ФІНАЛ: Поїздку завершено ---
+            clearInterval(window.tripInterval); // Зупиняємо двигун
+            
+            carIcon.style.left = '100%';
+            allDots.forEach(d => d.classList.add('passed'));
+            
+            // Оновлюємо статус на "Прибув"
+            statusIcon.className = 'fa-solid fa-circle-check';
+            statusIcon.classList.add('arrived');
+            statusText.textContent = 'Водій прибув';
+            
+            // Міняємо іконку кінцевої точки на "пін"
+            endPoint.classList.add('arrived');
+            endPoint.className = 'fa-solid fa-location-pin progress-end-point arrived';
+            return;
+        }
+
+        // --- 6. В ДОРОЗІ: Оновлюємо позицію машини і крапок ---
+        carIcon.style.left = `${progress}%`;
+        const passedDotsCount = Math.floor(allDots.length * (progress / 100));
+        allDots.forEach((dot, index) => {
+            if (index < passedDotsCount) {
+                dot.classList.add('passed');
+            } else {
+                dot.classList.remove('passed');
+            }
+        });
+
+    }, 500); // 500 мілісекунд = півсекунди
+}
 
     // == СТАРТОВИЙ ЕКРАН ==
     showScreen('home-screen');
