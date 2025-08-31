@@ -246,6 +246,66 @@ function runActiveTripSimulation() {
     }, 500); // 500 мілісекунд = півсекунди
 }
 
+// =============================================== //
+// == ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == //
+// =============================================== //
+
+// --- Знаходимо всі нові елементи ---
+const currentTimeDisplay = document.getElementById('current-time-display');
+const nowInfoIcon = document.getElementById('now-info-icon');
+const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
+const laterOptionsContainer = document.getElementById('later-options-container');
+const scheduleButtons = document.querySelectorAll('.btn-segment-secondary[data-schedule]');
+
+// --- Функція для оновлення годинника ---
+function updateClock() {
+    if (currentTimeDisplay) {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        currentTimeDisplay.textContent = `[${hours}:${minutes}]`;
+    }
+}
+
+// --- Обробник кліків на кнопки "Зараз" / "На інший час" ---
+timeOptionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // 1. Забираємо клас 'active' у всіх кнопок
+        timeOptionButtons.forEach(btn => btn.classList.remove('active'));
+        // 2. Додаємо клас 'active' тій, на яку клікнули
+        button.classList.add('active');
+
+        // 3. Показуємо або ховаємо додаткові опції
+        const option = button.dataset.timeOption;
+        if (option === 'later') {
+            laterOptionsContainer.classList.remove('hidden');
+        } else {
+            laterOptionsContainer.classList.add('hidden');
+        }
+    });
+});
+
+// --- Обробник кліків на кнопки "Сьогодні", "Завтра"... ---
+scheduleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        scheduleButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        // В майбутньому тут буде логіка для вибору дати/часу
+    });
+});
+
+// --- Додаємо 'alert' для іконки-довідки ---
+nowInfoIcon?.addEventListener('click', (e) => {
+    e.stopPropagation(); // Це зупиняє клік, щоб не спрацювала кнопка "Зараз"
+    alert("Враховуйте, що водію знадобиться час, щоб підтвердити замовлення і прибути на місце.");
+});
+
+
+// --- Запускаємо годинник і оновлюємо його кожну секунду ---
+setInterval(updateClock, 1000);
+updateClock(); // Викликаємо одразу, щоб не чекати першу секунду
+
+
     // == СТАРТОВИЙ ЕКРАН ==
     showScreen('home-screen');
 });
