@@ -637,18 +637,19 @@ footer {
     color: var(--text-secondary);
 }
 /* ======================================= */
-/* == НОВИЙ СТИЛЬ СТОРІНКИ "МОЇ ПОЇЗДКИ" == */
+/* == НОВИЙ СТИЛЬ СТОРІНКИ "МОЇ ПОЇЗДКИ" (v2) == */
 /* ======================================= */
 
 /* --- Загальний контейнер картки --- */
 .order-card.active {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Простір між основними блоками */
+    gap: 12px;
     padding: 20px;
     border-radius: 28px;
     background: var(--glass-bg);
-    border: none; /* Прибираємо білу рамку */
+    /* 1. ФІКСИМО OUTLINE: Додаємо ледь помітну рамку, як ти хотів */
+    border: 1px solid var(--glass-stroke);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     position: relative;
@@ -706,7 +707,7 @@ footer {
 }
 .progress-end-point.arrived {
     animation: none;
-    font-size: 18px; /* Збільшуємо пін при прибутті */
+    font-size: 18px;
 }
 
 .track-line {
@@ -742,15 +743,17 @@ footer {
     transition: left 1s linear;
 }
 
-/* --- Інфо про водія (вирівняне по лівому краю) --- */
+/* 2. ФІКСИМО ВОДІЯ: Блок тепер буде ідеально під помаранчевим кружечком */
 .order-details-grid {
-    padding: 0 12px; /* Відступ, щоб вирівняти з початком трекера */
+    padding: 0; /* Прибираємо зайвий відступ */
+    margin-left: 5px; /* Легкий зсув для краси */
 }
 .driver-info {
     display: flex;
     flex-direction: column;
     gap: 5px;
     font-size: 14px;
+    align-items: flex-start; /* Вирівнюємо по лівому краю */
 }
 .driver-info span {
     display: flex;
@@ -771,10 +774,11 @@ footer {
     color: var(--text-secondary);
     margin: 5px 0;
 }
+/* 3. ФІКСИМО МАРШРУТ: Блок по центру, текст всередині - по лівому краю */
 .route-addresses {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Центрує весь блок */
     gap: 8px;
     font-size: 15px;
 }
@@ -782,6 +786,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 160px; /* Задаємо фіксовану ширину, щоб вони вирівнялись */
 }
 .start-address-icon {
     color: var(--success-color);
@@ -821,13 +826,22 @@ footer {
 }
 .archived-info { display: flex; flex-direction: column; gap: 8px; }
 .archived-date { font-size: 12px; color: var(--muted); }
-.archived .route, .archived .driver-details { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.archived .driver-details { font-size: 14px; display: flex; align-items: center; gap: 8px; }
 .archived i { color: var(--text-secondary); }
 .archived .details-btn-arrow { position: static; font-size: 24px; color: var(--muted);}
+/* 4. ФІКСИМО АРХІВ: Розділяємо адреси на два рядки */
+.archived .route {
+    display: flex;
+    flex-direction: column; /* Ставимо адреси одну під одною */
+    align-items: flex-start; /* Вирівнюємо по лівому краю */
+    gap: 8px;
+    font-size: 14px;
+}
 
 /* --- Анімація миготіння --- */
 @keyframes blink-green {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
 }
+
 
