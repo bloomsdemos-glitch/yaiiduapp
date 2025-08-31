@@ -432,11 +432,15 @@
     <main>
         <form id="quick-order-form" class="order-form">
             <div class="form-group">
-                <label for="from-address"><i class="fa-solid fa-location-dot"></i> Звідки</label>
+                <label for="from-address" class="address-label">
+                    <i class="fa-solid fa-circle-dot from-icon"></i> Звідки
+                </label>
                 <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
             </div>
             <div class="form-group">
-                <label for="to-address"><i class="fa-solid fa-flag-checkered"></i> Куди</label>
+                <label for="to-address" class="address-label">
+                    <i class="fa-solid fa-location-dot to-icon"></i> Куди
+                </label>
                 <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
             </div>
 
@@ -444,28 +448,62 @@
                 <label><i class="fa-solid fa-clock"></i> Коли</label>
                 <div class="button-group-horizontal">
                     <button type="button" class="btn-segment active" data-time-option="now">
-                        Зараз <span id="current-time-display">[00:00]</span>
-                        <i id="now-info-icon" class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-bolt"></i> Зараз
                     </button>
-                    <button type="button" class="btn-segment" data-time-option="later">На інший час</button>
+                    <button type="button" class="btn-segment" data-time-option="later">
+                        <i class="fa-solid fa-hourglass"></i> На інший час
+                    </button>
                 </div>
             </div>
 
-            <div id="later-options-container" class="hidden">
-                <div class="button-group-horizontal">
-                    <button type="button" class="btn-segment-secondary" data-schedule="today">Сьогодні</button>
-                    <button type="button" class="btn-segment-secondary" data-schedule="tomorrow">Завтра</button>
-                    <button type="button" class="btn-segment-secondary" data-schedule="date">Вибрати дату</button>
+            <div id="time-details-container">
+                <div id="now-time-block" class="time-picker-block">
+                    <span id="editable-time" contenteditable="true">00:00</span>
+                    <i id="now-info-icon" class="fa-solid fa-circle-info"></i>
                 </div>
+                
+                <div id="later-options-container" class="hidden">
+                    <div class="button-group-horizontal">
+                        <button type="button" class="btn-segment-secondary active" data-schedule="today">Сьогодні</button>
+                        <button type="button" class="btn-segment-secondary" data-schedule="tomorrow">Завтра</button>
+                        <button type="button" class="btn-segment-secondary" data-schedule="date">Вибрати дату</button>
+                    </div>
+                    <div id="schedule-details-block" class="time-picker-block">
+                        <p id="schedule-date-display">Середа, 18 вересня</p>
+                        <span id="schedule-time" contenteditable="true">00:00</span>
+                        <button id="confirm-schedule-btn" class="confirm-btn">
+                             <i class="fa-solid fa-circle-check"></i>
+                        </button>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="form-group optional-section">
+                <label for="select-driver-toggle">
+                    Вибрати водія
+                    <i id="driver-select-info" class="fa-solid fa-circle-info"></i>
+                </label>
+                </div>
+
             <div class="form-group">
                 <label for="comment"><i class="fa-solid fa-comment-dots"></i> Коментар (необов'язково)</label>
                 <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною'"></textarea>
             </div>
             <button type="submit" class="btn-submit">Відправити замовлення</button>
         </form>
+        
+        <div id="confirmation-block" class="confirmation-container hidden">
+             ⚡️
+            <h3>Прийнято!</h3>
+            <p>Вже шукаємо для вас вільних водіїв! Очікуйте на сповіщення про прийняття вашого замовлення.</p>
+            <div class="spinner"></div>
+            <small class="cancel-note">
+                <i class="fa-solid fa-circle-info"></i> Ви можете скасувати замовлення в меню «Мої поїздки».
+            </small>
+        </div>
     </main>
 </div>
+
 
         <!-- Help screen -->
         <div id="help-screen" class="screen hidden">
