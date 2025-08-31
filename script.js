@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 showMyOrdersBtn?.addEventListener('click', () => {
     showScreen('passenger-orders-screen');
     runActiveTripSimulation(); 
+    updatePassengerOrderCardListeners();
 });
 
 
@@ -102,20 +103,17 @@ showMyOrdersBtn?.addEventListener('click', () => {
     }
 
     function updatePassengerOrderCardListeners() {
-        document.querySelectorAll('#passenger-orders-screen .order-card .details-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showScreen('passenger-order-details-screen');
-            });
+    // Знаходимо ВСІ кнопки-стрілочки на екрані "Мої поїздки"
+    const allDetailButtons = document.querySelectorAll('#passenger-orders-screen .details-btn-arrow');
+
+    allDetailButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // При кліку на будь-яку з них, показуємо екран з деталями
+            showScreen('passenger-order-details-screen');
         });
-        document.querySelectorAll('#passenger-orders-screen .order-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Якщо клікнули по details-btn, не відкривати
-                if (e.target.closest('.details-btn')) return;
-                showScreen('passenger-order-details-screen');
-            });
-        });
-    }
+    });
+}
+
 
     function calculateAndDisplayTripDetails() {
         if (!tripDistanceEl || !tripFareEl || !paymentMethodEl) return;
