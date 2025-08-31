@@ -862,90 +862,147 @@ footer {
     50% { opacity: 0.4; }
 }
 /* ======================================= */
-/* == ТЮНІНГ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == */
+/* == РЕДИЗАЙН ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == */
 /* ======================================= */
 
-/* --- Оновлюємо основні кнопки "Зараз" / "На інший час" --- */
-.btn-segment[data-time-option] {
+/* --- Стиль для полів "Звідки" / "Куди" --- */
+.address-label {
+    font-size: 16px !important; /* Збільшуємо шрифт */
+    font-weight: 500 !important; /* Робимо жирнішим */
+    display: flex;
+    align-items: center;
+}
+.address-label i {
+    font-size: 18px;
+    margin-right: 12px !important;
+}
+.from-icon { color: #FFC700; /* Жовтий */ }
+.to-icon { color: var(--success-color); /* Зелений */ }
+
+/* --- Нові іконки в кнопках "Зараз" / "На інший час" --- */
+.btn-segment[data-time-option] i {
+    margin-right: 8px;
+}
+/* Прибираємо старий годинник з кнопки */
+#current-time-display { display: none; }
+
+/* --- Новий блок вибору часу (схожий на будильник) --- */
+.time-picker-block {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px; /* Відстань між текстом, часом та іконкою */
+    gap: 15px;
+    padding: 15px;
+    margin-top: 10px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 14px;
 }
-
-#current-time-display {
-    font-weight: var(--font-weight-regular);
-    color: var(--text-secondary);
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 3px 8px;
+[contenteditable="true"] {
+    font-size: 28px;
+    font-weight: var(--font-weight-bold);
+    padding: 5px 10px;
     border-radius: 8px;
-    font-size: 14px;
+    background-color: rgba(0,0,0,0.3);
+    outline: none;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
 }
-
-/* Коли кнопка "Зараз" активна, робимо час білим */
-.btn-segment.active #current-time-display {
-    color: var(--text-primary);
-    font-weight: var(--font-weight-bold);
+[contenteditable="true"]:focus {
+    border-color: var(--accent-color);
 }
-
-#now-info-icon {
-    font-size: 16px;
+.time-picker-block #now-info-icon {
+    font-size: 20px;
     color: var(--text-secondary);
     cursor: pointer;
 }
 
-/* --- Контейнер для додаткових опцій --- */
-#later-options-container {
-    padding: 5px 0;
-    transition: all 0.3s ease; /* Плавна поява/зникнення */
-}
-
-/* Це для анімації появи */
+/* --- Логіка появи блоку "На інший час" --- */
 #later-options-container.hidden {
-    opacity: 0;
-    max-height: 0;
-    transform: translateY(-10px);
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
+    display: none;
 }
-#later-options-container:not(.hidden) {
-    opacity: 1;
-    max-height: 100px; /* Можна збільшити, якщо треба */
-    transform: translateY(0);
+#schedule-details-block {
+    margin-top: 0;
+    justify-content: space-between;
 }
-
-
-/* --- Стилізуємо нові кнопки "Сьогодні", "Завтра"... --- */
-.btn-segment-secondary {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid var(--glass-stroke);
-    background-color: rgba(0,0,0,0.1); /* Трохи темніші */
-    color: var(--text-secondary);
+#schedule-date-display {
     font-size: 15px;
+    color: var(--text-secondary);
+}
+.confirm-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 30px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: color 0.2s ease;
 }
-.btn-segment-secondary:first-child {
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-right: none;
-}
-.btn-segment-secondary:last-child {
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-left: none;
-}
-.btn-segment-secondary:not(:first-child):not(:last-child) {
-    border-left: none;
-    border-right: none;
+.confirm-btn.confirmed {
+    color: var(--success-color);
 }
 
-.btn-segment-secondary.active {
-    background-color: var(--accent-color);
-    color: white;
-    font-weight: var(--font-weight-bold);
+/* --- Секція "Вибрати водія" --- */
+.optional-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--glass-stroke);
+}
+.optional-section label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+#driver-select-info {
+    color: var(--text-secondary);
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* --- Блок підтвердження після відправки --- */
+.confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    flex-grow: 1;
+}
+.confirmation-container.hidden {
+    display: none;
+}
+.confirmation-container .fa-bolt {
+    font-size: 32px;
+    color: var(--success-color);
+    margin-bottom: 15px;
+}
+.confirmation-container h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.confirmation-container p {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+}
+.cancel-note {
+    margin-top: 25px;
+    color: var(--muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Анімація спіннера */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-left-color: var(--accent-color);
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 
