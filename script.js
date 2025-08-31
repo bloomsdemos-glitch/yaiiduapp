@@ -247,63 +247,110 @@ function runActiveTripSimulation() {
 }
 
 // =============================================== //
-// == ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == //
+// == ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" v2 == //
 // =============================================== //
 
-// --- Знаходимо всі нові елементи ---
-const currentTimeDisplay = document.getElementById('current-time-display');
-const nowInfoIcon = document.getElementById('now-info-icon');
-const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
-const laterOptionsContainer = document.getElementById('later-options-container');
-const scheduleButtons = document.querySelectorAll('.btn-segment-secondary[data-schedule]');
+// --- Знаходимо абсолютно всі елементи на екрані ---
+const quickOrderForm = document.getElementById('quick-order-form');
+const confirmationBlock = document.getElementById('confirmation-block');
 
-// --- Функція для оновлення годинника ---
-function updateClock() {
-    if (currentTimeDisplay) {
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        currentTimeDisplay.textContent = `[${hours}:${minutes}]`;
+// -- Елементи вибору часу --
+const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
+const nowTimeBlock = document.getElementById('now-time-block');
+const editableTimeNow = document.getElementById('editable-time');
+const laterOptionsContainer = document.getElementById('later-options-container');
+
+// -- Елементи планування на потім --
+const scheduleButtons = document.querySelectorAll('.btn-segment-secondary[data-schedule]');
+const scheduleDetailsBlock = document.getElementById('schedule-details-block');
+const scheduleDateDisplay = document.getElementById('schedule-date-display');
+const scheduleTime = document.getElementById('schedule-time');
+const confirmScheduleBtn = document.getElementById('confirm-schedule-btn');
+
+// -- Іконки-довідки --
+const nowInfoIcon = document.getElementById('now-info-icon');
+const driverSelectInfo = document.getElementById('driver-select-info');
+
+// --- Функція для оновлення годинників ---
+function updateLiveClocks() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const currentTimeString = `${hours}:${minutes}`;
+    
+    // Оновлюємо обидва поля з часом, але тільки якщо їх не редагують
+    if (document.activeElement !== editableTimeNow) {
+        editableTimeNow.textContent = currentTimeString;
+    }
+    if (document.activeElement !== scheduleTime) {
+        scheduleTime.textContent = currentTimeString;
     }
 }
 
-// --- Обробник кліків на кнопки "Зараз" / "На інший час" ---
+// --- Обробник кліків на головні кнопки "Зараз" / "На інший час" ---
 timeOptionButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // 1. Забираємо клас 'active' у всіх кнопок
         timeOptionButtons.forEach(btn => btn.classList.remove('active'));
-        // 2. Додаємо клас 'active' тій, на яку клікнули
         button.classList.add('active');
 
-        // 3. Показуємо або ховаємо додаткові опції
         const option = button.dataset.timeOption;
         if (option === 'later') {
+            nowTimeBlock.classList.add('hidden');
             laterOptionsContainer.classList.remove('hidden');
         } else {
+            nowTimeBlock.classList.remove('hidden');
             laterOptionsContainer.classList.add('hidden');
         }
     });
 });
 
-// --- Обробник кліків на кнопки "Сьогодні", "Завтра"... ---
+// --- Логіка: якщо юзер редагує час, автоматично перемикаємо на "На інший час" ---
+editableTimeNow.addEventListener('input', () => {
+    // Знаходимо і "натискаємо" на кнопку "На інший час"
+    const laterButton = document.querySelector('.btn-segment[data-time-option="later"]');
+    if(laterButton) laterButton.click();
+    
+    // Копіюємо введений час у друге поле
+    scheduleTime.textContent = editableTimeNow.textContent;
+});
+
+
+// --- Обробник кліків на вторинні кнопки "Сьогодні", "Завтра"... ---
 scheduleButtons.forEach(button => {
     button.addEventListener('click', () => {
         scheduleButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        // В майбутньому тут буде логіка для вибору дати/часу
+
+        // Тут буде логіка для відображення дати
+        const scheduleType = button.dataset.schedule;
+        if (scheduleType === 'today') {
+            // Показуємо сьогоднішню дату (приклад)
+            scheduleDateDisplay.textContent = new Date().toLocaleDateString('uk-UA', { weekday: 'long', day: 'numeric', month: 'long' });
+        } else if (scheduleType === 'tomorrow') {
+            // Показуємо завтрашню дату (приклад)
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            scheduleDateDisplay.textContent = tomorrow.toLocaleDateString('uk-UA', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+        // TODO: додати логіку для "Вибрати дату"
     });
 });
 
-// --- Додаємо 'alert' для іконки-довідки ---
+// --- Додаємо 'alert' для іконок-довідок ---
 nowInfoIcon?.addEventListener('click', (e) => {
-    e.stopPropagation(); // Це зупиняє клік, щоб не спрацювала кнопка "Зараз"
+    e.stopPropagation();
     alert("Враховуйте, що водію знадобиться час, щоб підтвердити замовлення і прибути на місце.");
 });
 
+driverSelectInfo?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    alert("Ви можете обрати конкретного водія зі списку. Він буде в пріоритеті, але якщо він не підтвердить замовлення через 10 хвилин, ваше замовлення стане доступним для всіх інших водіїв.");
+});
 
 // --- Запускаємо годинник і оновлюємо його кожну секунду ---
-setInterval(updateClock, 1000);
-updateClock(); // Викликаємо одразу, щоб не чекати першу секунду
+setInterval(updateLiveClocks, 1000);
+updateLiveClocks(); // Викликаємо одразу, щоб не чекати першу секунду
+
 
 
     // == СТАРТОВИЙ ЕКРАН ==
