@@ -120,62 +120,80 @@
             </main>
         </div>
 
-        <!-- Passenger orders screen -->
-<div id="passenger-orders-screen" class="screen hidden">
+    <div id="passenger-orders-screen" class="screen hidden">
     <header>
         <button class="btn-back" data-target="passenger-dashboard"><i class="fa-solid fa-arrow-left"></i></button>
         <h2>Мої поїздки</h2>
         <div class="header-placeholder"></div>
     </header>
     <main>
-        <div class="order-card active glass-effect">
-            <div class="active-order-header">
-                <span id="active-order-title">Активне замовлення #XXXXXX</span>
-                <span id="active-order-time">--:--</span>
+        <div class="order-card active">
+            
+            <div class="order-header">
+                <h3 class="order-title">Активне замовлення #1247</h3>
+                <p class="order-timestamp">29.08.25 • 14:22</p>
             </div>
-            <div class="status-row">
-                <span class="trip-status"><i class="fa-solid fa-spinner fa-spin"></i><span>Водій прямує до вас</span></span>
+
+            <div class="order-status-visual">
+                <i id="status-icon" class="fa-solid fa-spinner fa-spin"></i>
+                <p id="status-text">Водій прямує до вас</p>
             </div>
-            <div class="progress-container">
-                <div class="progress-dots-bar">
-                    <i class="fa-solid fa-circle progress-start"></i>
-                    <span class="dots-row"></span>
-                    <i class="fa-solid fa-location-dot progress-end"></i>
+
+            <div class="progress-tracker">
+                <i class="fa-solid fa-circle-dot progress-start-point"></i>
+                <div class="track-line">
+                    <div class="dots-container">
+                        </div>
+                    <i id="car-icon" class="fa-solid fa-car-side"></i>
+                </div>
+                <i id="progress-end-point" class="fa-solid fa-circle-dot progress-end-point"></i>
+            </div>
+            
+            <div class="order-details-grid">
+                <div class="driver-info">
+                    <span><strong>Водій:</strong> Олег</span>
+                    <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
                 </div>
             </div>
-            <hr class="card-divider">
-            <div class="driver-row">
-                <div class="driver-info-line"><span>Водій: Микола</span></div>
-                <div class="driver-info-line"><span><i class="fa-solid fa-car-front"></i>Skoda Octavia, сірий</span></div>
-            </div>
-            <hr class="card-divider">
-            <div class="route-info">
-                <div class="address-line"><i class="fa-solid fa-circle start-point-icon"></i><span>вул. Зоряна, 31</span></div>
-                <div class="address-line"><i class="fa-solid fa-location-dot end-point-icon"></i><span>Залізничний вокзал</span></div>
-            </div>
-            <button class="details-btn"><i class="fa-solid fa-circle-chevron-right"></i></button>
-        </div>
 
+            <div class="route-separator">
+                <i class="fa-solid fa-route"></i>
+            </div>
+
+            <div class="route-addresses">
+                <div class="address-line">
+                    <i class="fa-solid fa-circle start-address-icon"></i>
+                    <span>вул. Зоряна, 31</span>
+                </div>
+                <div class="address-line">
+                    <i class="fa-solid fa-location-dot end-address-icon"></i>
+                    <span>Залізничний вокзал</span>
+                </div>
+            </div>
+
+            <button class="details-btn-arrow"><i class="fa-solid fa-circle-chevron-right"></i></button>
+        </div>
         <div class="archive-separator">
             <i class="fa-solid fa-box-archive"></i>
             <span>Архів поїздок</span>
         </div>
 
         <ul class="order-list passenger">
-            <li class="order-card archived glass-effect">
-                <div class="order-info">
+            <li class="order-card archived">
+                <div class="archived-info">
+                    <span class="archived-date">25.08.2025</span>
                     <div class="route">
                         <span><i class="fa-solid fa-circle"></i> вул. Весняна, 15</span>
                         <span><i class="fa-solid fa-location-dot"></i> вул. Музейна, 4</span>
                     </div>
                     <div class="driver-details"><i class="fa-solid fa-user-tie"></i> Водій: Ігор</div>
                 </div>
-                <div class="order-status">25.08.2025</div>
-                <button class="details-btn"><i class="fa-solid fa-circle-chevron-right"></i></button>
+                <button class="details-btn-arrow"><i class="fa-solid fa-circle-chevron-right"></i></button>
             </li>
         </ul>
     </main>
 </div>
+
 
         <!-- Passenger order details screen -->
         <div id="passenger-order-details-screen" class="screen hidden">
