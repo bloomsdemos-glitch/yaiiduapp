@@ -746,8 +746,9 @@ footer {
 /* --- 2. ВИРІВНЮЄМО ВОДІЯ --- */
 #passenger-orders-screen .order-details-grid {
     padding: 0;
-    margin-top: -5px; /* Піднімаємо ближче до трекера */
-    margin-left: -2px; /* Ідеально під помаранчеву крапку */
+    margin-top: -5px;
+    margin-left: -2px;
+    align-self: flex-start; /* <<== ОСЬ ЦЕЙ РЯДОК */
 }
 #passenger-orders-screen .driver-info {
     display: flex;
