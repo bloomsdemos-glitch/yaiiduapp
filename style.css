@@ -1047,29 +1047,31 @@ footer {
     font-weight: 500;
 }
 /* ======================================= */
-/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" v2 == */
+/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" v3 == */
 /* ======================================= */
 
-/* --- 1. Лікуємо "квадратний вірус" І ЦЕНТРУЄМО ВСЕ ПО ВЕРТИКАЛІ --- */
+/* --- 1. Оновлюємо "фізику" картки для ідеального вирівнювання --- */
 #driver-find-passengers-screen .order-card {
     border-radius: 20px;
-    align-items: center; /* Це опустить блок з часом на середину */
-    padding: 15px; /* Додамо трохи внутрішніх відступів */
+    align-items: center;          /* ЦЕНТРУЄМО по вертикалі */
+    justify-content: space-between; /* РОЗТЯГУЄМО по горизонталі */
+    padding: 15px;
+    display: flex; /* Переконуємось, що це flex-контейнер */
 }
 
 /* --- 2. БАЛАНСУЄМО БЛОК З ІНФОРМАЦІЄЮ --- */
 #driver-find-passengers-screen .order-info {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Відстань між іменем пасажира і маршрутом */
+    gap: 10px;
 }
 
-/* --- 3. ЗМЕНШУЄМО ВІДСТУП ІКОНОК і стилізуємо --- */
+/* --- 3. ЗМЕНШУЄМО ВІДСТУП ІКОНОК (ще раз) --- */
 #driver-find-passengers-screen .order-info .passenger-details,
 #driver-find-passengers-screen .order-info .route span {
     display: flex;
     align-items: center;
-    gap: 8px; /* Зменшуємо відступ */
+    gap: 6px; /* Зменшуємо відступ ще трохи */
 }
 
 #driver-find-passengers-screen .order-info i {
@@ -1083,10 +1085,10 @@ footer {
     color: var(--text-secondary);
 }
 #driver-find-passengers-screen .order-info .start-point-icon {
-    color: #FFC700; /* Жовтий */
+    color: #FFC700;
 }
 #driver-find-passengers-screen .order-info .end-point-icon {
-    color: var(--danger-color); /* Червоний */
+    color: var(--danger-color);
 }
 
 
@@ -1106,9 +1108,11 @@ footer {
 }
 
 #driver-find-passengers-screen .order-time .fa-clock {
-    color: var(--accent-color); /* Синенький годинник */
+    color: var(--accent-color);
     font-size: 14px;
 }
+
+
 
 
 
