@@ -1046,6 +1046,60 @@ footer {
     color: var(--success-color);
     font-weight: 500;
 }
+/* ======================================= */
+/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" == */
+/* ======================================= */
+
+/* --- 1. Лікуємо "квадратний вірус" --- */
+#driver-find-passengers-screen .order-card {
+    border-radius: 20px;
+}
+
+/* --- 2. Вирівнюємо і стилізуємо іконки в картці --- */
+#driver-find-passengers-screen .order-info .passenger-details,
+#driver-find-passengers-screen .order-info .route span {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Однаковий відступ */
+}
+
+#driver-find-passengers-screen .order-info i {
+    width: 20px; /* Однаковий розмір контейнера для іконок */
+    text-align: center;
+    font-size: 14px; /* Однаковий розмір шрифту іконок */
+}
+
+#driver-find-passengers-screen .order-info .passenger-details i {
+    font-size: 16px; /* Іконку юзера робимо трохи більшою */
+    color: var(--text-secondary);
+}
+#driver-find-passengers-screen .order-info .start-point-icon {
+    color: #FFC700; /* Жовтий */
+}
+#driver-find-passengers-screen .order-info .end-point-icon {
+    color: var(--danger-color); /* Червоний */
+}
+
+
+/* --- 3. Нові статуси часу (Зараз / На потім) --- */
+#driver-find-passengers-screen .order-time {
+    display: flex;
+    flex-direction: column; /* Іконка над текстом/часом */
+    align-items: center;
+    gap: 5px;
+    min-width: 60px; /* Щоб картки не стрибали по ширині */
+}
+
+#driver-find-passengers-screen .order-time .status-dot.online {
+    width: 10px;
+    height: 10px;
+    margin: 0; /* Прибираємо зайві відступи, якщо є */
+}
+
+#driver-find-passengers-screen .order-time .fa-clock {
+    color: var(--accent-color); /* Синенький годинник */
+    font-size: 14px;
+}
 
 
 
