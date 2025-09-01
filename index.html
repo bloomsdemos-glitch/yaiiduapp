@@ -445,7 +445,7 @@
             </div>
 
             <div class="form-group">
-                <label><i class="fa-solid fa-clock"></i> Коли</label>
+                <label class="section-label"><i class="fa-solid fa-clock"></i> Коли</label>
                 <div class="button-group-horizontal">
                     <button type="button" class="btn-segment active" data-time-option="now">
                         <i class="fa-solid fa-bolt"></i> Зараз
@@ -458,32 +458,32 @@
 
             <div id="time-details-container">
                 <div id="now-time-block" class="time-picker-block">
-                    <span id="editable-time" contenteditable="true">00:00</span>
+                    <input type="time" id="editable-time" class="time-input">
                     <i id="now-info-icon" class="fa-solid fa-circle-info"></i>
                 </div>
                 
-                <div id="later-options-container" class="hidden">
-                    <div class="button-group-horizontal">
-                        <button type="button" class="btn-segment-secondary active" data-schedule="today">Сьогодні</button>
-                        <button type="button" class="btn-segment-secondary" data-schedule="tomorrow">Завтра</button>
-                        <button type="button" class="btn-segment-secondary" data-schedule="date">Вибрати дату</button>
-                    </div>
-                    <div id="schedule-details-block" class="time-picker-block">
-                        <p id="schedule-date-display">Середа, 18 вересня</p>
-                        <span id="schedule-time" contenteditable="true">00:00</span>
-                        <button id="confirm-schedule-btn" class="confirm-btn">
-                             <i class="fa-solid fa-circle-check"></i>
-                        </button>
-                    </div>
+                <div id="later-options-container" class="later-options-wrapper hidden">
+                    <button type="button" class="btn-segment full-width" data-schedule="today">
+                        <i class="fa-solid fa-circle"></i> Сьогодні
+                    </button>
+                    <button type="button" class="btn-segment full-width" data-schedule="tomorrow">
+                        <i class="fa-solid fa-calendar-day"></i> Завтра
+                    </button>
+                    <button type="button" class="btn-segment full-width" data-schedule="date">
+                        <i class="fa-solid fa-calendar-days"></i> Вибрати дату
+                    </button>
                 </div>
             </div>
             
             <div class="form-group optional-section">
-                <label for="select-driver-toggle">
+                <button type="button" id="select-driver-btn" class="btn-secondary-action">
                     Вибрати водія
                     <i id="driver-select-info" class="fa-solid fa-circle-info"></i>
-                </label>
-                </div>
+                </button>
+                <p id="driver-select-note" class="info-note hidden">
+                    Ви можете обрати конкретного водія зі списку. Він буде в пріоритеті, але якщо він не підтвердить замовлення через 10 хвилин, ваше замовлення стане доступним для всіх інших водіїв.
+                </p>
+            </div>
 
             <div class="form-group">
                 <label for="comment"><i class="fa-solid fa-comment-dots"></i> Коментар (необов'язково)</label>
@@ -491,6 +491,9 @@
             </div>
             <button type="submit" class="btn-submit">Відправити замовлення</button>
         </form>
+    </main>
+</div>
+
         
         <div id="confirmation-block" class="confirmation-container hidden">
              ⚡️
