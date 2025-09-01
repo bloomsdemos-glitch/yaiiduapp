@@ -252,65 +252,78 @@
         </div>
 
         <!-- Driver find passengers -->
-        <div id="driver-find-passengers-screen" class="screen hidden">
-            <header>
-                <button class="btn-back" data-target="driver-dashboard"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>Актуальні замовлення</h2>
-                <div class="header-placeholder"></div>
-            </header>
-            <main>
-                <ul class="order-list">
-                    <li class="order-card new">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Весняна, 15</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Музейна, 4</span>
-                            </div>
-                            <div class="passenger-details">
-                                <i class="fa-solid fa-user-circle"></i> Олена · 4.9 <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="order-time">Зараз</div>
-                    </li>
-                    <li class="order-card new">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал</span>
-                            </div>
-                            <div class="passenger-details">
-                                <i class="fa-solid fa-user-circle"></i> Андрій · 5.0 <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="order-time">Зараз</div>
-                    </li>
-                    <li class="order-card">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Стадіонна, 8</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Харківська, 102</span>
-                            </div>
-                            <div class="passenger-details">
-                                <i class="fa-solid fa-user-circle"></i> Ірина · 4.7 <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="order-time">14:30</div>
-                    </li>
-                    <li class="order-card">
-                        <div class="order-info">
-                            <div class="route">
-                                <span><i class="fa-solid fa-circle start-point-icon"></i> лікарня</span>
-                                <span><i class="fa-solid fa-location-dot end-point-icon"></i> Центр</span>
-                            </div>
-                            <div class="passenger-details">
-                                <i class="fa-solid fa-user-circle"></i> Олег · 4.8 <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="order-time">15:00</div>
-                    </li>
-                </ul>
-            </main>
-        </div>
+   <div id="driver-find-passengers-screen" class="screen hidden">
+    <header>
+        <button class="btn-back" data-target="driver-dashboard"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Шукають водія</h2>
+        <div class="header-placeholder"></div>
+    </header>
+    <main>
+        <ul class="order-list">
+            <li class="order-card new">
+                <div class="order-info">
+                    <div class="passenger-details">
+                        <i class="fa-solid fa-user-circle"></i> Олена
+                    </div>
+                    <div class="route">
+                        <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Весняна, 15</span>
+                        <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Музейна, 4</span>
+                    </div>
+                </div>
+                <div class="order-time">
+                    <div class="status-dot online"></div>
+                    Зараз
+                </div>
+            </li>
+            <li class="order-card new">
+                <div class="order-info">
+                    <div class="passenger-details">
+                        <i class="fa-solid fa-user-circle"></i> Андрій
+                    </div>
+                    <div class="route">
+                        <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Зоряна, 31</span>
+                        <span><i class="fa-solid fa-location-dot end-point-icon"></i> Залізничний вокзал</span>
+                    </div>
+                </div>
+                <div class="order-time">
+                    <div class="status-dot online"></div>
+                    Зараз
+                </div>
+            </li>
+            <li class="order-card">
+                <div class="order-info">
+                    <div class="passenger-details">
+                        <i class="fa-solid fa-user-circle"></i> Ірина
+                    </div>
+                    <div class="route">
+                        <span><i class="fa-solid fa-circle start-point-icon"></i> вул. Стадіонна, 8</span>
+                        <span><i class="fa-solid fa-location-dot end-point-icon"></i> вул. Харківська, 102</span>
+                    </div>
+                </div>
+                <div class="order-time">
+                    <i class="fa-solid fa-clock"></i>
+                    14:30
+                </div>
+            </li>
+            <li class="order-card">
+                <div class="order-info">
+                    <div class="passenger-details">
+                        <i class="fa-solid fa-user-circle"></i> Олег
+                    </div>
+                    <div class="route">
+                        <span><i class="fa-solid fa-circle start-point-icon"></i> лікарня</span>
+                        <span><i class="fa-solid fa-location-dot end-point-icon"></i> Центр</span>
+                    </div>
+                </div>
+                <div class="order-time">
+                    <i class="fa-solid fa-clock"></i>
+                    15:00
+                </div>
+            </li>
+        </ul>
+    </main>
+</div>
+
 
         <!-- Driver order details screen -->
         <div id="driver-order-details-screen" class="screen hidden">
