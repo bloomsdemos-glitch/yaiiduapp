@@ -18,12 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // == 3. ОСНОВНІ ФУНКЦІЇ ==
 
-    function showScreen(screenId) {
-        if (window.tripInterval) clearInterval(window.tripInterval);
-        screens.forEach(screen => screen.classList.add('hidden'));
-        const activeScreen = document.getElementById(screenId);
-        if (activeScreen) activeScreen.classList.remove('hidden');
+// ЗАМІНИ НА ЦЕЙ ПРАВИЛЬНИЙ БЛОК:
+function showScreen(screenId) {
+    if (window.tripInterval) clearInterval(window.tripInterval);
+
+    screens.forEach(screen => {
+        screen.classList.add('hidden');
+        screen.classList.remove('active'); // ВАЖЛИВО: Повертаємо цей рядок
+    });
+    const activeScreen = document.getElementById(screenId);
+    if (activeScreen) {
+        activeScreen.classList.remove('hidden');
+        activeScreen.classList.add('active'); // ВАЖЛИВО: І цей теж
     }
+}
+
 
     function runActiveTripSimulation() {
         // ... (код симуляції залишаємо як є)
