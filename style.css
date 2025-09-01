@@ -117,37 +117,25 @@ footer {
     font-size: 14px;
 }
 
-/* === 4. КОМПОНЕНТИ: Універсальний стиль "Скла" === */
-.btn-main,
-.menu-item,
-.driver-card,
-.order-card,
-.form-input,
-.details-card {
+/* ======================================= */
+/* == ФАЗА 1: НОВИЙ УНІВЕРСАЛЬНИЙ СТИЛЬ == */
+/* ======================================= */
+
+/* --- ОСНОВНИЙ СТИЛЬ "СКЛА" ДЛЯ ВСІХ ІНТЕРАКТИВНИХ ЕЛЕМЕНТІВ --- */
+.btn-main, .menu-item, .btn-segment, .btn-submit, .btn-secondary-action, .order-card, .details-card, .form-input, .driver-card {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke);
-    box-shadow: var(--glass-shadow);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
 }
 
-.btn-main::before, .menu-item::before, .driver-card::before, .order-card::before, .form-input::before, .details-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-}
-
-.btn-main, .driver-card, .order-card, .details-card {
-    border-radius: 25px;
-}
-.menu-item, .form-input {
-    border-radius: 14px;
+/* --- ЕФЕКТ ПРИ НАТИСКАННІ ДЛЯ ВСІХ КНОПОК --- */
+.btn-main:active, .menu-item:active, .btn-segment:active, .btn-submit:active, .btn-secondary-action:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* === 5. ЕЛЕМЕНТИ: Кнопки, Лого, Меню === */
@@ -172,23 +160,40 @@ footer {
     width: 80%;
 }
 
+/* --- Конкретизація стилів для різних елементів --- */
 .btn-main {
     padding: 18px 25px;
     color: var(--text-primary);
     font-size: 18px;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
-    transition: transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
+    border-radius: 16px;
 }
 
-.btn-main:active {
-    transform: scale(0.97);
+.menu-item {
+    padding: 18px;
+    color: var(--text-primary);
+    font-size: 17px;
+    font-weight: var(--font-weight-regular);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    border-radius: 14px;
 }
 
+.menu-item span > i {
+    margin-right: 15px;
+    width: 20px;
+    color: var(--text-secondary);
+}
+
+/* --- Кнопка Telegram залишається без змін (вона не скляна) --- */
 .btn-telegram-login {
     width: 90%;
     padding: 16px;
@@ -205,30 +210,42 @@ footer {
     gap: 12px;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
+.btn-telegram-login:active {
+    transform: scale(0.97);
+}
 
-.menu-item {
-    padding: 18px;
-    color: var(--text-primary);
-    font-size: 17px;
-    font-weight: var(--font-weight-regular);
-    cursor: pointer;
-    transition: transform 0.2s ease;
+
+/* --- Горизонтальні сегментовані кнопки (для майбутніх кроків) --- */
+.button-group-horizontal {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
+    width: 100%;
 }
-
-.menu-item:active {
-    transform: scale(0.98);
-}
-
-.menu-item span > i {
-    margin-right: 15px;
-    width: 20px;
+.btn-segment {
+    flex: 1;
+    padding: 12px;
     color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid var(--glass-stroke);
+    background: transparent;
+}
+.btn-segment:first-child {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border-right: none;
+}
+.btn-segment:last-child {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+.btn-segment.active {
+    background: var(--accent-color);
+    color: white;
+    font-weight: var(--font-weight-bold);
 }
 
+
+/* --- Аватар (без змін) --- */
 .avatar {
     width: 80px;
     height: 80px;
