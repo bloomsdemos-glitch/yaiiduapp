@@ -1024,6 +1024,28 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* ======================================= */
+/* == ФІКСИ ДЛЯ СТОРІНКИ "ЗНАЙТИ ВОДІЯ" == */
+/* ======================================= */
+
+/* --- Закруглюємо картки водіїв --- */
+.driver-card {
+    border-radius: 20px;
+}
+
+/* --- Заголовок над списком --- */
+.list-header-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* --- Статус "Доступний" для водіїв онлайн --- */
+.driver-info .status-available {
+    color: var(--success-color);
+    font-weight: 500;
+}
 
 
 
