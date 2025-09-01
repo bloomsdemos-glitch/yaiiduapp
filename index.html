@@ -449,7 +449,10 @@
         <form id="quick-order-form" class="order-form">
             <div class="form-group">
                 <label for="from-address" class="address-label"><i class="fa-solid fa-circle-dot from-icon"></i> Звідки</label>
-                <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+                <div class="input-with-icon">
+                    <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+                    <i class="fa-solid fa-location-crosshairs input-icon"></i>
+                </div>
             </div>
             <div class="form-group">
                 <label for="to-address" class="address-label"><i class="fa-solid fa-location-dot to-icon"></i> Куди</label>
@@ -457,7 +460,7 @@
             </div>
 
             <div class="form-group">
-                <label class="section-label"><i class="fa-solid fa-clock"></i> Коли</label>
+                <label class="section-label"><i class="fa-solid fa-clock when-icon"></i> Коли</label>
                 <div class="button-group-horizontal">
                     <button type="button" class="btn-segment active" data-time-option="now"><i class="fa-solid fa-bolt"></i> Зараз</button>
                     <button type="button" class="btn-segment" data-time-option="later"><i class="fa-solid fa-hourglass"></i> На інший час</button>
@@ -466,10 +469,9 @@
 
             <div id="time-details-container">
                 <div id="now-time-block" class="custom-time-picker">
-                    <input type="number" id="time-hours" class="time-input-segment" min="0" max="23" placeholder="00">
+                    <select id="time-hours" class="time-select"></select>
                     <span class="time-separator">:</span>
-                    <input type="number" id="time-minutes" class="time-input-segment" min="0" max="59" placeholder="00">
-                    <i id="now-info-icon" class="fa-solid fa-circle-info"></i>
+                    <select id="time-minutes" class="time-select"></select>
                 </div>
                 
                 <div id="later-options-container" class="later-options-wrapper hidden">
@@ -486,6 +488,10 @@
                     <button type="button" class="btn-segment full-width" data-schedule="date">
                         <i class="fa-solid fa-calendar-days"></i> Вибрати дату
                     </button>
+                    <div id="schedule-confirm-block" class="schedule-confirm hidden">
+                        <span id="schedule-result-text">1 вересня • 16:25</span>
+                        <i class="fa-solid fa-circle-check confirm-checkmark"></i>
+                    </div>
                 </div>
             </div>
             
@@ -500,10 +506,10 @@
             </div>
 
             <div class="form-group">
-                <label for="comment"><i class="fa-solid fa-comment-dots"></i> Коментар (необов'язково)</label>
-                <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною'"></textarea>
+                <label for="comment">Коментар (необов'язково)</label>
+                <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
             </div>
-            <button type="submit" class="btn-submit">Відправити замовлення</button>
+            <button type="submit" id="submit-order-btn" class="btn-submit disabled compact">Відправити замовлення</button>
         </form>
     </main>
 </div>
@@ -519,6 +525,7 @@
         </div>
     </main>
 </div>
+
 
 
 
