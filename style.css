@@ -1111,6 +1111,19 @@ footer {
     color: var(--accent-color);
     font-size: 14px;
 }
+/* ======================================= */
+/* == ЯДЕРНИЙ ФІКС ДЛЯ КАРТОК ЗАМОВЛЕНЬ == */
+/* ======================================= */
+
+#driver-find-passengers-screen .order-card {
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+#driver-find-passengers-screen .order-info .passenger-details,
+#driver-find-passengers-screen .order-info .route span {
+    gap: 5px !important;
+}
 
 
 
