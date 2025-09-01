@@ -862,52 +862,56 @@ footer {
     50% { opacity: 0.4; }
 }
 /* ======================================= */
-/* == РЕДИЗАЙН ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == */
+/* == ФІНАЛЬНИЙ РЕДИЗАЙН "ШВИДКЕ ЗАМОВЛЕННЯ" == */
 /* ======================================= */
 
-/* --- Стиль для полів "Звідки" / "Куди" --- */
-.address-label {
-    font-size: 16px !important; /* Збільшуємо шрифт */
-    font-weight: 500 !important; /* Робимо жирнішим */
+/* --- 0. ФІКСИМО СКРОЛЛІНГ --- */
+.screen > main {
+    overflow-y: auto; /* Дозволяє скролити, якщо контент не влазить */
+    -webkit-overflow-scrolling: touch; /* Плавний скролл на iOS */
+}
+
+/* --- 1. Оновлюємо лейбли і плейсхолдери --- */
+.address-label, .section-label {
+    font-size: 16px !important;
+    font-weight: 700 !important; /* Робимо жирним */
     display: flex;
     align-items: center;
+}
+.form-input::placeholder {
+    font-size: 14px; /* Робимо меншим */
 }
 .address-label i {
     font-size: 18px;
     margin-right: 12px !important;
 }
-.from-icon { color: #FFC700; /* Жовтий */ }
-.to-icon { color: var(--success-color); /* Зелений */ }
+.from-icon { color: #FFC700; }
+.to-icon { color: var(--success-color); }
 
-/* --- Нові іконки в кнопках "Зараз" / "На інший час" --- */
-.btn-segment[data-time-option] i {
-    margin-right: 8px;
-}
-/* Прибираємо старий годинник з кнопки */
-#current-time-display { display: none; }
-
-/* --- Новий блок вибору часу (схожий на будильник) --- */
+/* --- 2. Новий компактний вибір часу --- */
 .time-picker-block {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    padding: 15px;
+    padding: 10px;
     margin-top: 10px;
     background-color: rgba(0,0,0,0.2);
     border-radius: 14px;
 }
-[contenteditable="true"] {
-    font-size: 28px;
-    font-weight: var(--font-weight-bold);
-    padding: 5px 10px;
-    border-radius: 8px;
+.time-input {
     background-color: rgba(0,0,0,0.3);
-    outline: none;
+    color: var(--text-primary);
     border: 1px solid transparent;
-    transition: border-color 0.2s;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 22px; /* Зменшимо шрифт, щоб було компактніше */
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    width: 120px; /* Компактна ширина */
 }
-[contenteditable="true"]:focus {
+.time-input:focus {
+    outline: none;
     border-color: var(--accent-color);
 }
 .time-picker-block #now-info-icon {
@@ -916,45 +920,61 @@ footer {
     cursor: pointer;
 }
 
-/* --- Логіка появи блоку "На інший час" --- */
-#later-options-container.hidden {
+
+/* --- 3. Великі вертикальні кнопки "Сьогодні/Завтра..." --- */
+.later-options-wrapper {
+    display: flex;
+    flex-direction: column; /* Ставимо вертикально */
+    gap: 10px; /* Відстань між кнопками */
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+.later-options-wrapper.hidden {
     display: none;
 }
-#schedule-details-block {
-    margin-top: 0;
-    justify-content: space-between;
-}
-#schedule-date-display {
-    font-size: 15px;
-    color: var(--text-secondary);
-}
-.confirm-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 30px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-.confirm-btn.confirmed {
-    color: var(--success-color);
+.btn-segment.full-width {
+    width: 100%;
+    padding: 16px; /* Робимо їх високими, як основні */
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 14px; /* Єдиний стиль радіусу */
+    border: 1px solid var(--glass-stroke);
 }
 
-/* --- Секція "Вибрати водія" --- */
-.optional-section {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--glass-stroke);
-}
-.optional-section label {
-    color: var(--text-primary);
+
+/* --- 4. Нова кнопка "Вибрати водія" --- */
+.btn-secondary-action {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--glass-stroke);
+    background-color: rgba(112, 112, 112, 0.2); /* Нейтральний фон */
+    color: var(--text-secondary);
+    font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 #driver-select-info {
-    color: var(--text-secondary);
-    margin-left: 8px;
     cursor: pointer;
 }
+.info-note {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+.info-note.hidden {
+    display: none;
+}
+
 
 /* --- Блок підтвердження після відправки --- */
 .confirmation-container {
