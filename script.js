@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const showQuickOrderBtn = document.getElementById('show-quick-order-btn');
     const showHelpBtn = document.getElementById('show-help-btn');
     const goToMyOrdersBtn = document.getElementById('go-to-my-orders-btn');
+    const showFindPassengersBtn = document.getElementById('show-find-passengers-btn');
 
     // == 3. ОСНОВНІ ФУНКЦІЇ ==
 
-    // --- Функція для навігації між екранами ---
     function showScreen(screenId) {
         if (window.tripInterval) clearInterval(window.tripInterval);
         
@@ -34,9 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Функція-симулятор для картки "Мої поїздки" ---
     function runActiveTripSimulation() {
-        // ... (код для симуляції залишається без змін, тут для повноти файлу)
         if (window.tripInterval) clearInterval(window.tripInterval);
         const activeCard = document.querySelector('#passenger-orders-screen .order-card.active');
         if (!activeCard) return;
@@ -67,19 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
     
-    // --- Функція для обробки кліків на картках поїздок ---
     function updatePassengerOrderCardListeners() {
         document.querySelectorAll('#passenger-orders-screen .details-btn-arrow').forEach(button => {
             button.addEventListener('click', () => showScreen('passenger-order-details-screen'));
         });
     }
 
-    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" (ФАЗА 3) ==
-
-    // --- Знаходимо всі елементи на екрані ---
+    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" ==
     const quickOrderForm = document.getElementById('quick-order-form');
     const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
-    const timeDetailsContainer = document.getElementById('time-details-container');
     const nowTimeBlock = document.getElementById('now-time-block');
     const laterOptionsContainer = document.getElementById('later-options-container');
     const timeHoursInput = document.getElementById('time-hours');
@@ -87,37 +81,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const driverSelectInfo = document.getElementById('driver-select-info');
     const driverSelectNote = document.getElementById('driver-select-note');
 
-    // --- Ініціалізація та обробники подій для вибору часу ---
     function initQuickOrderScreen() {
-        // Встановлюємо поточний час при відкритті
         const now = new Date();
         timeHoursInput.value = now.getHours().toString().padStart(2, '0');
         timeMinutesInput.value = now.getMinutes().toString().padStart(2, '0');
-
-        // Логіка автопереходу з годин на хвилини
-        timeHoursInput.addEventListener('input', () => {
-            if (timeHoursInput.value.length >= 2) {
-                timeMinutesInput.focus();
-            }
-        });
-        
-        // Логіка: редагування часу = "на інший час"
+        timeHoursInput.addEventListener('input', () => { if (timeHoursInput.value.length >= 2) timeMinutesInput.focus(); });
         [timeHoursInput, timeMinutesInput].forEach(input => {
             input.addEventListener('input', () => {
                 const laterButton = document.querySelector('.btn-segment[data-time-option="later"]');
-                if (!laterButton.classList.contains('active')) {
-                    laterButton.click();
-                }
+                if (!laterButton.classList.contains('active')) laterButton.click();
             });
         });
     }
 
-    // --- Обробники кліків на основні кнопки ---
     timeOptionButtons.forEach(button => {
         button.addEventListener('click', () => {
             timeOptionButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
             if (button.dataset.timeOption === 'later') {
                 laterOptionsContainer.classList.remove('hidden');
                 nowTimeBlock.classList.add('hidden');
@@ -128,40 +108,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Інфо-іконка водія з таймером ---
     driverSelectInfo?.addEventListener('click', (e) => {
         e.stopPropagation();
         driverSelectNote.classList.remove('hidden');
-        setTimeout(() => {
-            driverSelectNote.classList.add('hidden');
-        }, 5000); // Ховаємо через 5 секунд
+        setTimeout(() => { driverSelectNote.classList.add('hidden'); }, 5000);
     });
 
-    // --- Логіка відправки форми ---
     quickOrderForm?.addEventListener('submit', (e) => {
-        e.preventDefault(); // Зупиняємо стандартну відправку
-        showScreen('order-confirmation-screen'); // Показуємо новий екран
+        e.preventDefault();
+        showScreen('order-confirmation-screen');
     });
 
-    // == 5. ГОЛОВНІ ОБРОБНИКИ ПОДІЙ ==
+    // == 5. ГОЛОВНІ ОБРОБНИКИ ПОДІЙ (ПОВНІСТЮ ВИПРАВЛЕНА ВЕРСІЯ) ==
     showDriverLoginBtn?.addEventListener('click', () => showScreen('login-screen-driver'));
     showPassengerLoginBtn?.addEventListener('click', () => showScreen('login-screen-passenger'));
     driverTelegramLoginBtn?.addEventListener('click', () => showScreen('driver-dashboard'));
     passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
-    findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
-    showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
+    
+    // -- Меню Пасажира --
     showMyOrdersBtn?.addEventListener('click', () => {
         showScreen('passenger-orders-screen');
         runActiveTripSimulation();
         updatePassengerOrderCardListeners();
     });
-    
+    findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showQuickOrderBtn?.addEventListener('click', () => {
         showScreen('quick-order-screen');
-        initQuickOrderScreen(); // Ініціалізуємо логіку щоразу при відкритті екрану
+        initQuickOrderScreen();
     });
-    
     showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
+    
+    // -- Меню Водія --
+    showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
+
+    // -- Інші кнопки --
     goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
     
     backButtons.forEach(button => {
