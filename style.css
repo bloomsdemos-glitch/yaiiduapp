@@ -878,7 +878,7 @@ footer {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
 }
-/* ================================================= */
+/* /* ================================================= */
 /* == ФАЗА 2: РЕФАКТОРИНГ "ШВИДКЕ ЗАМОВЛЕННЯ" v3 == */
 /* ================================================= */
 .screen > main { overflow-y: auto; -webkit-overflow-scrolling: touch; }
@@ -886,7 +886,7 @@ footer {
 /* 1. Поля вводу і лейбли */
 .address-label, .section-label, .form-group > label { font-weight: 700 !important; }
 .address-label { font-size: 16px !important; }
-.form-input::placeholder, textarea::placeholder { font-size: 14px; color: #6d6d70; }
+.form-input::placeholder, textarea::placeholder { font-size: 14px; color: #5a5a5e; } /* Робимо ще більш сірим */
 .address-label i { font-size: 16px; margin-right: 12px !important; }
 .when-icon { color: var(--accent-color); }
 .from-icon { color: #FFC700; }
@@ -896,62 +896,59 @@ footer {
 .input-with-icon .input-icon { position: absolute; right: 15px; color: var(--text-secondary); }
 .form-input, textarea.form-input { border-radius: 14px !important; }
 
-/* 2. Старий вибір часу (<select>) - виправляємо відступи */
-.custom-time-picker { display: flex; justify-content: center; align-items: center; gap: 0px; padding: 0; margin-top: 15px; }
-.time-select {
-    -webkit-appearance: none; appearance: none;
-    background: none; border: none;
-    color: var(--text-primary);
-    font-size: 24px; font-weight: 700;
-    padding: 10px 2px; /* Зменшуємо бокові відступи */
-    text-align: center; cursor: pointer;
+/* 2. ЗБІЛЬШУЄМО ГОДИННИК */
+.custom-time-picker {
+    padding: 10px 0;
 }
-.time-select:focus { outline: none; }
-.time-separator { font-size: 24px; font-weight: 700; color: var(--text-secondary); }
+.time-input-flatpickr {
+    background: none !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    font-size: 28px !important; /* Збільшуємо шрифт */
+    font-weight: 700 !important;
+    text-align: center;
+    width: 150px; /* Збільшуємо ширину */
+    padding: 10px;
+}
 
-/* 3. Плитки "Сьогодні/Завтра" - зменшуємо розмір */
+/* 3. Плитки "Сьогодні/Завтра" - нова форма і розмір */
 .later-options-wrapper { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
 .later-options-wrapper.hidden { display: none; }
-.date-tiles-container { 
-    display: flex; 
-    gap: 15px;
-    max-width: 280px; /* <-- ОБМЕЖУЄМО ШИРИНУ, щоб плитки не були гігантськими */
-    margin: 0 auto; /* Центруємо контейнер */
-}
+.date-tiles-container { display: flex; gap: 15px; }
 .date-tile {
     flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 10px;
-    padding: 15px; border-radius: 20px;
+    align-items: center; justify-content: center; gap: 15px; /* Більше відстань для балансу */
+    padding: 30px 20px; /* Робимо їх вищими */
+    border-radius: 25px; /* Більше заокруглення */
     color: var(--text-secondary);
     background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    aspect-ratio: 1 / 1; 
 }
 .date-tile.active { background: var(--accent-color); color: white; }
-.date-tile i { font-size: 22px; }
-.date-tile span { font-size: 15px; font-weight: 500; }
-
+.date-tile i { font-size: 28px; } /* Великі іконки */
+.date-tile span { font-size: 16px; font-weight: 500; }
 .btn-segment.full-width { border-radius: 14px !important; }
+/* ... (стилі для schedule-confirm) ... */
 
-/* ... (старі стилі для schedule-confirm) ... */
-
-
-/* 4. Кнопка "Вибрати водія" - робимо сірою */
+/* 4. Кнопка "Вибрати водія" - сіра і правильного розміру */
 .left-aligned { display: flex; flex-direction: column; align-items: flex-start; }
 .btn-secondary-action.compact {
-    width: auto; padding: 10px 18px;
-    font-size: 16px; border-radius: 14px !important;
-    background: rgba(85, 85, 90, 0.5) !important; /* Нейтральний сірий */
+    width: auto; padding: 12px 20px; /* Збільшуємо */
+    font-size: 15px; /* Такий же, як у "Коментар" */
+    border-radius: 14px !important;
+    background: rgba(85, 85, 90, 0.5) !important;
     border-color: rgba(112, 112, 115, 0.5) !important;
+    color: var(--text-secondary) !important; /* Робимо текст сірим */
 }
+.btn-secondary-action.compact i { color: var(--text-secondary) !important; } /* І іконку теж */
 .info-note { font-size: 13px; color: var(--muted); padding: 8px 0; margin-top: 5px; text-align: left; max-width: 90%; }
 .info-note.hidden { display: none; }
 
+/* 5. Кнопка "Відправити замовлення" */
+.btn-submit.compact { width: auto; padding: 15px 30px; margin: 10px auto 0 auto; }
+.btn-submit.disabled { background-color: #555; color: #999; pointer-events: none; }
 /* ... (решта стилів без змін) ... */
 
-/* 5. Кнопка "Відправити замовлення" */
-.btn-submit.compact { width: 80%; margin: 10px auto 0 auto; }
-.btn-submit.disabled { background-color: #555; color: #999; pointer-events: none; }
 
 /* 6. Новий екран підтвердження */
 .confirmation-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px; max-width: 90%; }
