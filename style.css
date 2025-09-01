@@ -1112,23 +1112,25 @@ footer {
     font-size: 14px;
 }
 /* ======================================= */
-/* == ЯДЕРНИЙ ФІКС ДЛЯ КАРТОК ЗАМОВЛЕНЬ == */
+/* == ФІКС v3: ТЕЛЕПОРТАЦІЯ ЕЛЕМЕНТА == */
 /* ======================================= */
 
+/* --- 1. Робимо картку "домом" для телепортації --- */
 #driver-find-passengers-screen .order-card {
-    align-items: center !important;
-    justify-content: space-between !important;
+    position: relative; /* Вмикаємо систему координат */
+    padding-right: 75px; /* Звільняємо місце справа, щоб текст не заходив під час */
 }
 
+/* --- 2. Видаємо блоку з часом "телепорт" і відправляємо на місце --- */
+#driver-find-passengers-screen .order-time {
+    position: absolute;      /* Вмикаємо телепорт */
+    top: 50%;                /* Телепортуємо на середину по висоті */
+    right: 15px;             /* Притискаємо до правого краю */
+    transform: translateY(-50%); /* Центруємо себе ідеально */
+}
+
+/* --- 3. А цей фікс для відступів іконок залишаємо --- */
 #driver-find-passengers-screen .order-info .passenger-details,
 #driver-find-passengers-screen .order-info .route span {
     gap: 5px !important;
 }
-
-
-
-
-
-
-
-
