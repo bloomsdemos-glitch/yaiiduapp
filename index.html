@@ -129,52 +129,48 @@
         <div class="header-placeholder"></div>
     </header>
     <main>
-        <div class="order-card active">
-            
-            <div class="order-header">
-                <h3 class="order-title">Активне замовлення #1247</h3>
-                <p class="order-timestamp">29.08.25 • 14:22</p>
-            </div>
+<div class="order-card active">
+    </div>
 
-            <div class="order-status-visual">
-                <i id="status-icon" class="fa-solid fa-spinner fa-spin"></i>
-                <p id="status-text">Водій прямує до вас</p>
-            </div>
-
-            <div class="progress-tracker">
-                <i class="fa-solid fa-circle-dot progress-start-point"></i>
-                <div class="track-line">
-                    <div class="dots-container">
-                        </div>
-                    <i id="car-icon" class="fa-solid fa-car-side"></i>
-                </div>
-                <i id="progress-end-point" class="fa-solid fa-circle-dot progress-end-point"></i>
-            </div>
-            
-            <div class="order-details-grid">
-                <div class="driver-info">
-                    <span><strong>Водій:</strong> Олег</span>
-                    <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
-                </div>
-            </div>
-
-            <div class="route-separator">
-                <i class="fa-solid fa-route"></i>
-            </div>
-
-            <div class="route-addresses">
-                <div class="address-line">
-                    <i class="fa-solid fa-circle start-address-icon"></i>
-                    <span>вул. Зоряна, 31</span>
-                </div>
-                <div class="address-line">
-                    <i class="fa-solid fa-location-dot end-address-icon"></i>
-                    <span>Залізничний вокзал</span>
-                </div>
-            </div>
-
-            <button class="details-btn-arrow"><i class="fa-solid fa-circle-chevron-right"></i></button>
+<div class="order-card active animated-border">
+    <div class="card-content-wrapper">
+        <div class="order-header">
+            <h3 class="order-title">Активне замовлення #1247</h3>
+            <p class="order-timestamp">29.08.25 • 14:22</p>
         </div>
+        <div class="order-status-visual">
+            <i id="status-icon" class="fa-solid fa-spinner fa-spin"></i>
+            <p id="status-text">Водій прямує до вас</p>
+        </div>
+        <div class="progress-tracker">
+            <i class="fa-solid fa-circle-dot progress-start-point"></i>
+            <div class="track-line">
+                <div class="dots-container"></div>
+                <i id="car-icon" class="fa-solid fa-car-side"></i>
+            </div>
+            <i id="progress-end-point" class="fa-solid fa-circle-dot progress-end-point"></i>
+        </div>
+        <div class="order-details-grid">
+            <div class="driver-info">
+                <span><strong>Водій:</strong> Андрій</span>
+                <span><i class="fa-solid fa-car"></i> Skoda Octavia, сірий</span>
+            </div>
+        </div>
+        <div class="route-separator"><i class="fa-solid fa-route"></i></div>
+        <div class="route-addresses">
+            <div class="address-line">
+                <i class="fa-solid fa-circle start-address-icon"></i>
+                <span>вул. Зоряна, 31</span>
+            </div>
+            <div class="address-line">
+                <i class="fa-solid fa-location-dot end-address-icon"></i>
+                <span>Залізничний вокзал</span>
+            </div>
+        </div>
+        <button class="details-btn-arrow"><i class="fa-solid fa-circle-chevron-right"></i></button>
+    </div>
+</div>
+
         <div class="archive-separator">
             <i class="fa-solid fa-box-archive"></i>
             <span>Архів поїздок</span>
@@ -356,39 +352,43 @@
                 </div>
             </div>
 
-            <div id="time-details-container">
-                <div id="now-time-block" class="custom-time-picker">
-                    <input type="text" id="time-picker" class="time-input-flatpickr" placeholder="Оберіть час">
-                </div>
-                
-                <div id="later-options-container" class="later-options-wrapper hidden">
-                    <div class="date-tiles-container">
-                        <button type="button" class="date-tile" data-schedule="today">
-                            <i class="fa-solid fa-circle"></i>
-                            <span>Сьогодні</span>
-                        </button>
-                        <button type="button" class="date-tile" data-schedule="tomorrow">
-                            <i class="fa-solid fa-calendar-day"></i>
-                            <span>Завтра</span>
-                        </button>
-                    </div>
-                    <button type="button" class="btn-segment full-width" data-schedule="date">
-                        <i class="fa-solid fa-calendar-days"></i> Вибрати дату
-                    </button>
-                    <div id="schedule-confirm-block" class="schedule-confirm hidden">
-                        <span id="schedule-result-text">1 вересня • 16:25</span>
-                        <i class="fa-solid fa-circle-check confirm-checkmark"></i>
-                    </div>
-                </div>
-            </div> <div class="form-group optional-section left-aligned">
-                <button type="button" id="select-driver-btn" class="btn-secondary-action compact">
-                    Вибрати водія
-                    <i id="driver-select-info" class="fa-solid fa-circle-info"></i>
-                </button>
-                <p id="driver-select-note" class="info-note hidden">
-                    Ви можете обрати конкретного водія...
-                </p>
-            </div>
+           <div id="time-details-container">
+    <div id="now-time-block" class="custom-time-picker">
+        <div class="animated-border time-picker-wrapper">
+            <input type="text" id="time-picker" class="time-input-flatpickr" placeholder="Оберіть час">
+        </div>
+    </div>
+    
+    <div id="later-options-container" class="later-options-wrapper hidden">
+        <div class="date-tiles-container">
+            <button type="button" class="date-tile" data-schedule="today">
+                <i class="fa-solid fa-circle"></i>
+                <span>Сьогодні</span>
+            </button>
+            <button type="button" class="date-tile" data-schedule="tomorrow">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Завтра</span>
+            </button>
+        </div>
+        <button type="button" class="btn-segment full-width" data-schedule="date">
+            <i class="fa-solid fa-calendar-days"></i> Вибрати дату
+        </button>
+        <div id="schedule-confirm-block" class="schedule-confirm hidden">
+            <span id="schedule-result-text">1 вересня • 16:25</span>
+            <i class="fa-solid fa-circle-check confirm-checkmark"></i>
+        </div>
+    </div>
+</div>
+<div class="form-group optional-section left-aligned">
+    <button type="button" id="select-driver-btn" class="btn-secondary-action compact">
+        Вибрати водія
+        <i id="driver-select-info" class="fa-solid fa-circle-info"></i>
+    </button>
+    <p id="driver-select-note" class="info-note hidden">
+        Ви можете обрати конкретного водія зі списку. Він буде в приорітеті, але якщо він не підтвердить замовлення через 10 хвилин, ваше замовлення стане доступним для всіх інших водіїв
+    </p>
+</div>
+
 
             <div class="form-group">
                 <label for="comment">Коментар (необов'язково)</label>
