@@ -879,7 +879,7 @@ footer {
     50% { opacity: 0.4; }
 }
 /* ================================================= */
-/* == ФАЗА 2: РЕДИЗАЙН ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" == */
+/* == ФАЗА 2: РЕФАКТОРИНГ "ШВИДКЕ ЗАМОВЛЕННЯ" v2 == */
 /* ================================================= */
 .screen > main { overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
@@ -908,43 +908,44 @@ footer {
 .time-select:focus { outline: none; }
 .time-separator { font-size: 24px; font-weight: 700; color: var(--text-secondary); }
 
-/* 3. Плитки "Сьогодні/Завтра" */
+/* 3. Плитки "Сьогодні/Завтра" у стилі віджетів */
 .later-options-wrapper { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
 .later-options-wrapper.hidden { display: none; }
 .date-tiles-container { display: flex; gap: 15px; }
 .date-tile {
     flex: 1; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 10px;
-    padding: 15px; border-radius: 20px;
+    border-radius: 20px;
     color: var(--text-secondary);
-    /* Застосовуємо скляний стиль */
     background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 1 / 1; /* <-- Ця магія робить їх квадратними */
 }
 .date-tile.active { background: var(--accent-color); color: white; }
 .date-tile i { font-size: 22px; }
 .date-tile span { font-size: 15px; font-weight: 500; }
+
+/* Закруглюємо кнопку "Вибрати дату" */
+.btn-segment.full-width { border-radius: 14px !important; }
+
 .schedule-confirm { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-radius: 14px; background: var(--glass-bg); margin-top: 10px; }
 .schedule-confirm.hidden { display: none; }
 .confirm-checkmark { font-size: 22px; color: var(--muted); }
 .confirm-checkmark.active { color: var(--success-color); }
 
-/* 4. Кнопка "Вибрати водія" */
+/* 4. Кнопка "Вибрати водія" - сіра і нейтральна */
 .left-aligned { display: flex; flex-direction: column; align-items: flex-start; }
 .btn-secondary-action.compact {
     width: auto; padding: 10px 18px;
     font-size: 16px; border-radius: 14px !important;
+    background-color: rgba(80, 80, 80, 0.3) !important; /* Робимо сірою */
 }
 .info-note { font-size: 13px; color: var(--muted); padding: 8px 0; margin-top: 5px; text-align: left; max-width: 90%; }
 .info-note.hidden { display: none; }
 
 /* 5. Кнопка "Відправити замовлення" */
 .btn-submit.compact { width: 80%; margin: 10px auto 0 auto; }
-.btn-submit.disabled {
-    background-color: #555;
-    color: #999;
-    pointer-events: none; /* Робить кнопку неклікабельною */
-}
+.btn-submit.disabled { background-color: #555; color: #999; pointer-events: none; }
 
 /* 6. Новий екран підтвердження */
 .confirmation-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px; max-width: 90%; }
@@ -953,6 +954,7 @@ footer {
 .conf-note { margin-top: 25px; margin-bottom: 25px; color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 8px; }
 .spinner { border: 4px solid rgba(255, 255, 255, 0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--accent-color); animation: spin 1s infinite linear; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
 
 /* ======================================= */
 /* == ФІКСИ ДЛЯ СТОРІНКИ "ЗНАЙТИ ВОДІЯ" == */
