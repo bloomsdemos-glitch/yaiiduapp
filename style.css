@@ -1047,30 +1047,39 @@ footer {
     font-weight: 500;
 }
 /* ======================================= */
-/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" == */
+/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" v2 == */
 /* ======================================= */
 
-/* --- 1. Лікуємо "квадратний вірус" --- */
+/* --- 1. Лікуємо "квадратний вірус" І ЦЕНТРУЄМО ВСЕ ПО ВЕРТИКАЛІ --- */
 #driver-find-passengers-screen .order-card {
     border-radius: 20px;
+    align-items: center; /* Це опустить блок з часом на середину */
+    padding: 15px; /* Додамо трохи внутрішніх відступів */
 }
 
-/* --- 2. Вирівнюємо і стилізуємо іконки в картці --- */
+/* --- 2. БАЛАНСУЄМО БЛОК З ІНФОРМАЦІЄЮ --- */
+#driver-find-passengers-screen .order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Відстань між іменем пасажира і маршрутом */
+}
+
+/* --- 3. ЗМЕНШУЄМО ВІДСТУП ІКОНОК і стилізуємо --- */
 #driver-find-passengers-screen .order-info .passenger-details,
 #driver-find-passengers-screen .order-info .route span {
     display: flex;
     align-items: center;
-    gap: 12px; /* Однаковий відступ */
+    gap: 8px; /* Зменшуємо відступ */
 }
 
 #driver-find-passengers-screen .order-info i {
-    width: 20px; /* Однаковий розмір контейнера для іконок */
+    width: 20px;
     text-align: center;
-    font-size: 14px; /* Однаковий розмір шрифту іконок */
+    font-size: 14px;
 }
 
 #driver-find-passengers-screen .order-info .passenger-details i {
-    font-size: 16px; /* Іконку юзера робимо трохи більшою */
+    font-size: 16px;
     color: var(--text-secondary);
 }
 #driver-find-passengers-screen .order-info .start-point-icon {
@@ -1081,25 +1090,26 @@ footer {
 }
 
 
-/* --- 3. Нові статуси часу (Зараз / На потім) --- */
+/* --- 4. Нові статуси часу (Зараз / На потім) --- */
 #driver-find-passengers-screen .order-time {
     display: flex;
-    flex-direction: column; /* Іконка над текстом/часом */
+    flex-direction: column;
     align-items: center;
     gap: 5px;
-    min-width: 60px; /* Щоб картки не стрибали по ширині */
+    min-width: 60px;
 }
 
 #driver-find-passengers-screen .order-time .status-dot.online {
     width: 10px;
     height: 10px;
-    margin: 0; /* Прибираємо зайві відступи, якщо є */
+    margin: 0;
 }
 
 #driver-find-passengers-screen .order-time .fa-clock {
     color: var(--accent-color); /* Синенький годинник */
     font-size: 14px;
 }
+
 
 
 
