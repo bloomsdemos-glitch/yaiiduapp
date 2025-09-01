@@ -148,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     showPassengerLoginBtn?.addEventListener('click', () => showScreen('login-screen-passenger'));
     driverTelegramLoginBtn?.addEventListener('click', () => showScreen('driver-dashboard'));
     passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
-    
+    findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
+    showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
     showMyOrdersBtn?.addEventListener('click', () => {
         showScreen('passenger-orders-screen');
         runActiveTripSimulation();
