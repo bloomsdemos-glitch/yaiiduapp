@@ -71,42 +71,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" ==
-    const quickOrderForm = document.getElementById('quick-order-form');
-    const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
-    const nowTimeBlock = document.getElementById('now-time-block');
-    const laterOptionsContainer = document.getElementById('later-options-container');
-    const timeHoursInput = document.getElementById('time-hours');
-    const timeMinutesInput = document.getElementById('time-minutes');
-    const driverSelectInfo = document.getElementById('driver-select-info');
-    const driverSelectNote = document.getElementById('driver-select-note');
+// == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" ==
+const quickOrderForm = document.getElementById('quick-order-form');
+const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
+const nowTimeBlock = document.getElementById('now-time-block');
+const laterOptionsContainer = document.getElementById('later-options-container');
+// Оновлюємо назви змінних для випадаючих списків
+const timeHoursSelect = document.getElementById('time-hours');
+const timeMinutesSelect = document.getElementById('time-minutes');
+const driverSelectInfo = document.getElementById('driver-select-info');
+const driverSelectNote = document.getElementById('driver-select-note');
 
-    function initQuickOrderScreen() {
-        const now = new Date();
-        timeHoursInput.value = now.getHours().toString().padStart(2, '0');
-        timeMinutesInput.value = now.getMinutes().toString().padStart(2, '0');
-        timeHoursInput.addEventListener('input', () => { if (timeHoursInput.value.length >= 2) timeMinutesInput.focus(); });
-        [timeHoursInput, timeMinutesInput].forEach(input => {
-            input.addEventListener('input', () => {
-                const laterButton = document.querySelector('.btn-segment[data-time-option="later"]');
-                if (!laterButton.classList.contains('active')) laterButton.click();
-            });
-        });
+// --- НОВА ФУНКЦІЯ, що наповнює випадаючі списки годинника ---
+function populateTimeSelectors() {
+    // Перевіряємо, чи вже наповнені списки, щоб не робити це двічі
+    if (timeHoursSelect.options.length > 1) return;
+
+    // Години (0-23)
+    for (let i = 0; i < 24; i++) {
+        const option = document.createElement('option');
+        const hour = i.toString().padStart(2, '0');
+        option.value = hour;
+        option.textContent = hour;
+        timeHoursSelect.appendChild(option);
     }
+    // Хвилини (0-59)
+    for (let i = 0; i < 60; i++) {
+        const option = document.createElement('option');
+        const minute = i.toString().padStart(2, '0');
+        option.value = minute;
+        option.textContent = minute;
+        timeMinutesSelect.appendChild(option);
+    }
+}
 
-    timeOptionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            timeOptionButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            if (button.dataset.timeOption === 'later') {
-                laterOptionsContainer.classList.remove('hidden');
-                nowTimeBlock.classList.add('hidden');
-            } else {
-                laterOptionsContainer.classList.add('hidden');
-                nowTimeBlock.classList.remove('hidden');
-            }
-        });
+// --- ОНОВЛЕНА ФУНКЦІЯ ініціалізації ---
+function initQuickOrderScreen() {
+    // Спочатку наповнюємо списки цифрами
+    populateTimeSelectors();
+
+    // Встановлюємо поточний час у випадаючих списках
+    const now = new Date();
+    const currentHour = now.getHours().toString().padStart(2, '0');
+    const currentMinute = now.getMinutes().toString().padStart(2, '0');
+    
+    timeHoursSelect.value = currentHour;
+    timeMinutesSelect.value = currentMinute;
+
+    // Стара логіка для input'ів нам більше не потрібна,
+    // оскільки <select> вирішує всі проблеми з редагуванням
+}
+
+// --- Ця частина залишається без змін ---
+timeOptionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        timeOptionButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        if (button.dataset.timeOption === 'later') {
+            laterOptionsContainer.classList.remove('hidden');
+            nowTimeBlock.classList.add('hidden');
+        } else {
+            laterOptionsContainer.classList.add('hidden');
+            nowTimeBlock.classList.remove('hidden');
+        }
     });
+});
+
 
     driverSelectInfo?.addEventListener('click', (e) => {
         e.stopPropagation();
