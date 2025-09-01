@@ -76,112 +76,93 @@ const quickOrderForm = document.getElementById('quick-order-form');
 const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
 const nowTimeBlock = document.getElementById('now-time-block');
 const laterOptionsContainer = document.getElementById('later-options-container');
-// Оновлюємо назви змінних для випадаючих списків
-const timeHoursSelect = document.getElementById('time-hours');
-const timeMinutesSelect = document.getElementById('time-minutes');
 const driverSelectInfo = document.getElementById('driver-select-info');
 const driverSelectNote = document.getElementById('driver-select-note');
+const timePickerInput = document.getElementById('time-picker');
 
-// --- НОВА ФУНКЦІЯ, що наповнює випадаючі списки годинника ---
-function populateTimeSelectors() {
-    // Перевіряємо, чи вже наповнені списки, щоб не робити це двічі
-    if (timeHoursSelect.options.length > 1) return;
+// --- Ініціалізація Flatpickr ---
+// Створюємо екземпляр пікера один раз при завантаженні скрипта
+const timePicker = flatpickr(timePickerInput, {
+    enableTime: true,       // Вмикаємо тільки вибір часу
+    noCalendar: true,       // Вимикаємо календар
+    dateFormat: "H:i",      // Формат "23:59"
+    time_24hr: true,        // 24-годинний формат
+    minuteIncrement: 1,     // Крок в 1 хвилину
+});
 
-    // Години (0-23)
-    for (let i = 0; i < 24; i++) {
-        const option = document.createElement('option');
-        const hour = i.toString().padStart(2, '0');
-        option.value = hour;
-        option.textContent = hour;
-        timeHoursSelect.appendChild(option);
-    }
-    // Хвилини (0-59)
-    for (let i = 0; i < 60; i++) {
-        const option = document.createElement('option');
-        const minute = i.toString().padStart(2, '0');
-        option.value = minute;
-        option.textContent = minute;
-        timeMinutesSelect.appendChild(option);
-    }
-}
-
-// --- ОНОВЛЕНА ФУНКЦІЯ ініціалізації ---
+// --- Функція для ініціалізації/скидання екрану ---
 function initQuickOrderScreen() {
-    // Спочатку наповнюємо списки цифрами
-    populateTimeSelectors();
+    // Встановлюємо поточний час в Flatpickr щоразу при відкритті
+    timePicker.setDate(new Date());
 
-    // Встановлюємо поточний час у випадаючих списках
-    const now = new Date();
-    const currentHour = now.getHours().toString().padStart(2, '0');
-    const currentMinute = now.getMinutes().toString().padStart(2, '0');
-    
-    timeHoursSelect.value = currentHour;
-    timeMinutesSelect.value = currentMinute;
-
-    // Стара логіка для input'ів нам більше не потрібна,
-    // оскільки <select> вирішує всі проблеми з редагуванням
+    // Переконуємось, що при відкритті екрану активна вкладка "Зараз"
+    document.querySelector('.btn-segment[data-time-option="now"]').click();
 }
 
-// --- Ця частина залишається без змін ---
+// --- Обробники кліків на головні кнопки "Зараз" / "На інший час" ---
 timeOptionButtons.forEach(button => {
     button.addEventListener('click', () => {
         timeOptionButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         if (button.dataset.timeOption === 'later') {
             laterOptionsContainer.classList.remove('hidden');
-            nowTimeBlock.classList.add('hidden');
+            nowTimeBlock.classList.add('hidden'); // Ховаємо старий блок
         } else {
             laterOptionsContainer.classList.add('hidden');
-            nowTimeBlock.classList.remove('hidden');
+            nowTimeBlock.classList.remove('hidden'); // Показуємо старий блок
         }
     });
 });
 
+// --- Інфо-іконка водія з таймером ---
+driverSelectInfo?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    driverSelectNote.classList.remove('hidden');
+    setTimeout(() => {
+        driverSelectNote.classList.add('hidden');
+    }, 5000);
+});
 
-    driverSelectInfo?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        driverSelectNote.classList.remove('hidden');
-        setTimeout(() => { driverSelectNote.classList.add('hidden'); }, 5000);
-    });
+// --- Логіка відправки форми ---
+quickOrderForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    showScreen('order-confirmation-screen');
+});
 
-    quickOrderForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        showScreen('order-confirmation-screen');
-    });
 
-    // == 5. ГОЛОВНІ ОБРОБНИКИ ПОДІЙ (ПОВНІСТЮ ВИПРАВЛЕНА ВЕРСІЯ) ==
-    showDriverLoginBtn?.addEventListener('click', () => showScreen('login-screen-driver'));
-    showPassengerLoginBtn?.addEventListener('click', () => showScreen('login-screen-passenger'));
-    driverTelegramLoginBtn?.addEventListener('click', () => showScreen('driver-dashboard'));
-    passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
-    
-    // -- Меню Пасажира --
-    showMyOrdersBtn?.addEventListener('click', () => {
-        showScreen('passenger-orders-screen');
-        runActiveTripSimulation();
-        updatePassengerOrderCardListeners();
-    });
-    findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
-    showQuickOrderBtn?.addEventListener('click', () => {
-        showScreen('quick-order-screen');
-        initQuickOrderScreen();
-    });
-    showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
-    
-    // -- Меню Водія --
-    showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
+// == 5. ГОЛОВНІ ОБРОБНИКИ ПОДІЙ (ПОВНІСТЮ ВИПРАВЛЕНА ВЕРСІЯ) ==
+showDriverLoginBtn?.addEventListener('click', () => showScreen('login-screen-driver'));
+showPassengerLoginBtn?.addEventListener('click', () => showScreen('login-screen-passenger'));
+driverTelegramLoginBtn?.addEventListener('click', () => showScreen('driver-dashboard'));
+passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
 
-    // -- Інші кнопки --
-    goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
-    
-    backButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const target = button.dataset.target || 'home-screen';
-            showScreen(target);
-        });
-    });
+// -- Меню Пасажира --
+showMyOrdersBtn?.addEventListener('click', () => {
+    showScreen('passenger-orders-screen');
+    runActiveTripSimulation();
+    updatePassengerOrderCardListeners();
+});
+findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
+showQuickOrderBtn?.addEventListener('click', () => {
+    showScreen('quick-order-screen');
+    initQuickOrderScreen(); // Викликаємо нашу оновлену функцію
+});
+showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
 
-    // == 6. ІНІЦІАЛІЗАЦІЯ ДОДАТКУ ==
-    showScreen('home-screen');
-    
+// -- Меню Водія --
+showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
+
+// -- Інші кнопки --
+goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
+
+backButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const target = button.dataset.target || 'home-screen';
+        showScreen(target);
+    });
+});
+
+// == 6. ІНІЦІАЛІЗАЦІЯ ДОДАТКУ ==
+showScreen('home-screen');
+
 });
