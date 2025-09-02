@@ -15,6 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const showHelpBtn = document.getElementById('show-help-btn');
     const goToMyOrdersBtn = document.getElementById('go-to-my-orders-btn');
     const showFindPassengersBtn = document.getElementById('show-find-passengers-btn');
+    const driverTelegramLoginBtn = document.querySelector('#login-screen-driver .btn-telegram-login');
+    const passengerTelegramLoginBtn = document.querySelector('#login-screen-passenger .btn-telegram-login');
+
+    // Елементи водія
+    const showDriverOrdersBtn = document.getElementById('show-driver-orders-btn');
+    const acceptOrderBtn = document.getElementById('accept-order-btn');
+    const tripDistanceEl = document.getElementById('trip-distance');
+    const tripFareEl = document.getElementById('trip-fare');
+    const paymentMethodEl = document.getElementById('payment-method');
+    const cancelRideBtn = document.getElementById('cancel-ride-btn');
+    const rideActionBtn = document.getElementById('ride-action-btn');
+    const rideStatusHeader = document.getElementById('ride-status-header');
+    const rideMapPlaceholder = document.getElementById('ride-map-placeholder')?.querySelector('p');
+    const rideAddressDetails = document.getElementById('ride-address-details');
 
     // == 3. ОСНОВНІ ФУНКЦІЇ ==
 
@@ -162,12 +176,84 @@ function showScreen(screenId) {
     // == 5. ГОЛОВНІ ОБРОБНИКИ ПОДІЙ ==
     showDriverLoginBtn?.addEventListener('click', () => showScreen('login-screen-driver'));
     showPassengerLoginBtn?.addEventListener('click', () => showScreen('login-screen-passenger'));
-    
+    driverTelegramLoginBtn?.addEventListener('click', () => showScreen('driver-dashboard'));
+    passengerTelegramLoginBtn?.addEventListener('click', () => showScreen('passenger-dashboard'));
+
     showMyOrdersBtn?.addEventListener('click', () => {
         showScreen('passenger-orders-screen');
         runActiveTripSimulation();
         updatePassengerOrderCardListeners();
     });
+
+    function updateDriverOrderCardListeners() {
+        document.querySelectorAll('#driver-find-passengers-screen .order-card').forEach(card => {
+            card.addEventListener('click', () => {
+                calculateAndDisplayTripDetails();
+                showScreen('driver-order-details-screen');
+            });
+        });
+    }
+
+    function calculateAndDisplayTripDetails() {
+        const BASE_FARE = 40;
+        const PRICE_PER_KM = 15;
+        const PAYMENT_OPTIONS = ['Готівка', 'Картка'];
+        if (!tripDistanceEl || !tripFareEl || !paymentMethodEl) return;
+        const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
+        const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
+        const paymentMethod = PAYMENT_OPTIONS[Math.floor(Math.random() * PAYMENT_OPTIONS.length)];
+        tripDistanceEl.textContent = `~ ${distance} км`;
+        tripFareEl.textContent = `~ ${fare} грн`;
+        paymentMethodEl.textContent = paymentMethod;
+    }
+
+    function setupActiveRide() {
+        rideState = 'driving_to_client';
+        updateRideScreenUI();
+    }
+
+    function handleRideAction() {
+        switch (rideState) {
+            case 'driving_to_client':
+                alert('Пасажиру надіслано сповіщення, що ви на місці!');
+                rideState = 'waiting_for_client';
+                break;
+            case 'waiting_for_client':
+                rideState = 'in_progress';
+                break;
+            case 'in_progress':
+                alert('Поїздку завершено!');
+                rideState = 'idle';
+                showScreen('driver-dashboard');
+                break;
+        }
+        updateRideScreenUI();
+    }
+
+    function updateRideScreenUI() {
+        if (!rideActionBtn) return;
+        rideActionBtn.classList.remove('start-ride', 'end-ride');
+        switch (rideState) {
+            case 'driving_to_client':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'Поїздка до пасажира';
+                if (rideMapPlaceholder) rideMapPlaceholder.textContent = 'Їдьте до пасажира';
+                if (rideAddressDetails) rideAddressDetails.innerHTML = '<span><strong>Адреса:</strong> вул. Весняна, 15</span>';
+                rideActionBtn.innerHTML = '✅ Я на місці';
+                break;
+            case 'waiting_for_client':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'Очікування пасажира';
+                rideActionBtn.innerHTML = '🚀 Почати поїздку';
+                rideActionBtn.classList.add('start-ride');
+                break;
+            case 'in_progress':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'В дорозі';
+                if (rideMapPlaceholder) rideMapPlaceholder.textContent = 'Їдьте до точки призначення';
+                if (rideAddressDetails) rideAddressDetails.innerHTML = '<span><strong>Пункт призначення:</strong> вул. Музейна, 4</span>';
+                rideActionBtn.innerHTML = '🏁 Завершити поїздку';
+                rideActionBtn.classList.add('end-ride');
+                break;
+        }
+    }
     
     showQuickOrderBtn?.addEventListener('click', () => {
         showScreen('quick-order-screen');
@@ -177,6 +263,19 @@ function showScreen(screenId) {
     findDriverBtn?.addEventListener('click', () => showScreen('passenger-find-driver-screen'));
     showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
     showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
+    showDriverOrdersBtn?.addEventListener('click', () => alert('Цей екран ще в розробці :)'));
+acceptOrderBtn?.addEventListener('click', () => {
+    setupActiveRide();
+    showScreen('driver-active-ride-screen');
+});
+cancelRideBtn?.addEventListener('click', () => {
+    if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) {
+        rideState = 'idle';
+        showScreen('driver-dashboard');
+    }
+});
+rideActionBtn?.addEventListener('click', handleRideAction);
+
     goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
     
     backButtons.forEach(button => {
