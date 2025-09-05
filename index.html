@@ -391,11 +391,14 @@
             </div>
 
            <div id="time-details-container">
-    <div id="now-time-block" class="custom-time-picker">
-        <div class="animated-border time-picker-wrapper">
-            <input type="text" id="time-picker" class="time-input-flatpickr" placeholder="Оберіть час">
-        </div>
+<div id="now-time-block" class="custom-time-picker">
+    <div class="animated-border time-picker-wrapper">
+        <select id="time-hours" class="time-select"></select>
+        <span class="time-separator">:</span>
+        <select id="time-minutes" class="time-select"></select>
     </div>
+</div>
+
     
     <div id="later-options-container" class="later-options-wrapper hidden">
         <div class="date-tiles-container">
