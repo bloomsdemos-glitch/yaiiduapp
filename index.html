@@ -424,22 +424,18 @@
                     </div>
                 </div>
 
-<div class="form-group optional-section left-aligned">
-    <button type="button" id="select-driver-btn" class="btn-secondary-action compact">
-        Вибрати водія
-        <i id="driver-select-info" class="fa-solid fa-circle-info"></i>
-    </button>
-    <p id="driver-select-note" class="info-note hidden">
-        Ви можете обрати конкретного водія зі списку. Він буде в приорітеті, але якщо він не підтвердить замовлення через 10 хвилин, ваше замовлення стане доступним для всіх інших водіїв
-    </p>
-</div>
-
 
             <div class="form-group">
                 <label for="comment">Коментар (необов'язково)</label>
                 <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
             </div>
-            <button type="submit" id="submit-order-btn" class="btn-submit disabled compact">Відправити замовлення</button>
+           <div class="form-actions">
+    <button type="button" id="select-driver-btn" class="btn-icon-action" aria-label="Вибрати водія">
+        <i class="fa-solid fa-user-check"></i>
+    </button>
+    <button type="submit" id="submit-order-btn" class="btn-submit disabled">Відправити замовлення</button>
+</div>
+
         </form>
     </main>
 </div>
