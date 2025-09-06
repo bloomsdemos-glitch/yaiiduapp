@@ -1180,3 +1180,43 @@ footer {
 .form-group.optional-section {
     margin-bottom: 20px;
 }
+/* === КРОК 1.4: НОВА "ЗОНА ДІЙ" ДЛЯ ФОРМИ ЗАМОВЛЕННЯ === */
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.form-actions .btn-submit {
+    flex-grow: 1; /* Головна кнопка займає весь доступний простір */
+    margin: 0; /* Прибираємо старі відступи */
+}
+
+.btn-icon-action {
+    flex-shrink: 0; /* Іконка не буде стискатись */
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 20px;
+    
+    /* Наша улюблена магія скла */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
+    color: var(--text-secondary);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-icon-action:active {
+    transform: scale(0.95);
+    background: rgba(0, 0, 0, 0.3);
+}
