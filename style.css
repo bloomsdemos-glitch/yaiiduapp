@@ -1121,3 +1121,47 @@ footer {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+/* === КРОК 1.1: РЕМОНТ ГОДИННИКА НА ЕКРАНІ ЗАМОВЛЕННЯ === */
+
+.time-picker-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центруємо все по горизонталі */
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.time-display-wrapper {
+    background-color: #1c1c1e; /* Темний, майже чорний фон */
+    border-radius: 12px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: baseline; /* Вирівнюємо по базовій лінії, щоб двокрапка була нижче */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#time-display-hours,
+#time-display-minutes {
+    font-size: 36px; /* ВЕЛИКІ ЦИФРИ */
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.time-display-wrapper .time-separator {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 5px;
+    position: relative;
+    top: -3px; /* Трохи опускаємо двокрапку для візуального центрування */
+}
+
+.info-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px;
+}
