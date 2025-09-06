@@ -1248,8 +1248,8 @@ footer {
 /* 3. Стилі для самої іконки залишаються ті ж, але тепер вони працюють правильно */
 .info-btn {
     position: absolute;
-    top: 6px;
-    right: 10px;
+    top: 2px;
+    right: 4px;
     font-size: 14px;
     color: rgba(255, 255, 255, 0.4);
 }
