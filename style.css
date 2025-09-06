@@ -1362,3 +1362,13 @@ footer {
 .animation-wrapper:active .btn-icon-action {
     background: #1c1c1e; /* Темний фон при кліку */
 }
+/* === ФІКС ДЛЯ АНІМАЦІЇ КНОПОК В РЯДКУ === */
+.form-actions .animation-wrapper {
+    display: flex; /* Потрібно, щоб кнопка всередині поводилась правильно */
+    border-radius: 50%; /* Робимо круглу обгортку для круглої кнопки */
+}
+
+.form-actions .animation-wrapper:last-child {
+    flex-grow: 1; /* Змушуємо обгортку головної кнопки рости */
+    border-radius: 16px; /* А для головної кнопки - прямокутну */
+}
