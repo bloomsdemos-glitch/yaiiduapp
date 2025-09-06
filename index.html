@@ -372,15 +372,20 @@
 <form id="quick-order-form" class="order-form">
     <div class="form-group">
         <label for="from-address" class="address-label"><i class="fa-solid fa-circle-dot from-icon"></i> Звідки</label>
-        <div class="input-with-icon">
-            <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
-            <i class="fa-solid fa-location-crosshairs input-icon"></i>
-        </div>
+        <div class="animation-wrapper">
+    <div class="input-with-icon">
+        <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+        <i class="fa-solid fa-location-crosshairs input-icon"></i>
+    </div>
+</div>
+
     </div>
     <div class="form-group">
         <label for="to-address" class="address-label"><i class="fa-solid fa-location-dot to-icon"></i> Куди</label>
-        <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
-    </div>
+<div class="animation-wrapper">
+    <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
+</div>
+
 
     <div class="form-group">
         <label class="section-label"><i class="fa-solid fa-clock when-icon"></i> Коли</label>
@@ -428,7 +433,9 @@
 
     <div class="form-group">
         <label for="comment">Коментар (необов'язково)</label>
-        <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
+        <div class="animation-wrapper">
+    <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
+</div>
     </div>
 
     <div class="form-actions">
