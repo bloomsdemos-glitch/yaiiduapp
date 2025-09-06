@@ -399,13 +399,11 @@
         <div id="now-time-block" class="time-picker-container">
             <div class="time-display-wrapper animated-border">
                 <div class="time-display-content">
-                    <span id="time-display-hours">--</span>
-                    <span class="time-separator">:</span>
-                    <span id="time-display-minutes">--</span>
-                    <button type="button" class="info-btn" id="time-info-btn">
-                        <i class="fa-solid fa-circle-info"></i>
-                    </button>
-                </div>
+    <span id="time-display-hours">--</span>
+    <span class="time-separator">:</span>
+    <span id="time-display-minutes">--</span>
+</div>
+
             </div>
         </div>
 
@@ -416,15 +414,20 @@
 
         <div id="later-options-container" class="later-options-wrapper hidden">
             <div class="date-tiles-container">
-                <button type="button" class="date-tile" data-schedule="today">
-                    <i class="fa-solid fa-circle"></i>
-                    <span>Сьогодні</span>
-                </button>
-                <button type="button" class="date-tile" data-schedule="tomorrow">
-                    <i class="fa-solid fa-calendar-day"></i>
-                    <span>Завтра</span>
-                </button>
-            </div>
+    <div class="animation-wrapper">
+        <button type="button" class="date-tile" data-schedule="today">
+            <i class="fa-solid fa-circle"></i>
+            <span>Сьогодні</span>
+        </button>
+    </div>
+    <div class="animation-wrapper">
+        <button type="button" class="date-tile" data-schedule="tomorrow">
+            <i class="fa-solid fa-calendar-day"></i>
+            <span>Завтра</span>
+        </button>
+    </div>
+</div>
+
             <button type="button" class="btn-segment full-width" data-schedule="date">
                 <i class="fa-solid fa-calendar-days"></i> Вибрати дату
             </button>
