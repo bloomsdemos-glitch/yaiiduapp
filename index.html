@@ -391,13 +391,17 @@
             </div>
 
            <div id="time-details-container">
-<div id="now-time-block" class="custom-time-picker">
-    <div class="animated-border time-picker-wrapper">
-        <select id="time-hours" class="time-select"></select>
+<div id="now-time-block" class="time-picker-container">
+    <div class="time-display-wrapper">
+        <span id="time-display-hours">--</span>
         <span class="time-separator">:</span>
-        <select id="time-minutes" class="time-select"></select>
+        <span id="time-display-minutes">--</span>
     </div>
+    <button type="button" class="info-btn" id="time-info-btn">
+        <i class="fa-solid fa-circle-info"></i>
+    </button>
 </div>
+
 
     
     <div id="later-options-container" class="later-options-wrapper hidden">
