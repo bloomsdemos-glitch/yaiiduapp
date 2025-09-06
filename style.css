@@ -214,7 +214,6 @@ footer {
     transform: scale(0.97);
 }
 
-
 /* --- Горизонтальні сегментовані кнопки (для майбутніх кроків) --- */
 .button-group-horizontal {
     display: flex;
@@ -243,7 +242,6 @@ footer {
     color: white;
     font-weight: var(--font-weight-bold);
 }
-
 
 /* --- Аватар (без змін) --- */
 .avatar {
@@ -821,7 +819,6 @@ footer {
     font-size: 16px; /* Пін робимо трохи більшим */
 }
 
-
 /* --- Кнопка "Детальніше" --- */
 #passenger-orders-screen .details-btn-arrow {
     position: absolute;
@@ -946,8 +943,6 @@ footer {
     transition: all 0.2s ease-in-out;
 }
 
-
-
 .date-tile.active {
     background: var(--accent-color);
     color: white;
@@ -985,7 +980,6 @@ footer {
     font-size: 20px;
 }
 
-
 /* 4. Кнопка "Вибрати водія" - сіра і правильного розміру */
 .left-aligned { display: flex; flex-direction: column; align-items: flex-start; }
 .btn-secondary-action.compact {
@@ -1005,7 +999,6 @@ footer {
 .btn-submit.disabled { background-color: #555; color: #999; pointer-events: none; }
 /* ... (решта стилів без змін) ... */
 
-
 /* 6. Новий екран підтвердження */
 .confirmation-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px; max-width: 90%; }
 .conf-title { font-size: 18px; margin-bottom: 15px; }
@@ -1013,7 +1006,6 @@ footer {
 .conf-note { margin-top: 25px; margin-bottom: 25px; color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 8px; }
 .spinner { border: 4px solid rgba(255, 255, 255, 0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--accent-color); animation: spin 1s infinite linear; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
 
 /* ======================================= */
 /* == ФІКСИ ДЛЯ СТОРІНКИ "ЗНАЙТИ ВОДІЯ" == */
@@ -1081,7 +1073,6 @@ footer {
 #driver-find-passengers-screen .order-info .end-point-icon {
     color: var(--danger-color);
 }
-
 
 /* --- 4. Нові статуси часу (Зараз / На потім) --- */
 #driver-find-passengers-screen .order-time {
@@ -1177,65 +1168,7 @@ footer {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
-/* === КРОК 1.1: РЕМОНТ ГОДИННИКА НА ЕКРАНІ ЗАМОВЛЕННЯ === */
 
-.time-picker-container {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Центруємо все по горизонталі */
-    gap: 15px;
-    width: 100%;
-    margin: 10px 0;
-}
-
-.time-display-wrapper {
-    background-color: #1c1c1e; /* Темний, майже чорний фон */
-    border-radius: 12px;
-    padding: 15px 25px;
-    display: flex;
-    align-items: baseline; /* Вирівнюємо по базовій лінії, щоб двокрапка була нижче */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#time-display-hours,
-#time-display-minutes {
-    font-size: 36px; /* ВЕЛИКІ ЦИФРИ */
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.time-display-wrapper .time-separator {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 5px;
-    position: relative;
-    top: -3px; /* Трохи опускаємо двокрапку для візуального центрування */
-}
-
-.info-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 22px;
-    cursor: pointer;
-    padding: 5px;
-}
-/* === КРОК 1.2: ТЮНІНГ ГОДИННИКА І ВІДСТУПІВ === */
-
-#time-display-hours,
-#time-display-minutes {
-    font-size: 32px; /* Трохи зменшуємо шрифт годинника */
-}
-
-.info-btn {
-    font-size: 14px; /* Робимо іконку (i) значно меншою */
-}
-
-/* Додаємо відступ для блоку з кнопкою "Вибрати водія" */
-.form-group.optional-section {
-    margin-bottom: 20px;
-}
 /* === КРОК 1.4: НОВА "ЗОНА ДІЙ" ДЛЯ ФОРМИ ЗАМОВЛЕННЯ === */
 
 .form-actions {
@@ -1276,36 +1209,70 @@ footer {
     transform: scale(0.95);
     background: rgba(0, 0, 0, 0.3);
 }
-/* === ФІКС: ІКОНКА (i) ВСЕРЕДИНІ ГОДИННИКА === */
+
+/* === КРОК 1.6: НОВИЙ ГОДИННИК З ІКОНКОЮ В РЯДКУ І АНІМАЦІЄЮ === */
 
 .time-picker-container {
-    position: relative; /* Вмикаємо "систему координат" для контейнера */
+    display: flex;
+    justify-content: center; /* Центруємо весь блок */
 }
 
-.info-btn {
-    position: absolute; /* Вмикаємо "режим телепортації" для іконки */
-    top: 6px; /* Відступ зверху */
-    right: 10px; /* Відступ справа */
-    font-size: 14px; /* Твій ідеальний розмір */
-    color: rgba(255, 255, 255, 0.4); /* Робимо її напівпрозорою */
-}
-/* === ФІКС v2: ПОВЕРТАЄМО ІКОНКУ ДОДОМУ === */
-
-/* 1. Прибираємо 100% ширини з контейнера, щоб він не розтягувався */
-.time-picker-container {
-    width: auto;
+.time-display-wrapper.animated-border {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px; /* Важливо для заокруглення рамки */
+    padding: 1px; /* Маленький відступ, щоб рамка не обрізалась */
 }
 
-/* 2. Тепер "батьком" для іконки стає темний блок з цифрами */
-.time-display-wrapper {
-    position: relative; /* << ОСЬ ЦЕ ГОЛОВНЕ */
-}
-
-/* 3. Стилі для самої іконки залишаються ті ж, але тепер вони працюють правильно */
-.info-btn {
+.time-display-wrapper.animated-border::before {
+    content: '';
     position: absolute;
-    top: 2px;
-    right: 4px;
-    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%; /* Робимо градієнт ширшим за блок */
+    height: 150%;
+    background: linear-gradient(45deg, var(--warning-color), var(--success-color), var(--accent-color), var(--danger-color));
+    animation: rotation_481 4s infinite linear;
+}
+
+.time-display-content {
+    position: relative; /* Щоб контент був над анімацією */
+    z-index: 2;
+    display: flex;
+    align-items: center; /* Вертикально центруємо час та іконку */
+    gap: 10px; /* Відстань між часом та іконкою */
+    background-color: #1c1c1e; /* Темний фон, що ховає центр анімації */
+    border-radius: 13px; /* Трохи менше, щоб було видно рамку */
+    padding: 10px 20px;
+}
+
+#time-display-hours,
+#time-display-minutes {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.time-display-wrapper .time-separator {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    position: relative;
+    top: -2px;
+}
+
+.info-btn {
+    background: none;
+    border: none;
+    font-size: 16px; /* Трохи більша іконка для балансу */
     color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1; /* Прибираємо зайву висоту */
+}
+
+@keyframes rotation_481 {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
