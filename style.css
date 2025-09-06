@@ -925,7 +925,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    padding: 0 50px;
+    padding: 0 40px;
 }
 
 .date-tile {
