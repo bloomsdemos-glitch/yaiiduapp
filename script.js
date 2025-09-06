@@ -128,13 +128,20 @@ function showScreen(screenId) {
         }
     }
 
-    function initQuickOrderScreen() {
-        populateTimeSelectors();
+function initQuickOrderScreen() {
+    // populateTimeSelectors(); // Ця функція нам поки не потрібна
+    const hoursEl = document.getElementById('time-display-hours');
+    const minutesEl = document.getElementById('time-display-minutes');
+    
+    if (hoursEl && minutesEl) {
         const now = new Date();
-        timeHoursSelect.value = now.getHours().toString().padStart(2, '0');
-        timeMinutesSelect.value = now.getMinutes().toString().padStart(2, '0');
-        checkFormCompleteness();
+        hoursEl.textContent = now.getHours().toString().padStart(2, '0');
+        minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
     }
+    
+    checkFormCompleteness();
+}
+
 
     timeOptionButtons.forEach(button => {
         button.addEventListener('click', () => {
