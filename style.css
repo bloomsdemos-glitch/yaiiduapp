@@ -1320,101 +1320,82 @@ footer {
 .btn-main-action:hover::before {
     width: 100%;
 }
-/* === НОВА СИСТЕМА АНІМАЦІЇ (ЧИСТИЙ СТАРТ) === */
 
-/* 1. Налаштовуємо саму обгортку */
+
+/* === ФІНАЛЬНА СИСТЕМА АНІМАЦІЇ === */
+
+/* 1. Стилізуємо саму обгортку. Вона тепер головна. */
 .animation-wrapper {
-    position: relative; /* Вмикаємо систему координат */
-    display: flex; /* Важливо для правильної верстки кнопок */
+    position: relative;
+    display: flex;
+    width: 100%;
+    
+    /* Скляний стиль тепер живе тут */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
 }
 
-/* 2. Налаштовуємо анімацію */
+/* 2. Робимо елементи всередині повністю прозорими */
+.animation-wrapper > div > .form-input, /* Для полів з іконками */
+.animation-wrapper > .form-input,       /* Для звичайних полів */
+.animation-wrapper > button {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+/* 3. Налаштовуємо анімацію */
 .animation-wrapper::before {
     content: '';
     position: absolute;
-    z-index: -1; /* <<-- КЛЮЧОВИЙ МОМЕНТ: Ховаємо анімацію ЗА елемент */
-    top: -2px; left: -2px; right: -2px; bottom: -2px; /* Розтягуємо трохи більше за рамку */
-    
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%; height: 150%;
     background: linear-gradient(90deg, #ff9966, #ff2233, #ff9966);
-    background-size: 400%;
-    border-radius: inherit; /* Успадковуємо заокруглення від обгортки */
-    
-    animation: glow 8s linear infinite;
-    
+    animation: rotation_481 4s infinite linear;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease;
 }
 
-/* 3. "Пробуджуємо" анімацію, коли треба */
-.animation-wrapper:focus-within::before,
-.animation-wrapper:active::before {
-    opacity: 1;
+/* 4. "Пробуджуємо" анімацію і міняємо фон обгортки */
+.animation-wrapper:focus-within {
+    background: #1c1c1e; /* Темний фон при фокусі */
+}
+.animation-wrapper:focus-within::before {
+    opacity: 1; /* Показуємо анімацію */
 }
 
-/* 4. Задаємо заокруглення для різних типів обгорток */
-.animation-wrapper .form-input, 
-.animation-wrapper .date-tile,
-.form-actions .animation-wrapper:last-child {
+/* 5. Задаємо правильні заокруглення для обгорток */
+.animation-wrapper,
+.animation-wrapper .form-input,
+.date-tiles-container .animation-wrapper {
     border-radius: 16px;
-}
-.form-actions .animation-wrapper:first-child {
-    border-radius: 50%;
 }
 .date-tiles-container .animation-wrapper {
     border-radius: 25px;
 }
-
-/* 5. Виправляємо відступи (спейсінг) */
-.order-form {
-    gap: 30px; /* Збільшуємо відстань між основними блоками */
+.form-actions .animation-wrapper:first-child {
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+}
+.form-actions .animation-wrapper:last-child {
+    flex-grow: 1;
 }
 
-/* 6. Повертаємо стиль для неактивної кнопки */
+/* 6. Повертаємо відступи і стиль неактивної кнопки */
+.order-form { gap: 30px; }
 .btn-main-action.disabled {
     background: #555 !important;
     color: #999;
     pointer-events: none;
     box-shadow: none;
 }
-.btn-main-action.disabled::before {
-    width: 0 !important;
-}
-
-/* --- Нова анімація світіння --- */
-@keyframes glow {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
-
-/* 4. Фікс іконки в блоці підтвердження */
-.schedule-confirm {
-    gap: 8px; /* Додаємо відстань між текстом та іконкою */
-}
-.confirm-checkmark {
-    font-size: 18px; /* Зменшуємо іконку */
-}
-
-/* 5. Фікс годинника (прибираємо стилі для неіснуючої іконки) */
-.time-display-content {
-    gap: 0;
-}
-.info-btn { 
-    display: none; /* Повністю ховаємо стару іконку */ 
-}
-
-/* 6. Більше простору в формі */
-.order-form {
-    gap: 35px; /* Ще збільшуємо відстань */
-}
-
-/* 7. Стиль для неактивної кнопки */
-.btn-main-action.disabled {
-    background: #555;
-    color: #999;
-    pointer-events: none; /* Робимо її неклікабельною */
-    box-shadow: none;
-}
-.btn-main-action.disabled::before {
-    width: 0 !important; /* Вимикаємо ховер-ефект */
+@keyframes rotation_481 {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
