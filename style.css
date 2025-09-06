@@ -1388,3 +1388,70 @@ footer {
 .animation-wrapper textarea.form-input {
     resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
 }
+/* === ВЕЛИКИЙ ПАТЧ ВІД 6 ВЕРЕСНЯ === */
+
+/* 1. Чистий стиль для активного замовлення */
+#passenger-orders-screen .order-card.active {
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Глобальний фікс анімації (найважливіше!) */
+.animation-wrapper:focus-within,
+.animation-wrapper:active {
+    background: #1c1c1e; /* Темний фон тепер на самій обгортці */
+    border-color: transparent !important; /* Ховаємо власну рамку */
+}
+.animation-wrapper .form-input,
+.animation-wrapper .btn-main-action,
+.animation-wrapper .btn-icon-action,
+.animation-wrapper .date-tile {
+    background: transparent !important; /* Всі елементи всередині стають прозорими */
+    border-color: transparent !important;
+}
+.animation-wrapper:focus-within::before,
+.animation-wrapper:active::before {
+    opacity: 1; /* Показуємо анімацію */
+}
+
+/* 3. Фікс "жирної" рамки (робимо саму анімацію круглою) */
+.animation-wrapper::before {
+    border-radius: 50%;
+}
+/* Окремий фікс заокруглення для обгорток плиток */
+.date-tiles-container .animation-wrapper {
+    border-radius: 25px;
+}
+
+
+/* 4. Фікс іконки в блоці підтвердження */
+.schedule-confirm {
+    gap: 8px; /* Додаємо відстань між текстом та іконкою */
+}
+.confirm-checkmark {
+    font-size: 18px; /* Зменшуємо іконку */
+}
+
+/* 5. Фікс годинника (прибираємо стилі для неіснуючої іконки) */
+.time-display-content {
+    gap: 0;
+}
+.info-btn { 
+    display: none; /* Повністю ховаємо стару іконку */ 
+}
+
+/* 6. Більше простору в формі */
+.order-form {
+    gap: 35px; /* Ще збільшуємо відстань */
+}
+
+/* 7. Стиль для неактивної кнопки */
+.btn-main-action.disabled {
+    background: #555;
+    color: #999;
+    pointer-events: none; /* Робимо її неклікабельною */
+    box-shadow: none;
+}
+.btn-main-action.disabled::before {
+    width: 0 !important; /* Вимикаємо ховер-ефект */
+}
