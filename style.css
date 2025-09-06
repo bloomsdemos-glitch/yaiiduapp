@@ -934,7 +934,7 @@ footer {
     justify-content: center; /* ЦЕНТРУЄМО весь контент по вертикалі */
     
     /* ТВОЇ ІДЕАЛЬНІ РОЗМІРИ: */
-    padding: 50px 30px;
+    padding: 50px 20px;
     border-radius: 25px;
     
     color: var(--text-secondary);
