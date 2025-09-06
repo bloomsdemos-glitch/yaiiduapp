@@ -369,81 +369,76 @@
         <div class="header-placeholder"></div>
     </header>
     <main>
-        <form id="quick-order-form" class="order-form">
-            <div class="form-group">
-                <label for="from-address" class="address-label"><i class="fa-solid fa-circle-dot from-icon"></i> Звідки</label>
-                <div class="input-with-icon">
-                    <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
-                    <i class="fa-solid fa-location-crosshairs input-icon"></i>
+<form id="quick-order-form" class="order-form">
+    <div class="form-group">
+        <label for="from-address" class="address-label"><i class="fa-solid fa-circle-dot from-icon"></i> Звідки</label>
+        <div class="input-with-icon">
+            <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+            <i class="fa-solid fa-location-crosshairs input-icon"></i>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="to-address" class="address-label"><i class="fa-solid fa-location-dot to-icon"></i> Куди</label>
+        <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
+    </div>
+
+    <div class="form-group">
+        <label class="section-label"><i class="fa-solid fa-clock when-icon"></i> Коли</label>
+        <div class="button-group-horizontal">
+            <button type="button" class="btn-segment active" data-time-option="now"><i class="fa-solid fa-bolt"></i> Зараз</button>
+            <button type="button" class="btn-segment" data-time-option="later"><i class="fa-solid fa-hourglass"></i> На інший час</button>
+        </div>
+    </div>
+
+    <div id="time-details-container">
+        <div id="now-time-block" class="time-picker-container">
+            <div class="time-display-wrapper animated-border">
+                <div class="time-display-content">
+                    <span id="time-display-hours">--</span>
+                    <span class="time-separator">:</span>
+                    <span id="time-display-minutes">--</span>
+                    <button type="button" class="info-btn" id="time-info-btn">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </button>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="to-address" class="address-label"><i class="fa-solid fa-location-dot to-icon"></i> Куди</label>
-                <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
-            </div>
+        </div>
 
-            <div class="form-group">
-                <label class="section-label"><i class="fa-solid fa-clock when-icon"></i> Коли</label>
-                <div class="button-group-horizontal">
-                    <button type="button" class="btn-segment active" data-time-option="now"><i class="fa-solid fa-bolt"></i> Зараз</button>
-                    <button type="button" class="btn-segment" data-time-option="later"><i class="fa-solid fa-hourglass"></i> На інший час</button>
-                </div>
-            </div>
+        <div id="schedule-confirm-block" class="schedule-confirm hidden">
+            <span id="schedule-result-text">1 вересня • 16:25</span>
+            <i class="fa-solid fa-circle-check confirm-checkmark"></i>
+        </div>
 
-           <div id="time-details-container">
-<div id="now-time-block" class="time-picker-container">
-    <div class="time-display-wrapper animated-border">
-        <div class="time-display-content">
-            <span id="time-display-hours">--</span>
-            <span class="time-separator">:</span>
-            <span id="time-display-minutes">--</span>
-            <button type="button" class="info-btn" id="time-info-btn">
-                <i class="fa-solid fa-circle-info"></i>
+        <div id="later-options-container" class="later-options-wrapper hidden">
+            <div class="date-tiles-container">
+                <button type="button" class="date-tile" data-schedule="today">
+                    <i class="fa-solid fa-circle"></i>
+                    <span>Сьогодні</span>
+                </button>
+                <button type="button" class="date-tile" data-schedule="tomorrow">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    <span>Завтра</span>
+                </button>
+            </div>
+            <button type="button" class="btn-segment full-width" data-schedule="date">
+                <i class="fa-solid fa-calendar-days"></i> Вибрати дату
             </button>
         </div>
     </div>
-</div>
 
+    <div class="form-group">
+        <label for="comment">Коментар (необов'язково)</label>
+        <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
+    </div>
 
-      ...
-</div> <div id="schedule-confirm-block" class="schedule-confirm hidden">
-    <span id="schedule-result-text">1 вересня • 16:25</span>
-    <i class="fa-solid fa-circle-check confirm-checkmark"></i>
-</div>
-
-...
-
-
-    
-    <div id="later-options-container" class="later-options-wrapper hidden">
-        <div class="date-tiles-container">
-            <button type="button" class="date-tile" data-schedule="today">
-                <i class="fa-solid fa-circle"></i>
-                <span>Сьогодні</span>
-            </button>
-            <button type="button" class="date-tile" data-schedule="tomorrow">
-                <i class="fa-solid fa-calendar-day"></i>
-                <span>Завтра</span>
-            </button>
-        </div>
-        <button type="button" class="btn-segment full-width" data-schedule="date">
-            <i class="fa-solid fa-calendar-days"></i> Вибрати дату
+    <div class="form-actions">
+        <button type="button" id="select-driver-btn" class="btn-icon-action" aria-label="Вибрати водія">
+            <i class="fa-solid fa-user-check"></i>
         </button>
-                 
+        <button type="submit" id="submit-order-btn" class="btn-main-action disabled">Відправити замовлення</button>
+    </div>
+</form>
 
-
-            <div class="form-group">
-                <label for="comment">Коментар (необов'язково)</label>
-                <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
-            </div>
-           <div class="form-actions">
-    <button type="button" id="select-driver-btn" class="btn-icon-action" aria-label="Вибрати водія">
-        <i class="fa-solid fa-user-check"></i>
-    </button>
-    <button type="submit" id="submit-order-btn" class="btn-submit disabled">Відправити замовлення</button>
-</div>
-
-        </form>
     </main>
 </div>
 
