@@ -930,12 +930,13 @@ footer {
 .date-tile {
     display: flex;
     flex-direction: column;
-    align-items: center; /* ЦЕНТРУЄМО іконку і текст по горизонталі */
-    justify-content: center; /* ЦЕНТРУЄМО весь контент по вертикалі */
+    align-items: center;
+    justify-content: center;
     
-    /* ІДЕАЛЬНІ РОЗМІРИ: */
-    padding: 50px 30px;
-    border-radius: 25px;
+    /* ОСНОВНІ ЗМІНИ ТУТ: */
+    height: 130px;      /* <<-- Встановлюємо фіксовану висоту */
+    padding: 20px;      /* <<-- Значно зменшуємо внутрішній відступ */
+    border-radius: 25px; /* <<-- Твоя ідеальна форма залишається */
     
     color: var(--text-secondary);
     background: var(--glass-bg);
@@ -943,6 +944,7 @@ footer {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
+
 .date-tile.active {
     background: var(--accent-color);
     color: white;
