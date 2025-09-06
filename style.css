@@ -1276,3 +1276,41 @@ footer {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+/* === НОВИЙ СТИЛЬ ГОЛОВНИХ КНОПОК === */
+.btn-main-action {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 16px;
+    color: #ffffff;
+    z-index: 1;
+    background: var(--success-color);
+    position: relative;
+    font-weight: 700;
+    font-size: 17px;
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+    width: 100%; /* Щоб кнопка займала всю ширину в контейнері */
+}
+
+.btn-main-action::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #1c1c1e; /* Темний колір при наведенні */
+    z-index: -1;
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+}
+
+.btn-main-action:hover {
+    color: #e8e8e8;
+}
+
+.btn-main-action:hover::before {
+    width: 100%;
+}
