@@ -157,17 +157,55 @@ function initQuickOrderScreen() {
         });
     });
 
-    dateTiles.forEach(tile => {
-        tile.addEventListener('click', () => {
-            dateTiles.forEach(t => t.classList.remove('active'));
-            tile.classList.add('active');
-            selectDateBtn.classList.add('hidden');
-            scheduleConfirmBlock.classList.remove('hidden');
-            
-            const day = tile.dataset.schedule === 'today' ? 'Сьогодні' : 'Завтра';
-            scheduleResultText.textContent = `${day} • ${timeHoursSelect.value}:${timeMinutesSelect.value}`;
-        });
+dateTiles.forEach(tile => {
+    tile.addEventListener('click', () => {
+        // Логіка вибору активної плитки
+        dateTiles.forEach(t => t.classList.remove('active'));
+        tile.classList.add('active');
+        
+        // Ховаємо контейнер з плитками і кнопку "Вибрати дату"
+        tile.closest('.date-tiles-container').classList.add('hidden');
+        selectDateBtn.classList.add('hidden');
+        
+        // Показуємо блок підтвердження
+        scheduleConfirmBlock.classList.remove('hidden');
+        
+        // Формуємо текст для результату
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        
+        let dayText = 'Сьогодні';
+        if (tile.dataset.schedule === 'tomorrow') {
+            dayText = 'Завтра';
+        }
+        
+        scheduleResultText.textContent = `${dayText} • ${hours}:${minutes}`;
     });
+});
+
+// Додамо логіку для кнопки "На інший час"
+timeOptionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        timeOptionButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Скидаємо вибір дати, якщо користувач переключається
+        scheduleConfirmBlock.classList.add('hidden');
+        document.querySelector('.date-tiles-container').classList.remove('hidden');
+        selectDateBtn.classList.remove('hidden');
+        dateTiles.forEach(t => t.classList.remove('active'));
+
+        if (button.dataset.timeOption === 'later') {
+            laterOptionsContainer.classList.remove('hidden');
+            nowTimeBlock.classList.add('hidden');
+        } else {
+            laterOptionsContainer.classList.add('hidden');
+            nowTimeBlock.classList.remove('hidden');
+        }
+    });
+});
+
 
     [fromAddressInput, toAddressInput].forEach(input => {
         input.addEventListener('input', checkFormCompleteness);
