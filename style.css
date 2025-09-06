@@ -1317,3 +1317,48 @@ footer {
 .btn-main-action:hover::before {
     width: 100%;
 }
+/* === УНІВЕРСАЛЬНА АНІМАЦІЯ АКТИВНОГО ЕЛЕМЕНТА === */
+
+.animation-wrapper {
+    position: relative; /* Вмикаємо систему координат */
+    overflow: hidden;   /* Обрізаємо все зайве, що вилазить за межі */
+    border-radius: 16px; /* Важливо! Заокруглення має бути тут */
+    width: 100%;
+}
+
+/* Сама анімація (наш обертовий градієнт) */
+.animation-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
+    animation: rotation_481 5s infinite linear;
+    
+    /* Ховаємо анімацію за замовчуванням */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+/* Вмикаємо анімацію, коли елемент всередині wrapper'а у фокусі */
+.animation-wrapper:focus-within::before {
+    opacity: 1; /* Робимо анімацію видимою */
+}
+
+/* Змінюємо фон самого поля вводу, коли воно у фокусі */
+.animation-wrapper:focus-within .form-input {
+    background: #1c1c1e; /* Темний фон, як у годинника */
+    border-color: transparent; /* Ховаємо власну рамку */
+}
+
+/* Те саме для кнопок, але в момент кліку (:active) */
+.animation-wrapper:active::before {
+    opacity: 1;
+}
+
+.animation-wrapper:active .btn-main-action,
+.animation-wrapper:active .btn-icon-action {
+    background: #1c1c1e; /* Темний фон при кліку */
+}
