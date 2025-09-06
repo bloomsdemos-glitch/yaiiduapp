@@ -934,8 +934,8 @@ footer {
     justify-content: center;
     
     /* ОСНОВНІ ЗМІНИ ТУТ: */
-    height: 130px;      /* <<-- Встановлюємо фіксовану висоту */
-    padding: 50px;      /* <<-- Значно зменшуємо внутрішній відступ */
+    aspect-ratio: 1 / 1; /* <<-- МАГІЯ, ЯКА РОБИТЬ ІДЕАЛЬНИЙ КВАДРАТ */
+    padding: 20px;       /* <<-- Невеликий відступ, щоб контент не прилипав до країв */
     border-radius: 25px; /* <<-- Твоя ідеальна форма залишається */
     
     color: var(--text-secondary);
@@ -944,6 +944,7 @@ footer {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
+
 
 .date-tile.active {
     background: var(--accent-color);
