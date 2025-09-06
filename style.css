@@ -1320,82 +1320,71 @@ footer {
 .btn-main-action:hover::before {
     width: 100%;
 }
+/* === УНІВЕРСАЛЬНА АНІМАЦІЯ АКТИВНОГО ЕЛЕМЕНТА === */
 
-
-/* === ФІНАЛЬНА СИСТЕМА АНІМАЦІЇ === */
-
-/* 1. Стилізуємо саму обгортку. Вона тепер головна. */
 .animation-wrapper {
-    position: relative;
-    display: flex;
-    width: 100%;
-    
-    /* Скляний стиль тепер живе тут */
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-stroke);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease;
-}
-
-/* 2. Робимо елементи всередині повністю прозорими */
-.animation-wrapper > div > .form-input, /* Для полів з іконками */
-.animation-wrapper > .form-input,       /* Для звичайних полів */
-.animation-wrapper > button {
-    background: transparent;
-    border: none;
-    outline: none;
+    position: relative; /* Вмикаємо систему координат */
+    overflow: hidden;   /* Обрізаємо все зайве, що вилазить за межі */
+    border-radius: 16px; /* Важливо! Заокруглення має бути тут */
     width: 100%;
 }
 
-/* 3. Налаштовуємо анімацію */
+/* Сама анімація (наш обертовий градієнт) */
 .animation-wrapper::before {
     content: '';
     position: absolute;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 150%; height: 150%;
-    background: linear-gradient(90deg, #ff9966, #ff2233, #ff9966);
-    animation: rotation_481 4s infinite linear;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
+    animation: rotation_481 5s infinite linear;
+    
+    /* Ховаємо анімацію за замовчуванням */
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease-in-out;
 }
-
-/* 4. "Пробуджуємо" анімацію і міняємо фон обгортки */
-.animation-wrapper:focus-within {
-    background: #1c1c1e; /* Темний фон при фокусі */
-}
+/* Вмикаємо анімацію, коли елемент всередині wrapper'а у фокусі */
 .animation-wrapper:focus-within::before {
-    opacity: 1; /* Показуємо анімацію */
+    opacity: 1; /* Робимо анімацію видимою */
 }
 
-/* 5. Задаємо правильні заокруглення для обгорток */
-.animation-wrapper,
-.animation-wrapper .form-input,
-.date-tiles-container .animation-wrapper {
-    border-radius: 16px;
+/* Змінюємо фон самого поля вводу, коли воно у фокусі */
+.animation-wrapper:focus-within .form-input {
+    background: #1c1c1e; /* Темний фон, як у годинника */
+    border-color: transparent; /* Ховаємо власну рамку */
 }
-.date-tiles-container .animation-wrapper {
-    border-radius: 25px;
+
+/* Те саме для кнопок, але в момент кліку (:active) */
+.animation-wrapper:active::before {
+    opacity: 1;
 }
-.form-actions .animation-wrapper:first-child {
-    border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    flex-shrink: 0;
+
+.animation-wrapper:active .btn-main-action,
+.animation-wrapper:active .btn-icon-action {
+    background: #1c1c1e; /* Темний фон при кліку */
 }
+/* === ФІКС ДЛЯ АНІМАЦІЇ КНОПОК В РЯДКУ === */
+.form-actions .animation-wrapper {
+    display: flex; /* Потрібно, щоб кнопка всередині поводилась правильно */
+    border-radius: 50%; /* Робимо круглу обгортку для круглої кнопки */
+}
+
 .form-actions .animation-wrapper:last-child {
-    flex-grow: 1;
+    flex-grow: 1; /* Змушуємо обгортку головної кнопки рости */
+    border-radius: 16px; /* А для головної кнопки - прямокутну */
+}
+/* === ФІНАЛЬНИЙ ТЮНІНГ АНІМАЦІЙ v2 === */
+
+/* 1. Робимо обгортку круглої кнопки ідеально круглою */
+.form-actions .animation-wrapper:first-child {
+    width: 52px;  /* Задаємо чіткий розмір, як у кнопки */
+    height: 52px;
+    flex-shrink: 0; /* Забороняємо обгортці стискатись */
 }
 
-/* 6. Повертаємо відступи і стиль неактивної кнопки */
-.order-form { gap: 30px; }
-.btn-main-action.disabled {
-    background: #555 !important;
-    color: #999;
-    pointer-events: none;
-    box-shadow: none;
-}
-@keyframes rotation_481 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+/* 2. Виправляємо нижню рамку в полі коментаря */
+.animation-wrapper textarea.form-input {
+    resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
 }
