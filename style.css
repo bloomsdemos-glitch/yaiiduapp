@@ -911,32 +911,40 @@ footer {
     padding: 10px;
 }
 
-/* === КРОК 1.5: ІДЕАЛЬНІ ПЛИТКИ ЗА ТВОЇМ ДИЗАЙНОМ === */
+/* === ПЛИТКИ-КНОПКИ: === */
+
+:root {
+    --tile-size: 80px;        /* головний розмір квадрата */
+    --tile-radius: 20px;      /* закруглення */
+    --tile-gap: 15px;         /* відстань між плитками */
+    --tile-icon-size: 28px;   /* розмір іконки */
+    --tile-font-size: 16px;   /* розмір тексту */
+}
 
 .later-options-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
+    gap: var(--tile-gap);
+    margin-top: var(--tile-gap);
 }
 .later-options-wrapper.hidden { display: none !important; }
 
 .date-tiles-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: var(--tile-gap);
 }
 
 .date-tile {
+    width: var(--tile-size);
+    aspect-ratio: 1 / 1;              /* завжди квадрат */
+    border-radius: var(--tile-radius);
+
     display: flex;
     flex-direction: column;
-    align-items: center; /* ЦЕНТРУЄМО іконку і текст по горизонталі */
-    justify-content: center; /* ЦЕНТРУЄМО весь контент по вертикалі */
-    
-    /* ТВОЇ ІДЕАЛЬНІ РОЗМІРИ: */
-    padding: 25px 15px;
-    border-radius: 25px;
-    
+    align-items: center;
+    justify-content: center;
+
     color: var(--text-secondary);
     background: var(--glass-bg);
     border: 1px solid var(--glass-stroke);
@@ -949,11 +957,11 @@ footer {
     transform: scale(1.03);
 }
 .date-tile i {
-    font-size: 28px; /* ЗБІЛЬШУЄМО іконку */
-    margin-bottom: 15px; /* Додаємо відступ, щоб опустити текст */
+    font-size: var(--tile-icon-size);
+    margin-bottom: 10px; /* трохи відступаємо текст вниз */
 }
 .date-tile span {
-    font-size: 16px;
+    font-size: var(--tile-font-size);
     font-weight: 500;
 }
 
