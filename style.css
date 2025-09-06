@@ -911,24 +911,75 @@ footer {
     padding: 10px;
 }
 
-/* 3. Плитки "Сьогодні/Завтра" - нова форма і розмір */
-.later-options-wrapper { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
-.later-options-wrapper.hidden { display: none; }
-.date-tiles-container { display: flex; gap: 15px; }
-.date-tile {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 15px; /* Більше відстань для балансу */
-    padding: 50px 30px; /* Робимо їх вищими */
-    border-radius: 25px; /* Більше заокруглення */
-    color: var(--text-secondary);
-    background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* === КРОК 1.5: ІДЕАЛЬНІ ПЛИТКИ ЗА ТВОЇМ ДИЗАЙНОМ === */
+
+.later-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
 }
-.date-tile.active { background: var(--accent-color); color: white; }
-.date-tile i { font-size: 28px; } /* Великі іконки */
-.date-tile span { font-size: 16px; font-weight: 500; }
-.btn-segment.full-width { border-radius: 14px !important; }
-/* ... (стилі для schedule-confirm) ... */
+.later-options-wrapper.hidden { display: none !important; }
+
+.date-tiles-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.date-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ЦЕНТРУЄМО іконку і текст по горизонталі */
+    justify-content: center; /* ЦЕНТРУЄМО весь контент по вертикалі */
+    
+    /* ТВОЇ ІДЕАЛЬНІ РОЗМІРИ: */
+    padding: 50px 30px;
+    border-radius: 25px;
+    
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+.date-tile.active {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.03);
+}
+.date-tile i {
+    font-size: 28px; /* ЗБІЛЬШУЄМО іконку */
+    margin-bottom: 15px; /* Додаємо відступ, щоб опустити текст */
+}
+.date-tile span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* --- Решта стилів залишається без змін --- */
+
+.btn-segment.full-width {
+    border-radius: 14px !important;
+    border: 1px solid var(--glass-stroke);
+    padding: 14px;
+}
+
+.schedule-confirm.hidden { display: none !important; }
+.schedule-confirm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 14px 20px;
+    border-radius: 14px;
+}
+#schedule-result-text { font-weight: 500; }
+.confirm-checkmark {
+    color: var(--success-color);
+    font-size: 20px;
+}
+
 
 /* 4. Кнопка "Вибрати водія" - сіра і правильного розміру */
 .left-aligned { display: flex; flex-direction: column; align-items: flex-start; }
