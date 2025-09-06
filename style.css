@@ -1320,109 +1320,72 @@ footer {
 .btn-main-action:hover::before {
     width: 100%;
 }
-/* === УНІВЕРСАЛЬНА АНІМАЦІЯ АКТИВНОГО ЕЛЕМЕНТА === */
+/* === НОВА СИСТЕМА АНІМАЦІЇ (ЧИСТИЙ СТАРТ) === */
 
+/* 1. Налаштовуємо саму обгортку */
 .animation-wrapper {
     position: relative; /* Вмикаємо систему координат */
-    overflow: hidden;   /* Обрізаємо все зайве, що вилазить за межі */
-    border-radius: 16px; /* Важливо! Заокруглення має бути тут */
-    width: 100%;
+    display: flex; /* Важливо для правильної верстки кнопок */
 }
 
-/* Сама анімація (наш обертовий градієнт) */
+/* 2. Налаштовуємо анімацію */
 .animation-wrapper::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    height: 150%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5s infinite linear;
+    z-index: -1; /* <<-- КЛЮЧОВИЙ МОМЕНТ: Ховаємо анімацію ЗА елемент */
+    top: -2px; left: -2px; right: -2px; bottom: -2px; /* Розтягуємо трохи більше за рамку */
     
-    /* Ховаємо анімацію за замовчуванням */
+    background: linear-gradient(90deg, #ff9966, #ff2233, #ff9966);
+    background-size: 400%;
+    border-radius: inherit; /* Успадковуємо заокруглення від обгортки */
+    
+    animation: glow 8s linear infinite;
+    
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
-/* Вмикаємо анімацію, коли елемент всередині wrapper'а у фокусі */
-.animation-wrapper:focus-within::before {
-    opacity: 1; /* Робимо анімацію видимою */
-}
 
-/* Змінюємо фон самого поля вводу, коли воно у фокусі */
-.animation-wrapper:focus-within .form-input {
-    background: #1c1c1e; /* Темний фон, як у годинника */
-    border-color: transparent; /* Ховаємо власну рамку */
-}
-
-/* Те саме для кнопок, але в момент кліку (:active) */
+/* 3. "Пробуджуємо" анімацію, коли треба */
+.animation-wrapper:focus-within::before,
 .animation-wrapper:active::before {
     opacity: 1;
 }
 
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    background: #1c1c1e; /* Темний фон при кліку */
-}
-/* === ФІКС ДЛЯ АНІМАЦІЇ КНОПОК В РЯДКУ === */
-.form-actions .animation-wrapper {
-    display: flex; /* Потрібно, щоб кнопка всередині поводилась правильно */
-    border-radius: 50%; /* Робимо круглу обгортку для круглої кнопки */
-}
-
+/* 4. Задаємо заокруглення для різних типів обгорток */
+.animation-wrapper .form-input, 
+.animation-wrapper .date-tile,
 .form-actions .animation-wrapper:last-child {
-    flex-grow: 1; /* Змушуємо обгортку головної кнопки рости */
-    border-radius: 16px; /* А для головної кнопки - прямокутну */
+    border-radius: 16px;
 }
-/* === ФІНАЛЬНИЙ ТЮНІНГ АНІМАЦІЙ v2 === */
-
-/* 1. Робимо обгортку круглої кнопки ідеально круглою */
 .form-actions .animation-wrapper:first-child {
-    width: 52px;  /* Задаємо чіткий розмір, як у кнопки */
-    height: 52px;
-    flex-shrink: 0; /* Забороняємо обгортці стискатись */
-}
-
-/* 2. Виправляємо нижню рамку в полі коментаря */
-.animation-wrapper textarea.form-input {
-    resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
-}
-/* === ВЕЛИКИЙ ПАТЧ ВІД 6 ВЕРЕСНЯ === */
-
-/* 1. Чистий стиль для активного замовлення */
-#passenger-orders-screen .order-card.active {
-    border: 1px solid var(--glass-stroke);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* 2. Глобальний фікс анімації (найважливіше!) */
-.animation-wrapper:focus-within,
-.animation-wrapper:active {
-    background: #1c1c1e; /* Темний фон тепер на самій обгортці */
-    border-color: transparent !important; /* Ховаємо власну рамку */
-}
-.animation-wrapper .form-input,
-.animation-wrapper .btn-main-action,
-.animation-wrapper .btn-icon-action,
-.animation-wrapper .date-tile {
-    background: transparent !important; /* Всі елементи всередині стають прозорими */
-    border-color: transparent !important;
-}
-.animation-wrapper:focus-within::before,
-.animation-wrapper:active::before {
-    opacity: 1; /* Показуємо анімацію */
-}
-
-/* 3. Фікс "жирної" рамки (робимо саму анімацію круглою) */
-.animation-wrapper::before {
     border-radius: 50%;
 }
-/* Окремий фікс заокруглення для обгорток плиток */
 .date-tiles-container .animation-wrapper {
     border-radius: 25px;
 }
 
+/* 5. Виправляємо відступи (спейсінг) */
+.order-form {
+    gap: 30px; /* Збільшуємо відстань між основними блоками */
+}
+
+/* 6. Повертаємо стиль для неактивної кнопки */
+.btn-main-action.disabled {
+    background: #555 !important;
+    color: #999;
+    pointer-events: none;
+    box-shadow: none;
+}
+.btn-main-action.disabled::before {
+    width: 0 !important;
+}
+
+/* --- Нова анімація світіння --- */
+@keyframes glow {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
 
 /* 4. Фікс іконки в блоці підтвердження */
 .schedule-confirm {
