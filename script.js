@@ -32,24 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // == 3. ОСНОВНІ ФУНКЦІЇ ==
 
-// ЗАМІНИ НА ЦЕЙ ПРАВИЛЬНИЙ БЛОК:
-function showScreen(screenId) {
-    if (window.tripInterval) clearInterval(window.tripInterval);
+    function showScreen(screenId) {
+        if (window.tripInterval) clearInterval(window.tripInterval);
 
-    screens.forEach(screen => {
-        screen.classList.add('hidden');
-        screen.classList.remove('active'); // ВАЖЛИВО: Повертаємо цей рядок
-    });
-    const activeScreen = document.getElementById(screenId);
-    if (activeScreen) {
-        activeScreen.classList.remove('hidden');
-        activeScreen.classList.add('active'); // ВАЖЛИВО: І цей теж
+        screens.forEach(screen => {
+            screen.classList.add('hidden');
+            screen.classList.remove('active');
+        });
+        const activeScreen = document.getElementById(screenId);
+        if (activeScreen) {
+            activeScreen.classList.remove('hidden');
+            activeScreen.classList.add('active');
+        }
     }
-}
 
 
     function runActiveTripSimulation() {
-        // ... (код симуляції залишаємо як є)
         if (window.tripInterval) clearInterval(window.tripInterval);
         const activeCard = document.querySelector('#passenger-orders-screen .order-card.active');
         if (!activeCard) return;
@@ -92,32 +90,13 @@ function showScreen(screenId) {
     const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
     const nowTimeBlock = document.getElementById('now-time-block');
     const laterOptionsContainer = document.getElementById('later-options-wrapper');
-    const timeHoursSelect = document.getElementById('time-hours');
-    const timeMinutesSelect = document.getElementById('time-minutes');
     const dateTiles = document.querySelectorAll('.date-tile');
     const scheduleConfirmBlock = document.getElementById('schedule-confirm-block');
     const scheduleResultText = document.getElementById('schedule-result-text');
-    const confirmCheckmark = document.querySelector('.confirm-checkmark');
     const selectDateBtn = document.querySelector('.btn-segment.full-width[data-schedule="date"]');
     const fromAddressInput = document.getElementById('from-address');
     const toAddressInput = document.getElementById('to-address');
     const submitOrderBtn = document.getElementById('submit-order-btn');
-
-    function populateTimeSelectors() {
-        if (timeHoursSelect.options.length > 1) return;
-        for (let i = 0; i < 24; i++) {
-            const option = document.createElement('option');
-            const hour = i.toString().padStart(2, '0');
-            option.value = hour; option.textContent = hour;
-            timeHoursSelect.appendChild(option);
-        }
-        for (let i = 0; i < 60; i++) {
-            const option = document.createElement('option');
-            const minute = i.toString().padStart(2, '0');
-            option.value = minute; option.textContent = minute;
-            timeMinutesSelect.appendChild(option);
-        }
-    }
 
     function checkFormCompleteness() {
         const isAddressFilled = fromAddressInput.value.trim() !== '' && toAddressInput.value.trim() !== '';
@@ -128,25 +107,31 @@ function showScreen(screenId) {
         }
     }
 
-function initQuickOrderScreen() {
-    // populateTimeSelectors(); // Ця функція нам поки не потрібна
-    const hoursEl = document.getElementById('time-display-hours');
-    const minutesEl = document.getElementById('time-display-minutes');
-    
-    if (hoursEl && minutesEl) {
-        const now = new Date();
-        hoursEl.textContent = now.getHours().toString().padStart(2, '0');
-        minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
+    function initQuickOrderScreen() {
+        const hoursEl = document.getElementById('time-display-hours');
+        const minutesEl = document.getElementById('time-display-minutes');
+        
+        if (hoursEl && minutesEl) {
+            const now = new Date();
+            hoursEl.textContent = now.getHours().toString().padStart(2, '0');
+            minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
+        }
+        
+        checkFormCompleteness();
     }
-    
-    checkFormCompleteness();
-}
 
-
+    // Обробник для кнопок "Зараз" / "На інший час"
     timeOptionButtons.forEach(button => {
         button.addEventListener('click', () => {
             timeOptionButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+
+            // Скидаємо вибір дати, якщо користувач переключається
+            scheduleConfirmBlock.classList.add('hidden');
+            document.querySelector('.date-tiles-container').classList.remove('hidden');
+            selectDateBtn.classList.remove('hidden');
+            dateTiles.forEach(t => t.classList.remove('active'));
+
             if (button.dataset.timeOption === 'later') {
                 laterOptionsContainer.classList.remove('hidden');
                 nowTimeBlock.classList.add('hidden');
@@ -157,55 +142,29 @@ function initQuickOrderScreen() {
         });
     });
 
-dateTiles.forEach(tile => {
-    tile.addEventListener('click', () => {
-        // Логіка вибору активної плитки
-        dateTiles.forEach(t => t.classList.remove('active'));
-        tile.classList.add('active');
-        
-        // Ховаємо контейнер з плитками і кнопку "Вибрати дату"
-        tile.closest('.date-tiles-container').classList.add('hidden');
-        selectDateBtn.classList.add('hidden');
-        
-        // Показуємо блок підтвердження
-        scheduleConfirmBlock.classList.remove('hidden');
-        
-        // Формуємо текст для результату
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        
-        let dayText = 'Сьогодні';
-        if (tile.dataset.schedule === 'tomorrow') {
-            dayText = 'Завтра';
-        }
-        
-        scheduleResultText.textContent = `${dayText} • ${hours}:${minutes}`;
+    // Обробник для плиток "Сьогодні" / "Завтра"
+    dateTiles.forEach(tile => {
+        tile.addEventListener('click', () => {
+            dateTiles.forEach(t => t.classList.remove('active'));
+            tile.classList.add('active');
+            
+            tile.closest('.date-tiles-container').classList.add('hidden');
+            selectDateBtn.classList.add('hidden');
+            
+            scheduleConfirmBlock.classList.remove('hidden');
+            
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            
+            let dayText = 'Сьогодні';
+            if (tile.dataset.schedule === 'tomorrow') {
+                dayText = 'Завтра';
+            }
+            
+            scheduleResultText.textContent = `${dayText} • ${hours}:${minutes}`;
+        });
     });
-});
-
-// Додамо логіку для кнопки "На інший час"
-timeOptionButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        timeOptionButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        // Скидаємо вибір дати, якщо користувач переключається
-        scheduleConfirmBlock.classList.add('hidden');
-        document.querySelector('.date-tiles-container').classList.remove('hidden');
-        selectDateBtn.classList.remove('hidden');
-        dateTiles.forEach(t => t.classList.remove('active'));
-
-        if (button.dataset.timeOption === 'later') {
-            laterOptionsContainer.classList.remove('hidden');
-            nowTimeBlock.classList.add('hidden');
-        } else {
-            laterOptionsContainer.classList.add('hidden');
-            nowTimeBlock.classList.remove('hidden');
-        }
-    });
-});
-
 
     [fromAddressInput, toAddressInput].forEach(input => {
         input.addEventListener('input', checkFormCompleteness);
@@ -309,17 +268,17 @@ timeOptionButtons.forEach(button => {
     showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
     showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
     showDriverOrdersBtn?.addEventListener('click', () => alert('Цей екран ще в розробці :)'));
-acceptOrderBtn?.addEventListener('click', () => {
-    setupActiveRide();
-    showScreen('driver-active-ride-screen');
-});
-cancelRideBtn?.addEventListener('click', () => {
-    if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) {
-        rideState = 'idle';
-        showScreen('driver-dashboard');
-    }
-});
-rideActionBtn?.addEventListener('click', handleRideAction);
+    acceptOrderBtn?.addEventListener('click', () => {
+        setupActiveRide();
+        showScreen('driver-active-ride-screen');
+    });
+    cancelRideBtn?.addEventListener('click', () => {
+        if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) {
+            rideState = 'idle';
+            showScreen('driver-dashboard');
+        }
+    });
+    rideActionBtn?.addEventListener('click', handleRideAction);
 
     goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
     
