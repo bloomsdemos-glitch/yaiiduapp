@@ -1165,3 +1165,18 @@ footer {
     cursor: pointer;
     padding: 5px;
 }
+/* === КРОК 1.2: ТЮНІНГ ГОДИННИКА І ВІДСТУПІВ === */
+
+#time-display-hours,
+#time-display-minutes {
+    font-size: 32px; /* Трохи зменшуємо шрифт годинника */
+}
+
+.info-btn {
+    font-size: 14px; /* Робимо іконку (i) значно меншою */
+}
+
+/* Додаємо відступ для блоку з кнопкою "Вибрати водія" */
+.form-group.optional-section {
+    margin-bottom: 20px;
+}
