@@ -1439,4 +1439,27 @@ footer {
     transform: scale(0.96);
     background: rgba(255, 255, 255, 0.2);
 }
+/* === КРОК 3: ОЖИВЛЕННЯ ЛОГІКИ І ЕФЕКТІВ === */
+
+/* 3.1. Створюємо "форму" для годинника */
+.time-display-wrapper {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
+    border-radius: 16px;
+    padding: 2px 8px; /* Невеликі внутрішні відступи */
+}
+
+/* 3.2. Вмикаємо анімацію ПРАВИЛЬНО */
+.animation-wrapper:focus-within::before,
+.animation-wrapper:active::before {
+    opacity: 1; /* Робимо анімацію видимою при фокусі або кліку */
+}
+
+.animation-wrapper:focus-within .form-input,
+.animation-wrapper:active .btn-main-action,
+.animation-wrapper:active .btn-icon-action {
+    background: #1c1c1e; /* Повертаємо зміну фону */
+}
 
