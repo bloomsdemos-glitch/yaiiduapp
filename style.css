@@ -1388,3 +1388,23 @@ footer {
 .animation-wrapper textarea.form-input {
     resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
 }
+/* === КРОК 1: ТИМЧАСОВЕ ВІДКЛЮЧЕННЯ АНІМАЦІЇ === */
+
+/* Повністю ховаємо анімацію за замовчуванням */
+.animation-wrapper::before {
+    opacity: 0;
+}
+
+/* Прибираємо активацію анімації, яка нам зараз заважає */
+.animation-wrapper:focus-within::before,
+.animation-wrapper:active::before {
+    opacity: 0;
+}
+
+/* Прибираємо зміну фону, яка зараз не потрібна */
+.animation-wrapper:focus-within .form-input,
+.animation-wrapper:active .btn-main-action,
+.animation-wrapper:active .btn-icon-action {
+    background: var(--glass-bg); /* Повертаємо стандартний фон */
+}
+
