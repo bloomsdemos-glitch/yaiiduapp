@@ -1337,7 +1337,8 @@ footer {
     border-radius: 16px;
     width: 100%;
     padding: 2px; /* <<== КЛЮЧОВИЙ МОМЕНТ №1: Створюємо товщину для майбутньої рамки */
-    background: transparent; /* Сама рама прозора */
+    background: transparent;
+    z-index: 0; /* Сама рама прозора */
 }
 
 /* 2. Анімація стає фоном для "рами" */
