@@ -1085,9 +1085,10 @@ footer {
 
 /* Вирішуємо проблему "обрізання" контенту і відступу від хедера */
 #quick-order-screen > main {
-    overflow: visible;
+    overflow-y: auto; /* <<== ОСЬ ЦЕЙ РЯДОК ТРЕБА ЗМІНИТИ */
     padding-top: 15px; 
 }
+
 
 /* Вирівнюємо всі лейбли однаково і задаємо їм той самий стиль */
 #quick-order-screen .form-group > label {
