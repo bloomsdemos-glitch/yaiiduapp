@@ -1282,7 +1282,7 @@ footer {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
-/* === НОВИЙ СТИЛЬ ГОЛОВНИХ КНОПОК === */
+/* === НОВИЙ СТИЛЬ ГОЛОВНИХ КНОПОК (ЗАЛИШАЄМО) === */
 .btn-main-action {
     padding: 16px 25px;
     border: none;
@@ -1296,7 +1296,7 @@ footer {
     box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
     transition: all 250ms;
     overflow: hidden;
-    width: 100%; /* Щоб кнопка займала всю ширину в контейнері */
+    width: 100%;
 }
 
 .btn-main-action::before {
@@ -1307,7 +1307,7 @@ footer {
     height: 100%;
     width: 0;
     border-radius: 15px;
-    background-color: #1c1c1e; /* Темний колір при наведенні */
+    background-color: #1c1c1e;
     z-index: -1;
     box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
     transition: all 250ms;
@@ -1320,117 +1320,29 @@ footer {
 .btn-main-action:hover::before {
     width: 100%;
 }
-/* === УНІВЕРСАЛЬНА АНІМАЦІЯ АКТИВНОГО ЕЛЕМЕНТА === */
 
-.animation-wrapper {
-    position: relative; /* Вмикаємо систему координат */
-    overflow: hidden;   /* Обрізаємо все зайве, що вилазить за межі */
-    border-radius: 16px; /* Важливо! Заокруглення має бути тут */
-    width: 100%;
-}
+/* === СТИЛІ ІНТЕРФЕЙСУ (ЗАЛИШАЄМО) === */
 
-/* Сама анімація (наш обертовий градієнт) */
-.animation-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    height: 150%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5s infinite linear;
-    
-    /* Ховаємо анімацію за замовчуванням */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-/* Вмикаємо анімацію, коли елемент всередині wrapper'а у фокусі */
-.animation-wrapper:focus-within::before {
-    opacity: 1; /* Робимо анімацію видимою */
-}
-
-/* Змінюємо фон самого поля вводу, коли воно у фокусі */
-.animation-wrapper:focus-within .form-input {
-    background: #1c1c1e; /* Темний фон, як у годинника */
-    border-color: transparent; /* Ховаємо власну рамку */
-}
-
-/* Те саме для кнопок, але в момент кліку (:active) */
-.animation-wrapper:active::before {
-    opacity: 1;
-}
-
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    background: #1c1c1e; /* Темний фон при кліку */
-}
-/* === ФІКС ДЛЯ АНІМАЦІЇ КНОПОК В РЯДКУ === */
-.form-actions .animation-wrapper {
-    display: flex; /* Потрібно, щоб кнопка всередині поводилась правильно */
-    border-radius: 50%; /* Робимо круглу обгортку для круглої кнопки */
-}
-
-.form-actions .animation-wrapper:last-child {
-    flex-grow: 1; /* Змушуємо обгортку головної кнопки рости */
-    border-radius: 16px; /* А для головної кнопки - прямокутну */
-}
-/* === ФІНАЛЬНИЙ ТЮНІНГ АНІМАЦІЙ v2 === */
-
-/* 1. Робимо обгортку круглої кнопки ідеально круглою */
-.form-actions .animation-wrapper:first-child {
-    width: 52px;  /* Задаємо чіткий розмір, як у кнопки */
-    height: 52px;
-    flex-shrink: 0; /* Забороняємо обгортці стискатись */
-}
-
-/* 2. Виправляємо нижню рамку в полі коментаря */
-.animation-wrapper textarea.form-input {
-    resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
-}
-/* === КРОК 1: ТИМЧАСОВЕ ВІДКЛЮЧЕННЯ АНІМАЦІЇ === */
-
-/* Повністю ховаємо анімацію за замовчуванням */
-.animation-wrapper::before {
-    opacity: 0;
-}
-
-/* Прибираємо активацію анімації, яка нам зараз заважає */
-.animation-wrapper:focus-within::before,
-.animation-wrapper:active::before {
-    opacity: 0;
-}
-
-/* Прибираємо зміну фону, яка зараз не потрібна */
-.animation-wrapper:focus-within .form-input,
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    background: var(--glass-bg); /* Повертаємо стандартний фон */
-}
-/* === КРОК 2 (УТОЧНЕНИЙ): СКЛО ДЛЯ ПЛИТОК І "ПОВІТРЯ" === */
-
-/* 2.1. Додаємо "повітря" у форму */
+/* Додаємо "повітря" у форму */
 #quick-order-screen .order-form {
-    gap: 20px; /* Збільшуємо вертикальний відступ між усіма групами полів */
+    gap: 20px;
 }
 
 #quick-order-screen .form-group {
-    gap: 10px; /* Збільшуємо відстань між лейблом і самим полем вводу */
+    gap: 10px;
 }
 
-/* 2.2. Додаємо "скляний" ефект плиткам */
+/* Додаємо "скляний" ефект плиткам */
 .date-tile {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    
     font-weight: 500;
     cursor: pointer;
 }
 
-/* Додаємо ефект при наведенні і кліку для кращого фідбеку */
 .date-tile:not(.active):hover {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -1439,27 +1351,75 @@ footer {
     transform: scale(0.96);
     background: rgba(255, 255, 255, 0.2);
 }
-/* === КРОК 3: ОЖИВЛЕННЯ ЛОГІКИ І ЕФЕКТІВ === */
 
-/* 3.1. Створюємо "форму" для годинника */
+/* Створюємо "форму" для годинника */
 .time-display-wrapper {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke);
     border-radius: 16px;
-    padding: 2px 8px; /* Невеликі внутрішні відступи */
+    padding: 2px 8px;
 }
 
-/* 3.2. Вмикаємо анімацію ПРАВИЛЬНО */
+/* === ФІНАЛЬНА АНІМАЦІЯ v4: "БІГАЮЧА КРАПКА" (НОВИЙ КОД) === */
+
+.animation-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.animation-wrapper::before {
+    content: "";
+    position: absolute;
+    z-index: 1; /* Кладемо НАД контентом, але під ним буде фон */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background-image: conic-gradient(
+        var(--success-color),
+        var(--accent-color),
+        transparent 30%, /* Робимо градієнт коротшим, щоб була саме "крапка" */
+        transparent
+    );
+    animation: rotating 2s linear infinite;
+    opacity: 0; /* Ховаємо анімацію за замовчуванням */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Вмикаємо анімацію ТІЛЬКИ при фокусі або кліку */
 .animation-wrapper:focus-within::before,
 .animation-wrapper:active::before {
-    opacity: 1; /* Робимо анімацію видимою при фокусі або кліку */
+    opacity: 1;
 }
 
+/* Повертаємо зміну фону при активації */
 .animation-wrapper:focus-within .form-input,
 .animation-wrapper:active .btn-main-action,
 .animation-wrapper:active .btn-icon-action {
-    background: #1c1c1e; /* Повертаємо зміну фону */
+    background: #1c1c1e;
 }
+
+/* Адаптуємо круглу кнопку */
+.form-actions .animation-wrapper:first-child {
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+}
+
+/* Анімація для обертання */
+@keyframes rotating {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 
