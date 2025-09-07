@@ -17,19 +17,11 @@
     --success-color: #30D158;
     --warning-color: #FF9F0A;
     --danger-color: #FF3B30;
-    --accent-2: #30D158;
-    --fg: #222;
-    --radius: 16px;
 
     /* -- Стилі для "Скла" (Glassmorphism) -- */
-    --glass-bg: rgba(0, 0, 0, 0.2); /* А це напівпрозорий ЧОРНИЙ */
+    --glass-bg: rgba(0, 0, 0, 0.25);
     --glass-stroke: rgba(255, 255, 255, 0.15);
     --glass-blur: 13px;
-    --glass-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 20px 10px rgba(255, 255, 255, 0.2);
 }
 /* === 1. БАЗА: Загальні стилі, Тіло сторінки === */
 * {
@@ -45,12 +37,11 @@ body {
     color: var(--text-primary);
     overscroll-behavior: none; 
     
-    /* === ОСЬ ГОЛОВНА МАГІЯ === */
-    background-color: #0d0d0d; /* Колір на випадок, якщо картинка не завантажиться */
-    background-image: url('assets/IMG_2496.gif'); /* <-- ШЛЯХ ДО ТВОЄЇ КАРТИНКИ */
-    background-size: cover; /* Масштабує картинку, щоб заповнити весь екран */
-    background-position: center; /* Центрує картинку */
-    background-attachment: fixed; /* Фон не скролиться разом зі сторінкою */
+    background-color: #0d0d0d;
+    background-image: url('assets/IMG_2496.gif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 
@@ -95,12 +86,15 @@ header {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
+    flex-shrink: 0; /* Хедер не має стискатись */
 }
 
 main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; /* Дозволяємо скрол контенту */
+    -webkit-overflow-scrolling: touch; /* Плавний скрол на iOS */
 }
 
 .content-center {
@@ -115,14 +109,12 @@ footer {
     font-weight: 300;
     color: var(--text-secondary);
     font-size: 14px;
+    flex-shrink: 0; /* Футер не має стискатись */
 }
 
-/* ======================================= */
-/* == ФАЗА 1: НОВИЙ УНІВЕРСАЛЬНИЙ СТИЛЬ == */
-/* ======================================= */
+/* === 4. УНІВЕРСАЛЬНІ СТИЛІ ЕЛЕМЕНТІВ === */
 
-/* --- ОСНОВНИЙ СТИЛЬ "СКЛА" ДЛЯ ВСІХ ІНТЕРАКТИВНИХ ЕЛЕМЕНТІВ --- */
-.btn-main, .menu-item, .btn-segment, .btn-submit, .btn-secondary-action, .order-card, .details-card, .form-input, .driver-card {
+.btn-main, .menu-item, .order-card, .details-card, .driver-card, .confirmation-card {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -131,14 +123,12 @@ footer {
     transition: all 0.2s ease-in-out;
 }
 
-/* --- ЕФЕКТ ПРИ НАТИСКАННІ ДЛЯ ВСІХ КНОПОК --- */
-.btn-main:active, .menu-item:active, .btn-segment:active, .btn-submit:active, .btn-secondary-action:active {
+.btn-main:active, .menu-item:active {
     transform: scale(0.97);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     background: rgba(0, 0, 0, 0.3);
 }
 
-/* === 5. ЕЛЕМЕНТИ: Кнопки, Лого, Меню === */
 .logo {
     font-size: 48px;
     font-weight: var(--font-weight-heavy);
@@ -151,6 +141,7 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
 .button-group {
@@ -160,10 +151,8 @@ footer {
     width: 80%;
 }
 
-/* --- Конкретизація стилів для різних елементів --- */
 .btn-main {
     padding: 18px 25px;
-    color: var(--text-primary);
     font-size: 18px;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
@@ -176,7 +165,6 @@ footer {
 
 .menu-item {
     padding: 18px;
-    color: var(--text-primary);
     font-size: 17px;
     font-weight: var(--font-weight-regular);
     cursor: pointer;
@@ -193,7 +181,6 @@ footer {
     color: var(--text-secondary);
 }
 
-/* --- Кнопка Telegram залишається без змін (вона не скляна) --- */
 .btn-telegram-login {
     width: 90%;
     padding: 16px;
@@ -208,92 +195,12 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease;
 }
 .btn-telegram-login:active {
     transform: scale(0.97);
 }
-
-/* --- Горизонтальні сегментовані кнопки (для майбутніх кроків) --- */
-.button-group-horizontal {
-    display: flex;
-    width: 100%;
-}
-.btn-segment {
-    flex: 1;
-    padding: 12px;
-    color: var(--text-secondary);
-    font-size: 16px;
-    cursor: pointer;
-    border: 1px solid var(--glass-stroke);
-    background: transparent;
-}
-.btn-segment:first-child {
-    border-top-left-radius: 14px;
-    border-bottom-left-radius: 14px;
-    border-right: none;
-}
-.btn-segment:last-child {
-    border-top-right-radius: 14px;
-    border-bottom-right-radius: 14px;
-}
-.btn-segment.active {
-    background: var(--accent-color);
-    color: white;
-    font-weight: var(--font-weight-bold);
-}
-
-/* --- Аватар (без змін) --- */
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.avatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* === 6. КОНКРЕТНІ КОМПОНЕНТИ: Аватари, Бейджі, Іконки === */
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.avatar-convex {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.avatar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 18px rgba(255,255,255,0.06);
-    pointer-events: none;
-}
+/* === 5. КОНКРЕТНІ КОМПОНЕНТИ: Аватари, Бейджі, Іконки === */
 
 .profile-badge {
     display: flex;
@@ -306,6 +213,18 @@ footer {
     font-weight: var(--font-weight-bold);
 }
 
+.avatar-convex {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-stroke);
+}
+
 .btn-icon, .btn-back {
     background: none;
     border: none;
@@ -315,31 +234,30 @@ footer {
 }
 
 .header-placeholder {
-    width: 24px;
+    width: 24px; /* Для симетричного хедера */
 }
 
 .badge {
     background-color: var(--accent-color);
     color: white;
-    min-width: 26px; /* Мінімальна ширина, щоб вмістити цифру */
-    height: 26px; /* Фіксована висота */
-    border-radius: 50%; /* Ця магія робить його ідеально круглим */
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
     font-size: 14px;
     font-weight: var(--font-weight-bold);
-    
-    /* Додаємо flex, щоб ідеально центрувати цифру всередині */
     display: flex;
     justify-content: center;
     align-items: center;
-    line-height: 1; /* Прибираємо зайву висоту рядка для кращого центрування */
-    padding: 0 4px; /* Невеликі відступи по боках, якщо цифра буде двозначною */
+    line-height: 1;
+    padding: 0 4px;
 }
 
 .badge.online {
     background-color: var(--success-color);
 }
 
-/* === 7. СПИСКИ: Картки Водіїв та Замовлень === */
+/* === 6. СПИСКИ: Картки Водіїв та Замовлень === */
+
 .driver-list, .order-list {
     list-style: none;
     width: 100%;
@@ -353,6 +271,7 @@ footer {
     gap: 15px;
     padding: 15px;
     align-items: center;
+    border-radius: 16px;
 }
 
 .order-card {
@@ -365,29 +284,34 @@ footer {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.driver-info, .passenger-info {
+.driver-info {
     flex-grow: 1;
 }
 
-.driver-info h4, .passenger-info h4 {
+.driver-info h4 {
     font-size: 17px;
     font-weight: var(--font-weight-bold);
     margin-bottom: 2px;
 }
 
-.driver-info span, .passenger-info span {
+.driver-info span {
     font-size: 14px;
     color: var(--text-secondary);
 }
 
-.driver-info span .fa-star, .passenger-info .fa-star {
+.driver-info span .fa-star {
     color: #ffc700;
 }
 
 .driver-info small {
     display: block;
     font-size: 13px;
-    color: var(--warning-color);
+    margin-top: 4px;
+}
+
+.driver-info .status-available {
+    color: var(--success-color);
+    font-weight: 500;
 }
 
 .status-dot {
@@ -409,148 +333,358 @@ footer {
     50% { opacity: 0.3; }
 }
 
-/* === 8. ФОРМИ: Поля вводу, Сегментовані кнопки === */
-.order-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
+/* === 7. СПЕЦИФІЧНІ ЕЛЕМЕНТИ СПИСКІВ === */
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.form-group label {
-    font-size: 15px;
-    font-weight: var(--font-weight-regular);
-    color: var(--text-secondary);
-}
-.form-group label i {
-    margin-right: 8px;
-}
-.form-input {
-    width: 100%;
-    padding: 14px;
-    color: var(--text-primary);
-    font-size: 16px;
-    font-family: var(--font-family);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.form-input::placeholder {
-    color: var(--text-secondary);
-}
-.form-input:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
-}
-.button-group-horizontal {
-    display: flex;
-    width: 100%;
-}
-.btn-segment {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid var(--glass-stroke);
-    background-color: transparent;
-    color: var(--text-secondary);
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.btn-segment:first-child {
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-right: none;
-}
-.btn-segment:last-child {
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-}
-.btn-segment.active {
-    background-color: var(--accent-color);
-    color: white;
-    font-weight: var(--font-weight-bold);
-}
-
-/* === 9. КНОПКИ ДІЇ: Submit, Secondary === */
-.btn-submit {
-    width: 100%;
-    padding: 16px;
-    margin-top: 10px;
-    border-radius: 16px;
-    border: none;
-    background-color: var(--success-color);
-    color: white;
-    font-size: 18px;
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-.btn-submit:active {
-    transform: scale(0.97);
-    filter: brightness(0.9);
-}
-
-/* === 10. КОНТЕНТ: Довідка, Вміст карток === */
-.help-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: auto;
-}
-.help-content h3 {
-    font-size: 20px;
-    font-weight: var(--font-weight-bold);
-    margin-top: 10px;
-}
-.help-content p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-}
-.help-content p strong {
-    color: var(--text-primary);
-    font-weight: var(--font-weight-bold);
+.order-info {
+    flex-grow: 1;
 }
 
 .order-info .route {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-top: 8px;
 }
+
 .order-info .route span {
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
 }
+
 .order-info .route i {
-    color: var(--text-secondary);
     width: 20px;
     text-align: center;
     margin-right: 8px;
+    color: var(--text-secondary);
 }
+
+.order-info .start-point-icon { color: var(--warning-color); }
+.order-info .end-point-icon { color: var(--danger-color); }
+
 .passenger-details {
     font-size: 14px;
     color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.passenger-details .fa-star {
-    color: #ffc700;
-}
+
 .order-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     font-size: 14px;
-    font-weight: var(--font-weight-regular);
-    color: var(--accent-color);
-    align-self: flex-start;
-    text-align: right;
+    font-weight: 500;
+    color: var(--text-primary);
     min-width: 60px;
 }
+
 .order-card.new .order-time {
     color: var(--success-color);
 }
+/* === 8. СЕКЦІЯ ФОРМ (ПОВНИЙ РЕФАКТОРИНГ) === */
 
-/* === 11. КОМПОНЕНТИ: Карта, Деталі замовлення === */
+/* --- Базовий контейнер форми --- */
+.order-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Єдиний відступ між елементами */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.form-group label, .section-label {
+    font-size: 15px;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-secondary);
+    padding-left: 5px;
+}
+
+.form-group label i, .section-label i {
+    margin-right: 8px;
+}
+
+/* --- Універсальний стиль для всіх інтерактивних елементів в формі --- */
+.order-form .form-input, 
+.order-form .btn-segment, 
+.order-form .date-tile, 
+.order-form .btn-main-action, 
+.order-form .btn-icon-action {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    transition: all 0.2s ease-in-out;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 16px;
+}
+
+.form-input::placeholder {
+    color: var(--muted);
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    right: 15px;
+    color: var(--text-secondary);
+}
+
+textarea.form-input {
+    resize: none;
+    min-height: 100px;
+}
+
+/* --- Сегментовані кнопки "Зараз / На інший час" --- */
+.button-group-horizontal {
+    display: flex;
+    width: 100%;
+}
+
+.btn-segment {
+    flex: 1;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-segment:first-child {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-right-width: 0.5px;
+}
+
+.btn-segment:last-child {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-left-width: 0.5px;
+}
+
+.btn-segment.active {
+    background: var(--accent-color);
+    color: white;
+    font-weight: var(--font-weight-bold);
+}
+/* --- Годинник --- */
+.time-picker-container {
+    display: flex;
+    justify-content: center;
+}
+
+.time-display-wrapper {
+    border-radius: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-stroke);
+}
+
+.time-display-content {
+    display: flex;
+    align-items: center;
+    padding: 10px 25px;
+}
+
+#time-display-hours, #time-display-minutes {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.time-separator {
+    font-size: 30px;
+    margin: 0 5px;
+    position: relative;
+    top: -2px;
+}
+
+/* --- Плитки "Сьогодні / Завтра" --- */
+.later-options-wrapper.hidden { 
+    display: none !important; 
+}
+
+.date-tiles-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 20px; /* Стискаємо по боках, щоб плитки були менші */
+}
+
+.date-tile {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.date-tile.active {
+    background: var(--accent-color);
+}
+
+.date-tile i { 
+    font-size: 28px; 
+}
+
+.date-tile span { 
+    font-size: 16px; 
+    font-weight: 500; 
+}
+
+/* --- Блок підтвердження дати --- */
+.schedule-confirm.hidden { 
+    display: none !important; 
+}
+
+.schedule-confirm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.confirm-checkmark { 
+    font-size: 18px; 
+    color: var(--success-color); 
+}
+
+/* --- Нижні кнопки дій --- */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-icon-action {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-main-action {
+    flex-grow: 1;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+.btn-main-action.disabled {
+    background: #555 !important;
+    color: #999;
+    pointer-events: none;
+    box-shadow: none;
+}
+/* === 9. НАДІЙНА СИСТЕМА АНІМАЦІЇ === */
+
+.animation-wrapper {
+    position: relative;
+    display: flex;
+    /* Успадковуємо заокруглення від дочірнього елемента */
+    border-radius: inherit;
+}
+
+/* Елемент всередині обгортки тепер головний */
+.animation-wrapper > * {
+    width: 100%;
+    position: relative;
+    z-index: 1; /* Піднімаємо над анімацією */
+}
+
+/* Сама анімація */
+.animation-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -2px; 
+    left: -2px; 
+    right: -2px; 
+    bottom: -2px;
+    background: linear-gradient(90deg, #ff9966, #ff2233, #ff9966);
+    background-size: 400%;
+    /* Успадковує заокруглення від обгортки */
+    border-radius: inherit; 
+    animation: glow 8s linear infinite;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Вмикаємо анімацію */
+.animation-wrapper:focus-within::before,
+.animation-wrapper:active::before {
+    opacity: 1;
+}
+
+/* --- Задаємо заокруглення для різних типів обгорток --- */
+.form-group .animation-wrapper { 
+    border-radius: 16px; 
+}
+
+.date-tiles-container .animation-wrapper { 
+    border-radius: 25px; 
+}
+
+.form-actions .animation-wrapper:first-child { 
+    border-radius: 50%; 
+}
+
+/* --- Анімація світіння --- */
+@keyframes glow {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+/* === 10. ВІДНОВЛЕНІ СТИЛІ ІНШИХ КОМПОНЕНТІВ === */
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+.help-content h3 { 
+    font-size: 20px; 
+    margin-top: 10px; 
+}
+.help-content p { 
+    font-size: 16px; 
+    line-height: 1.6; 
+    color: var(--text-secondary); 
+}
+.help-content p strong { 
+    color: var(--text-primary); 
+}
+
 .map-placeholder {
     width: 100%;
     height: 200px;
@@ -563,27 +697,16 @@ footer {
     margin-bottom: 20px;
     border: 1px dashed rgba(255, 255, 255, 0.2);
 }
+
 .details-card {
     padding: 15px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    border-radius: 16px;
 }
-.route-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 16px;
-    line-height: 1.5;
-}
-.passenger-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--glass-stroke);
-}
+
 .trip-summary {
     display: flex;
     justify-content: space-around;
@@ -592,6 +715,7 @@ footer {
     border-top: 1px solid var(--glass-stroke);
     border-bottom: 1px solid var(--glass-stroke);
 }
+
 .summary-item {
     display: flex;
     flex-direction: column;
@@ -599,792 +723,123 @@ footer {
     gap: 8px;
     font-size: 14px;
 }
-.summary-item i {
-    font-size: 20px;
-    color: var(--accent-color);
+.summary-item i { 
+    font-size: 20px; 
+    color: var(--accent-color); 
 }
 
-/* === 12. КОМПОНЕНТИ: Кнопки дій === */
-.action-buttons {
-    display: flex;
-    gap: 15px;
-    width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
-}
-.btn-secondary {
-    flex: 1;
-    padding: 16px;
-    border-radius: 16px;
-    color: var(--danger-color);
-    font-size: 18px;
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.btn-secondary:active {
-    transform: scale(0.97);
-    background-color: rgba(255, 255, 255, 0.2);
-}
-.action-buttons .btn-submit {
-    flex: 2;
-}
-.btn-submit.start-ride {
-    background-color: var(--accent-color);
-}
-.btn-submit.start-ride:active {
-    filter: brightness(0.9);
-}
-.btn-submit.end-ride {
-    background-color: var(--warning-color);
-    color: #000;
-}
-.btn-submit.end-ride:active {
-    filter: brightness(0.9);
-}
-
-/* === 13. МОДИФІКАТОРИ: Стани карток, Іконки === */
-.order-list.passenger .order-card {
-    cursor: pointer;
-}
-.order-card .driver-details {
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-/* ======================================= */
-/* == НОВИЙ СТИЛЬ СТОРІНКИ "МОЇ ПОЇЗДКИ" (v3-NUKE) == */
-/* ======================================= */
-
-/* --- Загальний контейнер картки --- */
+/* == СТИЛІ СТОРІНКИ "МОЇ ПОЇЗДКИ" (відновлено) == */
 #passenger-orders-screen .order-card.active {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Трохи зменшимо загальний відступ */
-    padding: 10px 20px 20px 20px; /* Зверху тепер менше відступ */
+    gap: 10px;
+    padding: 20px;
     border-radius: 28px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-stroke);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
     position: relative;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
-
-/* --- 1. ПІДНІМАЄМО ЗАГОЛОВОК --- */
-#passenger-orders-screen .order-header {
-    text-align: center;
-    margin-bottom: 8px; /* Відступ до спінера */
+#passenger-orders-screen .order-header { 
+    text-align: center; 
+    margin-bottom: 8px; 
 }
-#passenger-orders-screen .order-title {
-    color: var(--success-color);
-    font-size: 18px;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: 4px;
+#passenger-orders-screen .order-title { 
+    color: var(--success-color); 
+    font-size: 18px; 
+    margin-bottom: 4px; 
 }
-#passenger-orders-screen .order-timestamp {
-    font-size: 13px;
-    color: var(--text-secondary);
+#passenger-orders-screen .order-timestamp { 
+    font-size: 13px; 
+    color: var(--text-secondary); 
 }
-
-/* --- Статус (іконка і текст) --- */
-#passenger-orders-screen .order-status-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-secondary);
-    margin-bottom: 8px; /* Відступ до трекера */
+#passenger-orders-screen .order-status-visual { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+    margin-bottom: 8px; 
 }
-#passenger-orders-screen #status-icon {
-    font-size: 18px;
+#passenger-orders-screen #status-icon { 
+    font-size: 18px; 
 }
-#passenger-orders-screen #status-icon.arrived {
-    color: var(--success-color);
+#passenger-orders-screen #status-text { 
+    font-size: 14px; 
 }
-#passenger-orders-screen #status-text {
-    font-size: 14px;
-}
-
-/* --- Прогрес-трекер --- */
-#passenger-orders-screen .progress-tracker {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px 0;
+#passenger-orders-screen .progress-tracker { 
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
+    padding: 10px 0; 
 }
 #passenger-orders-screen .progress-start-point,
-#passenger-orders-screen .progress-end-point {
-    font-size: 14px;
-    flex-shrink: 0; /* Щоб іконки не стискались */
+#passenger-orders-screen .progress-end-point { 
+    font-size: 14px; 
 }
-#passenger-orders-screen .progress-start-point {
-    color: #FF9F0A; /* Помаранчевий */
+#passenger-orders-screen .track-line { 
+    flex-grow: 1; 
+    height: 2px; 
+    margin: 0 10px; 
+    position: relative; 
 }
-#passenger-orders-screen .progress-end-point {
-    color: var(--success-color);
-    animation: blink-green 1.5s infinite ease-in-out;
+#passenger-orders-screen #car-icon { 
+    position: absolute; 
+    top: 50%; 
+    left: 0%; 
+    transform: translate(-50%, -50%); 
+    font-size: 20px; 
+    transition: left 1s linear; 
 }
-#passenger-orders-screen .progress-end-point.arrived {
-    animation: none;
-    font-size: 18px;
+#passenger-orders-screen .driver-info { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; 
+    font-size: 14px; 
+    align-items: flex-start; 
 }
-#passenger-orders-screen .track-line {
-    flex-grow: 1;
-    height: 2px;
-    margin: 0 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
+#passenger-orders-screen .route-addresses { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    font-size: 15px; 
 }
-#passenger-orders-screen .dots-container {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+#passenger-orders-screen .address-line { 
+    display: flex; 
+    align-items: center; 
 }
-#passenger-orders-screen .dot {
-    width: 4px; height: 4px;
-    background-color: var(--muted);
-    border-radius: 50%;
+#passenger-orders-screen .address-line i { 
+    width: 20px; 
+    text-align: center; 
+    margin-right: 8px; 
 }
-#passenger-orders-screen .dot.passed {
-    background-color: #ffffff;
+#passenger-orders-screen .details-btn-arrow { 
+    position: absolute; 
+    bottom: 15px; 
+    right: 15px; 
+    background: none; 
+    border: none; 
+    font-size: 28px; 
+    cursor: pointer; 
+    color: white; 
 }
-#passenger-orders-screen #car-icon {
-    position: absolute;
-    top: 50%; left: 0%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-    font-size: 20px;
-    transition: left 1s linear;
+#passenger-orders-screen .archive-separator { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 20px 0 15px 0; 
+    color: var(--muted); 
 }
-
-/* --- 2. ВИРІВНЮЄМО ВОДІЯ --- */
-#passenger-orders-screen .order-details-grid {
-    padding: 0;
-    margin-top: -5px;
-    margin-left: -2px;
-    align-self: flex-start; /* <<== ОСЬ ЦЕЙ РЯДОК */
+#passenger-orders-screen .order-card.archived { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 15px 20px; 
 }
-#passenger-orders-screen .driver-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 14px;
-    align-items: flex-start;
-}
-#passenger-orders-screen .driver-info span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-secondary);
-}
-#passenger-orders-screen .driver-info strong {
-    color: var(--text-primary);
-}
-#passenger-orders-screen .driver-info .fa-car {
-    font-size: 16px;
+#passenger-orders-screen .archived .route { 
+    font-size: 14px; 
 }
 
-/* --- Розділювач і адреси --- */
-#passenger-orders-screen .route-separator {
-    text-align: center;
-    color: var(--text-secondary);
-    margin: 8px 0;
-}
-/* --- 3. РІВНЯЄМО ІКОНКИ І ВІДСТУПИ в маршруті --- */
-#passenger-orders-screen .route-addresses {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px; /* Збільшимо відстань між адресами */
-    font-size: 15px;
-}
-#passenger-orders-screen .address-line {
-    display: flex;
-    align-items: center;
-    width: 180px; /* Задаємо фіксовану ширину, щоб вони вирівнялись */
-}
-#passenger-orders-screen .address-line i {
-    width: 20px; /* Однакова ширина для іконок */
-    text-align: center; /* Центруємо іконку */
-    margin-right: 8px; /* однаковий відступ до тексту */
-    font-size: 14px; /* Однаковий розмір шрифту для іконок */
-}
-#passenger-orders-screen .start-address-icon {
-    color: var(--success-color);
-}
-#passenger-orders-screen .end-address-icon {
-    color: var(--danger-color);
-    font-size: 16px; /* Пін робимо трохи більшим */
-}
-
-/* --- Кнопка "Детальніше" --- */
-#passenger-orders-screen .details-btn-arrow {
-    position: absolute;
-    bottom: 15px; right: 15px;
-    background: none; border: none;
-    color: #ffffff;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-/* --- Стилі для архіву --- */
-#passenger-orders-screen .archive-separator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px 0 15px 0;
-    color: var(--muted);
-    font-size: 14px;
-}
-#passenger-orders-screen .order-card.archived {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    border-radius: 16px;
-}
-#passenger-orders-screen .archived-info { display: flex; flex-direction: column; gap: 8px; }
-#passenger-orders-screen .archived-date { font-size: 12px; color: var(--muted); }
-#passenger-orders-screen .archived .driver-details { font-size: 14px; display: flex; align-items: center; gap: 8px; }
-#passenger-orders-screen .archived .details-btn-arrow { position: static; font-size: 24px; color: var(--muted);}
-
-/* --- 4. ФІКСИМО АРХІВ: точне вирівнювання іконок --- */
-#passenger-orders-screen .archived .route {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 14px;
-}
-#passenger-orders-screen .archived .route span {
-    display: flex;
-    align-items: center;
-}
-#passenger-orders-screen .archived .route i {
-    width: 15px; /* Однаковий розмір для обох іконок */
-    margin-right: 8px;
-    text-align: center;
-    color: var(--text-secondary);
-}
-
-/* --- Анімація миготіння --- */
-@keyframes blink-green {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-}
-/* /* ================================================= */
-/* == ФАЗА 2: РЕФАКТОРИНГ "ШВИДКЕ ЗАМОВЛЕННЯ" v3 == */
-/* ================================================= */
-.screen > main { overflow-y: auto; -webkit-overflow-scrolling: touch; }
-
-/* 1. Поля вводу і лейбли */
-.address-label, .section-label, .form-group > label { font-weight: 700 !important; }
-.address-label { font-size: 16px !important; }
-.form-input::placeholder, textarea::placeholder { font-size: 14px; color: #5a5a5e; } /* Робимо ще більш сірим */
-.address-label i { font-size: 16px; margin-right: 12px !important; }
-.when-icon { color: var(--accent-color); }
-.from-icon { color: #FFC700; }
-.to-icon { color: var(--success-color); }
-.input-with-icon { position: relative; display: flex; align-items: center; }
-.input-with-icon .form-input { flex-grow: 1; }
-.input-with-icon .input-icon { position: absolute; right: 15px; color: var(--text-secondary); }
-.form-input, textarea.form-input { border-radius: 14px !important; }
-
-/* 2. ЗБІЛЬШУЄМО ГОДИННИК */
-.custom-time-picker {
-    padding: 10px 0;
-}
-.time-input-flatpickr {
-    background: none !important;
-    border: none !important;
-    color: var(--text-primary) !important;
-    font-size: 28px !important; /* Збільшуємо шрифт */
-    font-weight: 700 !important;
-    text-align: center;
-    width: 150px; /* Збільшуємо ширину */
-    padding: 10px;
-}
-
-/* === ПЛИТКИ-КНОПКИ: === */
-
-.later-options-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-}
-.later-options-wrapper.hidden { display: none !important; }
-
-.date-tiles-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 0 40px;
-}
-
-.date-tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    /* ОСНОВНІ ЗМІНИ ТУТ: */
-    aspect-ratio: 1 / 1; /* <<-- МАГІЯ, ЯКА РОБИТЬ ІДЕАЛЬНИЙ КВАДРАТ */
-    padding: 20px;       /* <<-- Невеликий відступ, щоб контент не прилипав до країв */
-    border-radius: 25px; /* <<-- Твоя ідеальна форма залишається */
-    
-    color: var(--text-secondary);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-stroke);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
-}
-
-.date-tile.active {
-    background: var(--accent-color);
-    color: white;
-    transform: scale(1.03);
-}
-.date-tile i {
-    font-size: 28px; /* ЗБІЛЬШУЮ іконку */
-    margin-bottom: 15px; /* Додаємо відступ, щоб опустити текст */
-}
-.date-tile span {
-    font-size: 16px;
-    font-weight: 500;
-}
-
-/* --- Решта стилів залишається без змін --- */
-
-.btn-segment.full-width {
-    border-radius: 14px !important;
-    border: 1px solid var(--glass-stroke);
-    padding: 14px;
-}
-
-.schedule-confirm.hidden { display: none !important; }
-.schedule-confirm {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 12px 18px; /* Трохи менші відступи */
-    border-radius: 12px;
-    width: fit-content; /* Ширина по контенту */
-    margin: 15px auto 0 auto; /* Відступ зверху і авто-центрування */
-}
-
-#schedule-result-text { font-weight: 500; }
-.confirm-checkmark {
-    color: var(--success-color);
-    font-size: 20px;
-}
-
-/* 4. Кнопка "Вибрати водія" - сіра і правильного розміру */
-.left-aligned { display: flex; flex-direction: column; align-items: flex-start; }
-.btn-secondary-action.compact {
-    width: auto; padding: 12px 20px; /* Збільшуємо */
-    font-size: 15px; /* Такий же, як у "Коментар" */
-    border-radius: 14px !important;
-    background: rgba(85, 85, 90, 0.5) !important;
-    border-color: rgba(112, 112, 115, 0.5) !important;
-    color: var(--text-secondary) !important; /* Робимо текст сірим */
-}
-.btn-secondary-action.compact i { color: var(--text-secondary) !important; } /* І іконку теж */
-.info-note { font-size: 13px; color: var(--muted); padding: 8px 0; margin-top: 5px; text-align: left; max-width: 90%; }
-.info-note.hidden { display: none; }
-
-/* 5. Кнопка "Відправити замовлення" */
-.btn-submit.compact { width: auto; padding: 15px 30px; margin: 10px auto 0 auto; }
-.btn-submit.disabled { background-color: #555; color: #999; pointer-events: none; }
-/* ... (решта стилів без змін) ... */
-
-/* 6. Новий екран підтвердження */
-.confirmation-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px; max-width: 90%; }
-.conf-title { font-size: 18px; margin-bottom: 15px; }
-.conf-text { color: var(--text-secondary); margin-bottom: 25px; line-height: 1.6; }
-.conf-note { margin-top: 25px; margin-bottom: 25px; color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 8px; }
-.spinner { border: 4px solid rgba(255, 255, 255, 0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--accent-color); animation: spin 1s infinite linear; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* ======================================= */
-/* == ФІКСИ ДЛЯ СТОРІНКИ "ЗНАЙТИ ВОДІЯ" == */
-/* ======================================= */
-
-/* --- Закруглюємо картки водіїв --- */
-.driver-card {
-    border-radius: 20px;
-}
-
-/* --- Заголовок над списком --- */
+/* Залишки стилів, які потрібні */
 .list-header-note {
     text-align: center;
     color: var(--muted);
     font-size: 14px;
     margin-bottom: 15px;
-}
-
-/* --- Статус "Доступний" для водіїв онлайн --- */
-.driver-info .status-available {
-    color: var(--success-color);
-    font-weight: 500;
-}
-/* ======================================= */
-/* == ФІКСИ ДЛЯ СТОРІНКИ "ШУКАЮТЬ ВОДІЯ" v3 == */
-/* ======================================= */
-
-/* --- 1. Оновлюємо "фізику" картки для ідеального вирівнювання --- */
-#driver-find-passengers-screen .order-card {
-    border-radius: 20px;
-    align-items: center;          /* ЦЕНТРУЄМО по вертикалі */
-    justify-content: space-between; /* РОЗТЯГУЄМО по горизонталі */
-    padding: 15px;
-    display: flex; /* Переконуємось, що це flex-контейнер */
-}
-
-/* --- 2. БАЛАНСУЄМО БЛОК З ІНФОРМАЦІЄЮ --- */
-#driver-find-passengers-screen .order-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* --- 3. ЗМЕНШУЄМО ВІДСТУП ІКОНОК (ще раз) --- */
-#driver-find-passengers-screen .order-info .passenger-details,
-#driver-find-passengers-screen .order-info .route span {
-    display: flex;
-    align-items: center;
-    gap: 6px; /* Зменшуємо відступ ще трохи */
-}
-
-#driver-find-passengers-screen .order-info i {
-    width: 20px;
-    text-align: center;
-    font-size: 14px;
-}
-
-#driver-find-passengers-screen .order-info .passenger-details i {
-    font-size: 16px;
-    color: var(--text-secondary);
-}
-#driver-find-passengers-screen .order-info .start-point-icon {
-    color: #FFC700;
-}
-#driver-find-passengers-screen .order-info .end-point-icon {
-    color: var(--danger-color);
-}
-
-/* --- 4. Нові статуси часу (Зараз / На потім) --- */
-#driver-find-passengers-screen .order-time {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    min-width: 60px;
-}
-
-#driver-find-passengers-screen .order-time .status-dot.online {
-    width: 10px;
-    height: 10px;
-    margin: 0;
-}
-
-#driver-find-passengers-screen .order-time .fa-clock {
-    color: var(--accent-color);
-    font-size: 14px;
-}
-/* ======================================= */
-/* == ФІКС v3: ТЕЛЕПОРТАЦІЯ ЕЛЕМЕНТА == */
-/* ======================================= */
-
-/* --- 1. Робимо картку "домом" для телепортації --- */
-#driver-find-passengers-screen .order-card {
-    position: relative; /* Вмикаємо систему координат */
-    padding-right: 75px; /* Звільняємо місце справа, щоб текст не заходив під час */
-}
-
-/* --- 2. Видаємо блоку з часом "телепорт" і відправляємо на місце --- */
-#driver-find-passengers-screen .order-time {
-    position: absolute;      /* Вмикаємо телепорт */
-    top: 50%;                /* Телепортуємо на середину по висоті */
-    right: 15px;             /* Притискаємо до правого краю */
-    transform: translateY(-50%); /* Центруємо себе ідеально */
-}
-
-/* --- 3. А цей фікс для відступів іконок залишаємо --- */
-#driver-find-passengers-screen .order-info .passenger-details,
-#driver-find-passengers-screen .order-info .route span {
-    gap: 5px !important;
-}
-/* ======================================= */
-/* == КРОК 2: ІНТЕГРАЦІЯ "КРАСІВО" == */
-/* ======================================= */
-
-/* --- Основа для анімованої рамки --- */
-.animated-border {
-    position: relative; /* Вмикаємо систему координат */
-    overflow: hidden; /* Ховаємо градієнт, що виходить за межі */
-    border-radius: 25px; /* Важливо, щоб рамка була заокруглена */
-}
-
-/* --- Сама анімована рамка --- */
-.animated-border::before {
-    content: '';
-    position: absolute;
-    width: 120%; /* Робимо ширшим, щоб кути були гарними */
-    height: 120%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff2233, #ff9966, #ff9966, transparent);
-    animation: rotation_481 4s infinite linear;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* --- Внутрішній контент, який лежить НАД анімацією --- */
-.card-content-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: var(--glass-bg); /* Наш стандартний фон */
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: 24px; /* Трохи менше, щоб було видно рамку */
-    z-index: 2; /* Щоб бути над анімацією */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 12px;
-}
-
-/* --- Адаптуємо годинник під новий стиль --- */
-.time-picker-wrapper .time-input-flatpickr {
-    background: #1c1c1e !important; /* Робимо фон темнішим */
-    border-radius: 10px !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-}
-
-/* --- Сама анімація обертання --- */
-@keyframes rotation_481 {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* === КРОК 1.4: НОВА "ЗОНА ДІЙ" ДЛЯ ФОРМИ ЗАМОВЛЕННЯ === */
-
-.form-actions {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    width: 100%;
-    margin-top: 15px;
-}
-
-.form-actions .btn-submit {
-    flex-grow: 1; /* Головна кнопка займає весь доступний простір */
-    margin: 0; /* Прибираємо старі відступи */
-}
-
-.btn-icon-action {
-    flex-shrink: 0; /* Іконка не буде стискатись */
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    font-size: 20px;
-    
-    /* Наша улюблена магія скла */
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    color: var(--text-secondary);
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.btn-icon-action:active {
-    transform: scale(0.95);
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* === КРОК 1.6: НОВИЙ ГОДИННИК З ІКОНКОЮ В РЯДКУ І АНІМАЦІЄЮ === */
-
-.time-picker-container {
-    display: flex;
-    justify-content: center; /* Центруємо весь блок */
-}
-
-.time-display-wrapper.animated-border {
-    position: relative;
-    overflow: hidden;
-    border-radius: 14px; /* Важливо для заокруглення рамки */
-    padding: 1px; /* Маленький відступ, щоб рамка не обрізалась */
-}
-
-.time-display-wrapper.animated-border::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%; /* Робимо градієнт ширшим за блок */
-    height: 150%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5s infinite linear;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-}
-
-.time-display-content {
-    position: relative; /* Щоб контент був над анімацією */
-    z-index: 2;
-    display: flex;
-    align-items: center; /* Вертикально центруємо час та іконку */
-    gap: 10px; /* Відстань між часом та іконкою */
-    background-color: #1c1c1e; /* Темний фон, що ховає центр анімації */
-    border-radius: 13px; /* Трохи менше, щоб було видно рамку */
-    padding: 10px 20px;
-}
-
-#time-display-hours,
-#time-display-minutes {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.time-display-wrapper .time-separator {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-    position: relative;
-    top: -2px;
-}
-
-.info-btn {
-    background: none;
-    border: none;
-    font-size: 16px; /* Трохи більша іконка для балансу */
-    color: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    padding: 0;
-    line-height: 1; /* Прибираємо зайву висоту */
-}
-
-@keyframes rotation_481 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-/* === НОВИЙ СТИЛЬ ГОЛОВНИХ КНОПОК === */
-.btn-main-action {
-    padding: 16px 25px;
-    border: none;
-    border-radius: 16px;
-    color: #ffffff;
-    z-index: 1;
-    background: var(--success-color);
-    position: relative;
-    font-weight: 700;
-    font-size: 17px;
-    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-    transition: all 250ms;
-    overflow: hidden;
-    width: 100%; /* Щоб кнопка займала всю ширину в контейнері */
-}
-
-.btn-main-action::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    border-radius: 15px;
-    background-color: #1c1c1e; /* Темний колір при наведенні */
-    z-index: -1;
-    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-    transition: all 250ms;
-}
-
-.btn-main-action:hover {
-    color: #e8e8e8;
-}
-
-.btn-main-action:hover::before {
-    width: 100%;
-}
-/* === УНІВЕРСАЛЬНА АНІМАЦІЯ АКТИВНОГО ЕЛЕМЕНТА === */
-
-.animation-wrapper {
-    position: relative; /* Вмикаємо систему координат */
-    overflow: hidden;   /* Обрізаємо все зайве, що вилазить за межі */
-    border-radius: 16px; /* Важливо! Заокруглення має бути тут */
-    width: 100%;
-}
-
-/* Сама анімація (наш обертовий градієнт) */
-.animation-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    height: 150%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5s infinite linear;
-    
-    /* Ховаємо анімацію за замовчуванням */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-/* Вмикаємо анімацію, коли елемент всередині wrapper'а у фокусі */
-.animation-wrapper:focus-within::before {
-    opacity: 1; /* Робимо анімацію видимою */
-}
-
-/* Змінюємо фон самого поля вводу, коли воно у фокусі */
-.animation-wrapper:focus-within .form-input {
-    background: #1c1c1e; /* Темний фон, як у годинника */
-    border-color: transparent; /* Ховаємо власну рамку */
-}
-
-/* Те саме для кнопок, але в момент кліку (:active) */
-.animation-wrapper:active::before {
-    opacity: 1;
-}
-
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    background: #1c1c1e; /* Темний фон при кліку */
-}
-/* === ФІКС ДЛЯ АНІМАЦІЇ КНОПОК В РЯДКУ === */
-.form-actions .animation-wrapper {
-    display: flex; /* Потрібно, щоб кнопка всередині поводилась правильно */
-    border-radius: 50%; /* Робимо круглу обгортку для круглої кнопки */
-}
-
-.form-actions .animation-wrapper:last-child {
-    flex-grow: 1; /* Змушуємо обгортку головної кнопки рости */
-    border-radius: 16px; /* А для головної кнопки - прямокутну */
-}
-/* === ФІНАЛЬНИЙ ТЮНІНГ АНІМАЦІЙ v2 === */
-
-/* 1. Робимо обгортку круглої кнопки ідеально круглою */
-.form-actions .animation-wrapper:first-child {
-    width: 52px;  /* Задаємо чіткий розмір, як у кнопки */
-    height: 52px;
-    flex-shrink: 0; /* Забороняємо обгортці стискатись */
-}
-
-/* 2. Виправляємо нижню рамку в полі коментаря */
-.animation-wrapper textarea.form-input {
-    resize: none; /* Вимикаємо стандартний ресайз, який ламає рамку */
 }
