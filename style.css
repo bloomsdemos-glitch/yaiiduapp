@@ -1078,15 +1078,41 @@ footer {
 }
 
 /* ========================================================= */
-/* == ЧИСТИЙ КОД ПІСЛЯ РЕФАКТОРИНГУ (07.09.2025) == */
+/* == КОМПЛЕКСНИЙ ФІКС (07.09.2025) == */
 /* ========================================================= */
 
-/* --- СТИЛІ ДЛЯ КАРТОК ЗАМОВЛЕНЬ ВОДІЯ --- */
+/* --- 1. ФІКС ВЕРСТКИ І ВІДСТУПІВ --- */
+
+/* Вирішуємо проблему "обрізання" контенту і відступу від хедера */
+#quick-order-screen > main {
+    overflow: visible;
+    padding-top: 15px; 
+}
+
+/* Вирівнюємо всі лейбли однаково і задаємо їм той самий стиль */
+#quick-order-screen .form-group > label {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Вирішуємо проблему з фоном тайм-пікера */
+.time-display-wrapper {
+    /* Робимо фон обгортки таким же, як у контенту, створюючи суцільний вигляд */
+    background-color: #1c1c1e;
+    border-radius: 16px;
+    padding: 2px 8px;
+}
+
+
+/* --- 2. СТИЛІ КОМПОНЕНТІВ (ОЧИЩЕНІ) --- */
+
+/* Стилі для карток замовлень водія (без змін) */
 #driver-find-passengers-screen .order-card {
     position: relative;
     padding-right: 75px;
 }
-
 #driver-find-passengers-screen .order-time {
     display: flex;
     flex-direction: column;
@@ -1098,208 +1124,58 @@ footer {
     right: 15px;
     transform: translateY(-50%);
 }
-
-#driver-find-passengers-screen .order-time .status-dot.online {
-    width: 10px;
-    height: 10px;
-    margin: 0;
-}
-
-#driver-find-passengers-screen .order-time .fa-clock {
-    color: var(--accent-color);
-    font-size: 14px;
-}
-
+#driver-find-passengers-screen .order-time .status-dot.online { width: 10px; height: 10px; margin: 0; }
+#driver-find-passengers-screen .order-time .fa-clock { color: var(--accent-color); font-size: 14px; }
 #driver-find-passengers-screen .order-info .passenger-details,
 #driver-find-passengers-screen .order-info .route span {
     gap: 5px !important;
 }
 
-/* --- СТИЛІ ДЛЯ ФОРМИ ЗАМОВЛЕННЯ --- */
-
-/* Відступи у формі */
+/* Стилі для форми замовлення (без змін) */
 #quick-order-screen .order-form { gap: 20px; }
 #quick-order-screen .form-group { gap: 10px; }
 
 /* Кнопки дій внизу форми */
-.form-actions {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    width: 100%;
-    margin-top: 15px;
-}
+.form-actions { display: flex; gap: 15px; align-items: center; width: 100%; margin-top: 15px; }
+.form-actions .btn-submit { flex-grow: 1; margin: 0; }
+.btn-icon-action { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; font-size: 20px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease-in-out; }
+.btn-icon-action:active { transform: scale(0.95); background: rgba(0, 0, 0, 0.3); }
 
-.form-actions .btn-submit {
-    flex-grow: 1;
-    margin: 0;
-}
+/* Годинник (без змін) */
+.time-picker-container { display: flex; justify-content: center; }
+.time-display-content { position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; background-color: #1c1c1e; border-radius: 13px; padding: 10px 20px; }
+#time-display-hours, #time-display-minutes { font-size: 32px; font-weight: 700; color: #ffffff; }
+.time-display-wrapper .time-separator { font-size: 30px; font-weight: 700; color: #ffffff; position: relative; top: -2px; }
 
-/* Кругла кнопка */
-.btn-icon-action {
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    font-size: 20px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
+/* Головна кнопка відправки (без змін) */
+.btn-main-action { padding: 16px 25px; border: none; border-radius: 16px; color: #ffffff; z-index: 1; background: var(--success-color); position: relative; font-weight: 700; font-size: 17px; box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27); transition: all 250ms; overflow: hidden; width: 100%; }
+.btn-main-action::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 0; border-radius: 15px; background-color: #1c1c1e; z-index: -1; box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27); transition: all 250ms; }
+.btn-main-action:hover { color: #e8e8e8; }
+.btn-main-action:hover::before { width: 100%; }
 
-.btn-icon-action:active {
-    transform: scale(0.95);
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Годинник */
-.time-picker-container {
-    display: flex;
-    justify-content: center;
-}
-
-.time-display-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #1c1c1e;
-    border-radius: 13px;
-    padding: 10px 20px;
-}
-
-#time-display-hours,
-#time-display-minutes {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.time-display-wrapper .time-separator {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-    position: relative;
-    top: -2px;
-}
-
-/* Головна кнопка відправки */
-.btn-main-action {
-    padding: 16px 25px;
-    border: none;
-    border-radius: 16px;
-    color: #ffffff;
-    z-index: 1;
-    background: var(--success-color);
-    position: relative;
-    font-weight: 700;
-    font-size: 17px;
-    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-    transition: all 250ms;
-    overflow: hidden;
-    width: 100%;
-}
-
-.btn-main-action::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    border-radius: 15px;
-    background-color: #1c1c1e;
-    z-index: -1;
-    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-    transition: all 250ms;
-}
-
-.btn-main-action:hover {
-    color: #e8e8e8;
-}
-
-.btn-main-action:hover::before {
-    width: 100%;
-}
-
-/* Плитки вибору дати */
-.date-tile {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
-    cursor: pointer;
-}
-
+/* Плитки вибору дати (без змін) */
+.date-tile { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-weight: 500; cursor: pointer; }
 .date-tile:not(.active):hover { background: rgba(255, 255, 255, 0.1); }
 .date-tile:active { transform: scale(0.96); background: rgba(255, 255, 255, 0.2); }
 
-/* Скляна обгортка для годинника */
-.time-display-wrapper {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    border-radius: 16px;
-    padding: 2px 8px;
-}
-
-/* === ФІНАЛЬНА АНІМАЦІЯ v7: КІЛЬЦЕ ФОКУСУВАННЯ === */
+/* --- 3. ФІНАЛЬНА АНІМАЦІЯ v8: PULSING GLOW --- */
 
 .animation-wrapper {
     position: relative;
     width: 100%;
-    overflow: visible;
 }
 
-.animation-wrapper:focus-within .form-input {
-    box-shadow: 0 0 12px 2px var(--accent-color);
+@keyframes pulsing-glow {
+    0% { box-shadow: 0 0 8px 2px transparent; }
+    50% { box-shadow: 0 0 16px 4px var(--accent-color); }
+    100% { box-shadow: 0 0 8px 2px transparent; }
 }
 
-.animation-wrapper::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    border-radius: 16px; 
-    background-image: linear-gradient(
-        transparent,
-        var(--accent-2),
-        transparent
-    );
-    animation: rotate-focus-ring 2s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+.animation-wrapper:focus-within .form-input,
+.animation-wrapper:focus-within .btn-icon-action {
+    animation: pulsing-glow 2s infinite ease-in-out;
 }
 
-.animation-wrapper:focus-within::before {
-    opacity: 1;
-}
-
-.form-actions .animation-wrapper:first-child::before {
-    border-radius: 50%;
-}
-
-@keyframes rotate-focus-ring {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.form-input {
-    position: relative;
-    z-index: 2;
+.animation-wrapper:active .btn-main-action {
+    background: #1c1c1e;
 }
