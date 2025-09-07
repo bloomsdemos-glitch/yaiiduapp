@@ -1322,59 +1322,29 @@ footer {
 }
 
 /* === СТИЛІ ІНТЕРФЕЙСУ (ЗАЛИШАЄМО) === */
+#quick-order-screen .order-form { gap: 20px; }
+#quick-order-screen .form-group { gap: 10px; }
+.date-tile { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-weight: 500; cursor: pointer; }
+.date-tile:not(.active):hover { background: rgba(255, 255, 255, 0.1); }
+.date-tile:active { transform: scale(0.96); background: rgba(255, 255, 255, 0.2); }
+.time-display-wrapper { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); border-radius: 16px; padding: 2px 8px; }
 
-/* Додаємо "повітря" у форму */
-#quick-order-screen .order-form {
-    gap: 20px;
-}
+/* === ФІНАЛЬНА АНІМАЦІЯ v5: ТРЮК З "МАСКОЮ" === */
 
-#quick-order-screen .form-group {
-    gap: 10px;
-}
-
-/* Додаємо "скляний" ефект плиткам */
-.date-tile {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.date-tile:not(.active):hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.date-tile:active {
-    transform: scale(0.96);
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Створюємо "форму" для годинника */
-.time-display-wrapper {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-stroke);
-    border-radius: 16px;
-    padding: 2px 8px;
-}
-
-/* === ФІНАЛЬНА АНІМАЦІЯ v4: "БІГАЮЧА КРАПКА" (НОВИЙ КОД) === */
-
+/* 1. Обгортка стає "рамою" */
 .animation-wrapper {
     position: relative;
-    overflow: hidden;
     border-radius: 16px;
     width: 100%;
+    padding: 2px; /* <<== КЛЮЧОВИЙ МОМЕНТ №1: Створюємо товщину для майбутньої рамки */
+    background: transparent; /* Сама рама прозора */
 }
 
+/* 2. Анімація стає фоном для "рами" */
 .animation-wrapper::before {
     content: "";
     position: absolute;
-    z-index: 1; /* Кладемо НАД контентом, але під ним буде фон */
+    z-index: -1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1383,28 +1353,31 @@ footer {
     background-image: conic-gradient(
         var(--success-color),
         var(--accent-color),
-        transparent 30%, /* Робимо градієнт коротшим, щоб була саме "крапка" */
+        transparent 30%,
         transparent
     );
     animation: rotating 2s linear infinite;
-    opacity: 0; /* Ховаємо анімацію за замовчуванням */
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 
-/* Вмикаємо анімацію ТІЛЬКИ при фокусі або кліку */
+/* 3. Вмикаємо анімацію "рами" при фокусі або кліку */
 .animation-wrapper:focus-within::before,
 .animation-wrapper:active::before {
     opacity: 1;
 }
 
-/* Повертаємо зміну фону при активації */
-.animation-wrapper:focus-within .form-input,
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    background: #1c1c1e;
+/* 4. Ключовий момент №2: Внутрішні елементи стають НЕПРОЗОРОЮ "маскою" */
+.animation-wrapper .form-input,
+.animation-wrapper .btn-main-action,
+.animation-wrapper .btn-icon-action {
+    width: 100%; /* Розтягуємо на всю ширину всередині рами */
+    height: 100%;
+    /* Важливо: прибираємо власну рамку, бо тепер її роль виконує wrapper */
+    border: none; 
 }
 
-/* Адаптуємо круглу кнопку */
+/* 5. Адаптуємо круглу кнопку */
 .form-actions .animation-wrapper:first-child {
     border-radius: 50%;
     width: 52px;
@@ -1412,7 +1385,13 @@ footer {
     flex-shrink: 0;
 }
 
-/* Анімація для обертання */
+/* Адаптуємо круглу кнопку всередині */
+.form-actions .animation-wrapper:first-child .btn-icon-action {
+    border-radius: 50%;
+}
+
+
+/* 6. Анімація для обертання */
 @keyframes rotating {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -1421,5 +1400,3 @@ footer {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
-
-
