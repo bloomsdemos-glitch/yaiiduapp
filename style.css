@@ -1077,13 +1077,26 @@ footer {
     color: var(--danger-color);
 }
 
-/* --- 4. Нові статуси часу (Зараз / На потім) --- */
+/* ========================================================= */
+/* == ЧИСТИЙ КОД ПІСЛЯ РЕФАКТОРИНГУ (07.09.2025) == */
+/* ========================================================= */
+
+/* --- СТИЛІ ДЛЯ КАРТОК ЗАМОВЛЕНЬ ВОДІЯ --- */
+#driver-find-passengers-screen .order-card {
+    position: relative;
+    padding-right: 75px;
+}
+
 #driver-find-passengers-screen .order-time {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
     min-width: 60px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
 }
 
 #driver-find-passengers-screen .order-time .status-dot.online {
@@ -1096,84 +1109,19 @@ footer {
     color: var(--accent-color);
     font-size: 14px;
 }
-/* ======================================= */
-/* == ФІКС v3: ТЕЛЕПОРТАЦІЯ ЕЛЕМЕНТА == */
-/* ======================================= */
 
-/* --- 1. Робимо картку "домом" для телепортації --- */
-#driver-find-passengers-screen .order-card {
-    position: relative; /* Вмикаємо систему координат */
-    padding-right: 75px; /* Звільняємо місце справа, щоб текст не заходив під час */
-}
-
-/* --- 2. Видаємо блоку з часом "телепорт" і відправляємо на місце --- */
-#driver-find-passengers-screen .order-time {
-    position: absolute;      /* Вмикаємо телепорт */
-    top: 50%;                /* Телепортуємо на середину по висоті */
-    right: 15px;             /* Притискаємо до правого краю */
-    transform: translateY(-50%); /* Центруємо себе ідеально */
-}
-
-/* --- 3. А цей фікс для відступів іконок залишаємо --- */
 #driver-find-passengers-screen .order-info .passenger-details,
 #driver-find-passengers-screen .order-info .route span {
     gap: 5px !important;
 }
-/* ======================================= */
-/* == КРОК 2: ІНТЕГРАЦІЯ "КРАСІВО" == */
-/* ======================================= */
 
-/* --- Основа для анімованої рамки --- */
-.animated-border {
-    position: relative; /* Вмикаємо систему координат */
-    overflow: hidden; /* Ховаємо градієнт, що виходить за межі */
-    border-radius: 25px; /* Важливо, щоб рамка була заокруглена */
-}
+/* --- СТИЛІ ДЛЯ ФОРМИ ЗАМОВЛЕННЯ --- */
 
-/* --- Сама анімована рамка --- */
-.animated-border::before {
-    content: '';
-    position: absolute;
-    width: 120%; /* Робимо ширшим, щоб кути були гарними */
-    height: 120%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff2233, #ff9966, #ff9966, transparent);
-    animation: rotation_481 4s infinite linear;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+/* Відступи у формі */
+#quick-order-screen .order-form { gap: 20px; }
+#quick-order-screen .form-group { gap: 10px; }
 
-/* --- Внутрішній контент, який лежить НАД анімацією --- */
-.card-content-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: var(--glass-bg); /* Наш стандартний фон */
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: 24px; /* Трохи менше, щоб було видно рамку */
-    z-index: 2; /* Щоб бути над анімацією */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 12px;
-}
-
-/* --- Адаптуємо годинник під новий стиль --- */
-.time-picker-wrapper .time-input-flatpickr {
-    background: #1c1c1e !important; /* Робимо фон темнішим */
-    border-radius: 10px !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-}
-
-/* --- Сама анімація обертання --- */
-@keyframes rotation_481 {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* === КРОК 1.4: НОВА "ЗОНА ДІЙ" ДЛЯ ФОРМИ ЗАМОВЛЕННЯ === */
-
+/* Кнопки дій внизу форми */
 .form-actions {
     display: flex;
     gap: 15px;
@@ -1183,24 +1131,22 @@ footer {
 }
 
 .form-actions .btn-submit {
-    flex-grow: 1; /* Головна кнопка займає весь доступний простір */
-    margin: 0; /* Прибираємо старі відступи */
+    flex-grow: 1;
+    margin: 0;
 }
 
+/* Кругла кнопка */
 .btn-icon-action {
-    flex-shrink: 0; /* Іконка не буде стискатись */
+    flex-shrink: 0;
     width: 52px;
     height: 52px;
     border-radius: 50%;
     font-size: 20px;
-    
-    /* Наша улюблена магія скла */
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-stroke);
     color: var(--text-secondary);
-    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1213,43 +1159,20 @@ footer {
     background: rgba(0, 0, 0, 0.3);
 }
 
-/* === КРОК 1.6: НОВИЙ ГОДИННИК З ІКОНКОЮ В РЯДКУ І АНІМАЦІЄЮ === */
-
+/* Годинник */
 .time-picker-container {
     display: flex;
-    justify-content: center; /* Центруємо весь блок */
-}
-
-.time-display-wrapper.animated-border {
-    position: relative;
-    overflow: hidden;
-    border-radius: 14px; /* Важливо для заокруглення рамки */
-    padding: 1px; /* Маленький відступ, щоб рамка не обрізалась */
-}
-
-.time-display-wrapper.animated-border::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%; /* Робимо градієнт ширшим за блок */
-    height: 150%;
-    background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5s infinite linear;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
+    justify-content: center;
 }
 
 .time-display-content {
-    position: relative; /* Щоб контент був над анімацією */
+    position: relative;
     z-index: 2;
     display: flex;
-    align-items: center; /* Вертикально центруємо час та іконку */
-    gap: 10px; /* Відстань між часом та іконкою */
-    background-color: #1c1c1e; /* Темний фон, що ховає центр анімації */
-    border-radius: 13px; /* Трохи менше, щоб було видно рамку */
+    align-items: center;
+    gap: 10px;
+    background-color: #1c1c1e;
+    border-radius: 13px;
     padding: 10px 20px;
 }
 
@@ -1268,21 +1191,7 @@ footer {
     top: -2px;
 }
 
-.info-btn {
-    background: none;
-    border: none;
-    font-size: 16px; /* Трохи більша іконка для балансу */
-    color: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    padding: 0;
-    line-height: 1; /* Прибираємо зайву висоту */
-}
-
-@keyframes rotation_481 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-/* === НОВИЙ СТИЛЬ ГОЛОВНИХ КНОПОК (ЗАЛИШАЄМО) === */
+/* Головна кнопка відправки */
 .btn-main-action {
     padding: 16px 25px;
     border: none;
@@ -1321,55 +1230,76 @@ footer {
     width: 100%;
 }
 
-/* === СТИЛІ ІНТЕРФЕЙСУ (ЗАЛИШАЄМО) === */
-#quick-order-screen .order-form { gap: 20px; }
-#quick-order-screen .form-group { gap: 10px; }
-.date-tile { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-weight: 500; cursor: pointer; }
+/* Плитки вибору дати */
+.date-tile {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    cursor: pointer;
+}
+
 .date-tile:not(.active):hover { background: rgba(255, 255, 255, 0.1); }
 .date-tile:active { transform: scale(0.96); background: rgba(255, 255, 255, 0.2); }
-.time-display-wrapper { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); border-radius: 16px; padding: 2px 8px; }
 
-/* === АНІМАЦІЯ v6: ЕЛЕГАНТНИЙ "ВІДБЛИСК" === */
-
-/* 1. Обгортка стає сценою для анімації */
-.animation-wrapper {
-    position: relative; /* Вмикаємо систему координат */
-    overflow: hidden;   /* Ховаємо "відблиск", коли він за межами кнопки */
+/* Скляна обгортка для годинника */
+.time-display-wrapper {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
     border-radius: 16px;
+    padding: 2px 8px;
+}
+
+/* === ФІНАЛЬНА АНІМАЦІЯ v7: КІЛЬЦЕ ФОКУСУВАННЯ === */
+
+.animation-wrapper {
+    position: relative;
     width: 100%;
+    overflow: visible;
 }
 
-/* 2. Створюємо сам "відблиск" */
+.animation-wrapper:focus-within .form-input {
+    box-shadow: 0 0 12px 2px var(--accent-color);
+}
+
 .animation-wrapper::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    
-    /* Форма відблиску - тонкий прямокутник, нахилений на 45 градусів */
-    width: 30px; 
-    height: 150%;
-    transform: translateX(-100px) rotate(45deg); /* Ховаємо його зліва за сценою */
-
-    /* Колір відблиску - білий, напівпрозорий */
-    background: linear-gradient(to right, 
-        rgba(255, 255, 255, 0) 0%, 
-        rgba(255, 255, 255, 0.2) 50%, 
-        rgba(255, 255, 255, 0) 100%
+    top: 50%;
+    left: 50%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 16px; 
+    background-image: linear-gradient(
+        transparent,
+        var(--accent-2),
+        transparent
     );
-
-    /* Анімація буде спрацьовувати тільки на зміну transform */
-    transition: transform 0.5s ease;
+    animation: rotate-focus-ring 2s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
-/* 3. Вмикаємо анімацію при фокусі або кліку */
-.animation-wrapper:focus-within::before,
-.animation-wrapper:active::before {
-    /* Переміщуємо відблиск через всю кнопку направо */
-    transform: translateX(300px) rotate(45deg); 
+.animation-wrapper:focus-within::before {
+    opacity: 1;
 }
 
-/* 4. Адаптуємо круглу кнопку */
-.form-actions .animation-wrapper:first-child {
+.form-actions .animation-wrapper:first-child::before {
     border-radius: 50%;
+}
+
+@keyframes rotate-focus-ring {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.form-input {
+    position: relative;
+    z-index: 2;
 }
