@@ -20,11 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Елементи водія
     const showDriverOrdersBtn = document.getElementById('show-driver-orders-btn');
+    const acceptOrderBtn = document.getElementById('accept-order-btn');
+    const tripDistanceEl = document.getElementById('trip-distance');
+    const tripFareEl = document.getElementById('trip-fare');
+    const paymentMethodEl = document.getElementById('payment-method');
+    const cancelRideBtn = document.getElementById('cancel-ride-btn');
+    const rideActionBtn = document.getElementById('ride-action-btn');
+    const rideStatusHeader = document.getElementById('ride-status-header');
+    const rideMapPlaceholder = document.getElementById('ride-map-placeholder')?.querySelector('p');
+    const rideAddressDetails = document.getElementById('ride-address-details');
 
     // == 3. ОСНОВНІ ФУНКЦІЇ ==
 
     function showScreen(screenId) {
-        // Зупиняємо симуляцію поїздки, якщо вона активна, при зміні екрана
         if (window.tripInterval) clearInterval(window.tripInterval);
 
         screens.forEach(screen => {
@@ -38,58 +46,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
     function runActiveTripSimulation() {
         if (window.tripInterval) clearInterval(window.tripInterval);
         const activeCard = document.querySelector('#passenger-orders-screen .order-card.active');
         if (!activeCard) return;
-        
-        const carIcon = activeCard.querySelector('#car-icon');
-        if (!carIcon) return; // Додаємо перевірку, бо на інших картках іконки може не бути
-
         const statusIcon = activeCard.querySelector('#status-icon');
         const statusText = activeCard.querySelector('#status-text');
+        const carIcon = activeCard.querySelector('#car-icon');
+        const dotsContainer = activeCard.querySelector('.dots-container');
         const endPoint = activeCard.querySelector('#progress-end-point');
-        const totalDurationSeconds = 15;
-        let progress = 0;
-        
-        // Скидання до початкового стану
-        statusIcon.className = 'fa-solid fa-spinner fa-spin'; 
-        statusText.textContent = 'Водій прямує до вас';
-        endPoint.className = 'fa-solid fa-circle-dot progress-end-point'; 
+        const totalDurationSeconds = 15, totalDots = 18; let progress = 0;
+        statusIcon.className = 'fa-solid fa-spinner fa-spin'; statusText.textContent = 'Водій прямує до вас';
+        endPoint.className = 'fa-solid fa-circle-dot progress-end-point'; endPoint.classList.remove('arrived');
         carIcon.style.left = '0%';
-
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalDots; i++) { const dot = document.createElement('div'); dot.className = 'dot'; dotsContainer.appendChild(dot); }
+        const allDots = dotsContainer.querySelectorAll('.dot');
         window.tripInterval = setInterval(() => {
-            progress += 1;
-            const percentage = (progress / totalDurationSeconds) * 100;
-
-            if (percentage >= 100) {
-                clearInterval(window.tripInterval);
-                carIcon.style.left = '100%';
-                statusIcon.className = 'fa-solid fa-circle-check'; 
-                statusText.textContent = 'Водій прибув';
+            progress += (100 / (totalDurationSeconds * 2));
+            if (progress >= 100) {
+                clearInterval(window.tripInterval); carIcon.style.left = '100%';
+                allDots.forEach(d => d.classList.add('passed'));
+                statusIcon.className = 'fa-solid fa-circle-check arrived'; statusText.textContent = 'Водій прибув';
                 endPoint.className = 'fa-solid fa-location-pin progress-end-point arrived';
                 return;
             }
-            carIcon.style.left = `${percentage}%`;
-        }, 1000);
+            carIcon.style.left = `${progress}%`;
+            const passedDotsCount = Math.floor(allDots.length * (progress / 100));
+            allDots.forEach((dot, index) => { dot.classList[index < passedDotsCount ? 'add' : 'remove']('passed'); });
+        }, 500);
     }
     
-    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" ==
+    function updatePassengerOrderCardListeners() {
+        document.querySelectorAll('#passenger-orders-screen .details-btn-arrow').forEach(button => {
+            button.addEventListener('click', () => showScreen('passenger-order-details-screen'));
+        });
+    }
+
+    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" (ФАЗА 3) ==
 
     const quickOrderForm = document.getElementById('quick-order-form');
     const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
     const nowTimeBlock = document.getElementById('now-time-block');
-    const laterOptionsContainer = document.getElementById('later-options-container');
+    const laterOptionsContainer = document.getElementById('later-options-container'); // << ОСЬ ТУТ БУЛА ПОМИЛКА
     const dateTiles = document.querySelectorAll('.date-tile');
     const scheduleConfirmBlock = document.getElementById('schedule-confirm-block');
     const scheduleResultText = document.getElementById('schedule-result-text');
-    const selectDateBtn = document.querySelector('.btn-segment[data-schedule="date"]');
+    const selectDateBtn = document.querySelector('.btn-segment.full-width[data-schedule="date"]');
     const fromAddressInput = document.getElementById('from-address');
     const toAddressInput = document.getElementById('to-address');
     const submitOrderBtn = document.getElementById('submit-order-btn');
 
     function checkFormCompleteness() {
-        // Кнопка активна, тільки якщо ОБИДВА поля заповнені
         const isAddressFilled = fromAddressInput.value.trim() !== '' && toAddressInput.value.trim() !== '';
         if (isAddressFilled) {
             submitOrderBtn.classList.remove('disabled');
@@ -108,9 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
         }
         
-        // Перевіряємо стан кнопки при завантаженні екрана
         checkFormCompleteness();
     }
+
     // Обробник для кнопок "Зараз" / "На інший час"
     timeOptionButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -137,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dateTiles.forEach(tile => {
         tile.addEventListener('click', () => {
             dateTiles.forEach(t => t.classList.remove('active'));
-            tile.parentElement.classList.add('active'); // Робимо активною обгортку
+            tile.classList.add('active');
             
             tile.closest('.date-tiles-container').classList.add('hidden');
             selectDateBtn.classList.add('hidden');
@@ -177,8 +186,79 @@ document.addEventListener('DOMContentLoaded', () => {
     showMyOrdersBtn?.addEventListener('click', () => {
         showScreen('passenger-orders-screen');
         runActiveTripSimulation();
+        updatePassengerOrderCardListeners();
     });
 
+    function updateDriverOrderCardListeners() {
+        document.querySelectorAll('#driver-find-passengers-screen .order-card').forEach(card => {
+            card.addEventListener('click', () => {
+                calculateAndDisplayTripDetails();
+                showScreen('driver-order-details-screen');
+            });
+        });
+    }
+
+    function calculateAndDisplayTripDetails() {
+        const BASE_FARE = 40;
+        const PRICE_PER_KM = 15;
+        const PAYMENT_OPTIONS = ['Готівка', 'Картка'];
+        if (!tripDistanceEl || !tripFareEl || !paymentMethodEl) return;
+        const distance = (Math.random() * (10 - 1.5) + 1.5).toFixed(1);
+        const fare = Math.round(BASE_FARE + (distance * PRICE_PER_KM));
+        const paymentMethod = PAYMENT_OPTIONS[Math.floor(Math.random() * PAYMENT_OPTIONS.length)];
+        tripDistanceEl.textContent = `~ ${distance} км`;
+        tripFareEl.textContent = `~ ${fare} грн`;
+        paymentMethodEl.textContent = paymentMethod;
+    }
+
+    function setupActiveRide() {
+        rideState = 'driving_to_client';
+        updateRideScreenUI();
+    }
+
+    function handleRideAction() {
+        switch (rideState) {
+            case 'driving_to_client':
+                alert('Пасажиру надіслано сповіщення, що ви на місці!');
+                rideState = 'waiting_for_client';
+                break;
+            case 'waiting_for_client':
+                rideState = 'in_progress';
+                break;
+            case 'in_progress':
+                alert('Поїздку завершено!');
+                rideState = 'idle';
+                showScreen('driver-dashboard');
+                break;
+        }
+        updateRideScreenUI();
+    }
+
+    function updateRideScreenUI() {
+        if (!rideActionBtn) return;
+        rideActionBtn.classList.remove('start-ride', 'end-ride');
+        switch (rideState) {
+            case 'driving_to_client':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'Поїздка до пасажира';
+                if (rideMapPlaceholder) rideMapPlaceholder.textContent = 'Їдьте до пасажира';
+                if (rideAddressDetails) rideAddressDetails.innerHTML = '<span><strong>Адреса:</strong> вул. Весняна, 15</span>';
+                rideActionBtn.innerHTML = '✅ Я на місці';
+                break;
+            case 'waiting_for_client':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'Очікування пасажира';
+                rideActionBtn.innerHTML = '🚀 Почати поїздку';
+                rideActionBtn.classList.add('start-ride');
+                break;
+            case 'in_progress':
+                if(rideStatusHeader) rideStatusHeader.textContent = 'В дорозі';
+                if (rideMapPlaceholder) rideMapPlaceholder.textContent = 'Їдьте до точки призначення';
+                if (rideAddressDetails) rideAddressDetails.innerHTML = '<span><strong>Пункт призначення:</strong> вул. Музейна, 4</span>';
+                rideActionBtn.innerHTML = '🏁 Завершити поїздку';
+                rideActionBtn.classList.add('end-ride');
+                break;
+        }
+    }
+    
     showQuickOrderBtn?.addEventListener('click', () => {
         showScreen('quick-order-screen');
         initQuickOrderScreen();
@@ -188,18 +268,22 @@ document.addEventListener('DOMContentLoaded', () => {
     showHelpBtn?.addEventListener('click', () => showScreen('help-screen'));
     showFindPassengersBtn?.addEventListener('click', () => showScreen('driver-find-passengers-screen'));
     showDriverOrdersBtn?.addEventListener('click', () => alert('Цей екран ще в розробці :)'));
-    
+    acceptOrderBtn?.addEventListener('click', () => {
+        setupActiveRide();
+        showScreen('driver-active-ride-screen');
+    });
+    cancelRideBtn?.addEventListener('click', () => {
+        if (confirm('Скасувати поїздку? Це може вплинути на ваш рейтинг.')) {
+            rideState = 'idle';
+            showScreen('driver-dashboard');
+        }
+    });
+    rideActionBtn?.addEventListener('click', handleRideAction);
+
     goToMyOrdersBtn?.addEventListener('click', () => showMyOrdersBtn.click());
     
     backButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const target = button.dataset.target || (document.body.classList.contains('driver-mode') ? 'driver-dashboard' : 'passenger-dashboard');
-            if (!document.getElementById(target)) {
-                showScreen('home-screen');
-            } else {
-                showScreen(target);
-            }
-        });
+        button.addEventListener('click', () => showScreen(button.dataset.target || 'home-screen'));
     });
 
     // == 6. ІНІЦІАЛІЗАЦІЯ ДОДАТКУ ==
