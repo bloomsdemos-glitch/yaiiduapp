@@ -84,20 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" (ФАЗА 3) ==
+// == 4. ЛОГІКА ДЛЯ ЕКРАНУ "ШВИДКЕ ЗАМОВЛЕННЯ" (ФАЗА 3) ==
 
     const quickOrderForm = document.getElementById('quick-order-form');
     const timeOptionButtons = document.querySelectorAll('.btn-segment[data-time-option]');
     const nowTimeBlock = document.getElementById('now-time-block');
-    const laterOptionsContainer = document.getElementById('later-options-container'); // << ОСЬ ТУТ БУЛА ПОМИЛКА
+    const laterOptionsContainer = document.getElementById('later-options-container');
     const dateTiles = document.querySelectorAll('.date-tile');
     const scheduleConfirmBlock = document.getElementById('schedule-confirm-block');
     const scheduleResultText = document.getElementById('schedule-result-text');
-    const selectDateBtn = document.querySelector('.btn-segment.full-width[data-schedule="date"]');
     const fromAddressInput = document.getElementById('from-address');
     const toAddressInput = document.getElementById('to-address');
     const submitOrderBtn = document.getElementById('submit-order-btn');
 
+    // Функція, що перевіряє, чи заповнені поля "Звідки" і "Куди"
     function checkFormCompleteness() {
         const isAddressFilled = fromAddressInput.value.trim() !== '' && toAddressInput.value.trim() !== '';
         if (isAddressFilled) {
@@ -107,15 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Функція, що оновлює годинник і перевіряє форму при відкритті екрану
     function initQuickOrderScreen() {
         const hoursEl = document.getElementById('time-display-hours');
         const minutesEl = document.getElementById('time-display-minutes');
         
-        if (hoursEl && minutesEl) {
-            const now = new Date();
-            hoursEl.textContent = now.getHours().toString().padStart(2, '0');
-            minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
+        function updateClock() {
+            if (hoursEl && minutesEl) {
+                const now = new Date();
+                hoursEl.textContent = now.getHours().toString().padStart(2, '0');
+                minutesEl.textContent = now.getMinutes().toString().padStart(2, '0');
+            }
         }
+        updateClock(); // Оновлюємо одразу
+        setInterval(updateClock, 10000); // і потім кожні 10 секунд
         
         checkFormCompleteness();
     }
@@ -128,8 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Скидаємо вибір дати, якщо користувач переключається
             scheduleConfirmBlock.classList.add('hidden');
-            document.querySelector('.date-tiles-container').classList.remove('hidden');
-            selectDateBtn.classList.remove('hidden');
             dateTiles.forEach(t => t.classList.remove('active'));
 
             if (button.dataset.timeOption === 'later') {
@@ -142,33 +145,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обробник для плиток "Сьогодні" / "Завтра"
+    // Обробник для плиток "Сьогодні" / "Дата"
     dateTiles.forEach(tile => {
         tile.addEventListener('click', () => {
+            // Якщо клікаємо по вже активній плитці - нічого не робимо
+            if(tile.classList.contains('active')) return;
+
             dateTiles.forEach(t => t.classList.remove('active'));
             tile.classList.add('active');
-            
-            tile.closest('.date-tiles-container').classList.add('hidden');
-            selectDateBtn.classList.add('hidden');
-            
-            scheduleConfirmBlock.classList.remove('hidden');
-            
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            
-            let dayText = 'Сьогодні';
-            if (tile.dataset.schedule === 'tomorrow') {
-                dayText = 'Завтра';
+
+            // Якщо це кнопка "Дата", поки що просто підсвічуємо її.
+            // В майбутньому тут буде відкриття календаря.
+            if (tile.dataset.schedule === 'date') {
+                 scheduleConfirmBlock.classList.add('hidden');
+                 // Тут можна додати alert('Календар в розробці :)');
+                return; 
             }
             
-            scheduleResultText.textContent = `${dayText} • ${hours}:${minutes}`;
+            // Якщо це кнопка "Сьогодні" - показуємо блок підтвердження
+            if (tile.dataset.schedule === 'today') {
+                scheduleConfirmBlock.classList.remove('hidden');
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                scheduleResultText.textContent = `Сьогодні • ${hours}:${minutes}`;
+            }
         });
     });
 
+    // Обробники для полів вводу
     [fromAddressInput, toAddressInput].forEach(input => {
         input.addEventListener('input', checkFormCompleteness);
     });
+
 
     quickOrderForm?.addEventListener('submit', (e) => {
         e.preventDefault();
