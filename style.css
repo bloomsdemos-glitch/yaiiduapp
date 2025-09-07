@@ -1372,11 +1372,23 @@ footer {
 .animation-wrapper .form-input,
 .animation-wrapper .btn-main-action,
 .animation-wrapper .btn-icon-action {
-    width: 100%; /* Розтягуємо на всю ширину всередині рами */
+    width: 100%;
     height: 100%;
-    /* Важливо: прибираємо власну рамку, бо тепер її роль виконує wrapper */
-    border: none; 
+    border: none;
 }
+
+/* 5. НОВИЙ КЛЮЧОВИЙ МОМЕНТ: Вимикаємо "скло" при активації анімації */
+.animation-wrapper:focus-within .form-input,
+.animation-wrapper:active .btn-main-action,
+.animation-wrapper:active .btn-icon-action {
+    /* Робимо фон НЕПРОЗОРИМ, як і раніше */
+    background: #1c1c1e;
+    
+    /* А ОСЬ І ГОЛОВНИЙ ФІКС: Вимикаємо ефект скла */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
 
 /* 5. Адаптуємо круглу кнопку */
 .form-actions .animation-wrapper:first-child {
