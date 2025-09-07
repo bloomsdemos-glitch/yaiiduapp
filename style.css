@@ -1407,4 +1407,36 @@ footer {
 .animation-wrapper:active .btn-icon-action {
     background: var(--glass-bg); /* Повертаємо стандартний фон */
 }
+/* === КРОК 2 (УТОЧНЕНИЙ): СКЛО ДЛЯ ПЛИТОК І "ПОВІТРЯ" === */
+
+/* 2.1. Додаємо "повітря" у форму */
+#quick-order-screen .order-form {
+    gap: 20px; /* Збільшуємо вертикальний відступ між усіма групами полів */
+}
+
+#quick-order-screen .form-group {
+    gap: 10px; /* Збільшуємо відстань між лейблом і самим полем вводу */
+}
+
+/* 2.2. Додаємо "скляний" ефект плиткам */
+.date-tile {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-stroke);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Додаємо ефект при наведенні і кліку для кращого фідбеку */
+.date-tile:not(.active):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.date-tile:active {
+    transform: scale(0.96);
+    background: rgba(255, 255, 255, 0.2);
+}
 
