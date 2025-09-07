@@ -373,19 +373,18 @@
     <div class="form-group">
         <label for="from-address" class="address-label"><i class="fa-solid fa-circle-dot from-icon"></i> Звідки</label>
         <div class="animation-wrapper">
-    <div class="input-with-icon">
-        <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
-        <i class="fa-solid fa-location-crosshairs input-icon"></i>
-    </div>
-</div>
-
+            <div class="input-with-icon">
+                <input type="text" id="from-address" class="form-input" placeholder="Введіть вашу адресу" required>
+                <i class="fa-solid fa-location-crosshairs input-icon"></i>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label for="to-address" class="address-label"><i class="fa-solid fa-location-dot to-icon"></i> Куди</label>
-<div class="animation-wrapper">
-    <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
-</div>
-
+        <div class="animation-wrapper">
+            <input type="text" id="to-address" class="form-input" placeholder="Введіть адресу призначення" required>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="section-label"><i class="fa-solid fa-clock when-icon"></i> Коли</label>
@@ -397,13 +396,12 @@
 
     <div id="time-details-container">
         <div id="now-time-block" class="time-picker-container">
-            <div class="time-display-wrapper animated-border">
+            <div class="time-display-wrapper">
                 <div class="time-display-content">
-    <span id="time-display-hours">--</span>
-    <span class="time-separator">:</span>
-    <span id="time-display-minutes">--</span>
-</div>
-
+                    <span id="time-display-hours">--</span>
+                    <span class="time-separator">:</span>
+                    <span id="time-display-minutes">--</span>
+                </div>
             </div>
         </div>
 
@@ -414,20 +412,15 @@
 
         <div id="later-options-container" class="later-options-wrapper hidden">
             <div class="date-tiles-container">
-    <div class="animation-wrapper">
-        <button type="button" class="date-tile" data-schedule="today">
-            <i class="fa-solid fa-circle"></i>
-            <span>Сьогодні</span>
-        </button>
-    </div>
-    <div class="animation-wrapper">
-        <button type="button" class="date-tile" data-schedule="tomorrow">
-            <i class="fa-solid fa-calendar-day"></i>
-            <span>Завтра</span>
-        </button>
-    </div>
-</div>
-
+                <button type="button" class="date-tile" data-schedule="today">
+                    <i class="fa-solid fa-circle"></i>
+                    <span>Сьогодні</span>
+                </button>
+                <button type="button" class="date-tile" data-schedule="tomorrow">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    <span>Завтра</span>
+                </button>
+            </div>
             <button type="button" class="btn-segment full-width" data-schedule="date">
                 <i class="fa-solid fa-calendar-days"></i> Вибрати дату
             </button>
@@ -437,22 +430,22 @@
     <div class="form-group">
         <label for="comment">Коментар (необов'язково)</label>
         <div class="animation-wrapper">
-    <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
-</div>
+            <textarea id="comment" class="form-input" rows="3" placeholder="Наприклад: 'буду з дитиною', 'буду з собакою' або 'можна не передзвонювати'"></textarea>
+        </div>
     </div>
 
     <div class="form-actions">
-    <div class="animation-wrapper">
-        <button type="button" id="select-driver-btn" class="btn-icon-action" aria-label="Вибрати водія">
-            <i class="fa-solid fa-user-check"></i>
-        </button>
+        <div class="animation-wrapper">
+            <button type="button" id="select-driver-btn" class="btn-icon-action" aria-label="Вибрати водія">
+                <i class="fa-solid fa-user-check"></i>
+            </button>
+        </div>
+        <div class="animation-wrapper">
+            <button type="submit" id="submit-order-btn" class="btn-main-action disabled">Відправити замовлення</button>
+        </div>
     </div>
-    <div class="animation-wrapper">
-        <button type="submit" id="submit-order-btn" class="btn-main-action disabled">Відправити замовлення</button>
-    </div>
-</div>
-
 </form>
+
 
     </main>
 </div>
