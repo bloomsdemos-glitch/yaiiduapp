@@ -1329,87 +1329,47 @@ footer {
 .date-tile:active { transform: scale(0.96); background: rgba(255, 255, 255, 0.2); }
 .time-display-wrapper { background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-stroke); border-radius: 16px; padding: 2px 8px; }
 
-/* === ФІНАЛЬНА АНІМАЦІЯ v5: ТРЮК З "МАСКОЮ" === */
+/* === АНІМАЦІЯ v6: ЕЛЕГАНТНИЙ "ВІДБЛИСК" === */
 
-/* 1. Обгортка стає "рамою" */
+/* 1. Обгортка стає сценою для анімації */
 .animation-wrapper {
-    position: relative;
+    position: relative; /* Вмикаємо систему координат */
+    overflow: hidden;   /* Ховаємо "відблиск", коли він за межами кнопки */
     border-radius: 16px;
     width: 100%;
-    padding: 2px; /* <<== КЛЮЧОВИЙ МОМЕНТ №1: Створюємо товщину для майбутньої рамки */
-    background: transparent;
-    z-index: 0; /* Сама рама прозора */
 }
 
-/* 2. Анімація стає фоном для "рами" */
+/* 2. Створюємо сам "відблиск" */
 .animation-wrapper::before {
-    content: "";
+    content: '';
     position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200%;
-    height: 200%;
-    background-image: conic-gradient(
-        var(--success-color),
-        var(--accent-color),
-        transparent 30%,
-        transparent
+    top: 0;
+    left: 0;
+    
+    /* Форма відблиску - тонкий прямокутник, нахилений на 45 градусів */
+    width: 30px; 
+    height: 150%;
+    transform: translateX(-100px) rotate(45deg); /* Ховаємо його зліва за сценою */
+
+    /* Колір відблиску - білий, напівпрозорий */
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0) 100%
     );
-    animation: rotating 2s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+
+    /* Анімація буде спрацьовувати тільки на зміну transform */
+    transition: transform 0.5s ease;
 }
 
-/* 3. Вмикаємо анімацію "рами" при фокусі або кліку */
+/* 3. Вмикаємо анімацію при фокусі або кліку */
 .animation-wrapper:focus-within::before,
 .animation-wrapper:active::before {
-    opacity: 1;
+    /* Переміщуємо відблиск через всю кнопку направо */
+    transform: translateX(300px) rotate(45deg); 
 }
 
-/* 4. Ключовий момент №2: Внутрішні елементи стають НЕПРОЗОРОЮ "маскою" */
-.animation-wrapper .form-input,
-.animation-wrapper .btn-main-action,
-.animation-wrapper .btn-icon-action {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* 5. НОВИЙ КЛЮЧОВИЙ МОМЕНТ: Вимикаємо "скло" при активації анімації */
-.animation-wrapper:focus-within .form-input,
-.animation-wrapper:active .btn-main-action,
-.animation-wrapper:active .btn-icon-action {
-    /* Робимо фон НЕПРОЗОРИМ, як і раніше */
-    background: #1c1c1e;
-    
-    /* А ОСЬ І ГОЛОВНИЙ ФІКС: Вимикаємо ефект скла */
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-
-/* 5. Адаптуємо круглу кнопку */
+/* 4. Адаптуємо круглу кнопку */
 .form-actions .animation-wrapper:first-child {
     border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    flex-shrink: 0;
-}
-
-/* Адаптуємо круглу кнопку всередині */
-.form-actions .animation-wrapper:first-child .btn-icon-action {
-    border-radius: 50%;
-}
-
-
-/* 6. Анімація для обертання */
-@keyframes rotating {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
 }
